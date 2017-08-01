@@ -86,3 +86,13 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../assets/fonts/OpenSans-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Futura';
+    src: url('../assets/fonts/Futura.ttc');
+}
