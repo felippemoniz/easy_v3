@@ -1,0 +1,108 @@
+<ion-toolbar >
+  <ion-buttons start>
+    <button ion-button icon-only color="white" (tap)="voltar()">
+        <ion-icon name="md-arrow-back"></ion-icon>
+    </button>
+  </ion-buttons>
+  <ion-title color="primary">EasyMovie</ion-title>
+</ion-toolbar>
+
+
+
+<ion-content>
+
+<div>
+<img class='imagemTamanhoFixo'  src={{filmeSelecionado.imagem}}>
+</div>
+
+<div class="headerDetalhesFilme">
+
+    <div class="posCabecalhoFilme">
+        <span class="fonteTituloFilme">{{filmeSelecionado.nome}}</span> <br>
+        <span class="labelGeneroFilme"> {{filmeSelecionado.genero}} | {{filmeSelecionado.duracao}} min |  {{filmeSelecionado.classificacao}}</span>
+    </div>
+
+    <div class="posCartazFilme">
+      <img class="imagemTamanhoCartaz" src={{filmeSelecionado.poster}}>
+    </div>
+
+
+
+</div>
+
+
+<div class="headerSubDetalhesFilme">
+
+  <div class="posRatingIMDB">
+    <ion-chip class="ratingIMDBDetalhe">
+      <div class="estrelaRatingDetalhe"><img src="./images/starRating.png" class="estrelaRatingTamanhoDetalhe"></div>
+      <ion-label style="color:white; position:absolute;left:38%"><b>6.7</b>/<span style="font-size: 10px;">10</span></ion-label>
+    </ion-chip>
+  </div>
+
+  <div class="posBotaoTrailer">
+  <button ion-button outline class="botaoTrailer">ASSISTA AO TRAILER</button>
+  </div>
+
+</div>
+
+
+
+<div class="conteudo">
+<p><b>SINOPSE</b><br><br>
+{{filmeSelecionado.sinopse}}
+</p>
+</div>
+
+
+
+
+<!--ion-row style="height: 10%">
+		<ion-col class="headerDetalhesFilme">
+		          <ion-row>
+		              <ion-col>
+		                  <ion-row>
+		                      <ion-col class="fonteTituloFilmeDetalhe">
+		                       		{{filmeSelecionado.nomeFilme}}
+		                      </ion-col>
+		                  </ion-row>
+		                  <ion-row>
+		                      <ion-col width-75 class="labelGeneroFilme">
+                            		{{filmeSelecionado.genero}} - {{filmeSelecionado.duracao}} minutos
+		                      </ion-col>
+		                       <ion-col width-25 class="celulaRating">
+		                             <img class='imagemTamanhoFixo' src="./images/1estrelas.png" *ngIf="filmeSelecionado.rating === 1"/>
+			                         <img class='imagemTamanhoFixo'  src="./images/2estrelas.png" *ngIf="filmeSelecionado.rating === 2"/>
+		                             <img class='imagemTamanhoFixo'  src="./images/3estrelas.png" *ngIf="filmeSelecionado.rating === 3"/>
+		                             <img class='imagemTamanhoFixo'  src="./images/4estrelas.png" *ngIf="filmeSelecionado.rating === 4"/>
+		                             <img class='imagemTamanhoFixo'  src="./images/5estrelas.png" *ngIf="filmeSelecionado.rating === 5"/>
+		                      </ion-col>
+		                  </ion-row>
+		              </ion-col>
+		         </ion-row>
+		</ion-col>
+</ion-row>
+<ion-row style="height: 40%">
+		<ion-col class="imagemDetalhe">
+			<img  src="./images/angrybirdsDetalhe.png"  />
+			<button ion-button  #botaoAdiciona class="botaoPlayTrailer"  (click)="selecionaFilme(filme, filmeCard);" round small ><ion-icon name="play"></ion-icon></button >
+		</ion-col>
+</ion-row>
+<ion-row >
+		<ion-col>{{filmeSelecionado.sinopse}}</ion-col>
+</ion-row>
+<ion-row>
+		<ion-col>Direção: {{filmeSelecionado.direcao}}</ion-col>
+</ion-row>
+<ion-row>
+		<ion-col>Atores principais:{{filmeSelecionado.atores}}</ion-col>
+</ion-row>
+<ion-row>
+		<ion-col>Distribuidora:{{filmeSelecionado.distribuidora}}</ion-col>
+</ion-row>
+<ion-row>
+		<ion-col><img  src="{{filmeSelecionado.cartaz}}" /></ion-col>
+</ion-row-->
+
+
+</ion-content>

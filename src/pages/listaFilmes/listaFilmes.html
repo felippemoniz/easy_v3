@@ -1,0 +1,85 @@
+<ion-toolbar >
+  <ion-buttons start>
+    <button ion-button icon-only color="white" (tap)="voltar()">
+        <ion-icon name="md-arrow-back"></ion-icon>
+    </button>
+  </ion-buttons>
+  <ion-title color="primary">EasyMovie</ion-title>
+</ion-toolbar>
+
+<ion-content class="card-background-page">
+<br>
+<div class="labelTituloTela">
+<b>Filmes em Cartaz</b> ({{qtFilme}})
+</div>
+<div class="labelSubTituloTela">{{formataData(filtroData)}} | {{diaSemanaEscolhido}}</div>
+<br><br>
+<!-- {{filmes | json}}  -->
+
+
+<ion-scroll  scrollY="true" class="scrollVerticalFilmes" overflow-scroll="true" >
+
+
+<!-- ################################ CARDS #####################################-->
+
+
+   <ion-card  #filmeCard *ngFor=" let filme of filmes;let i=index">
+
+
+
+      <div  #layerMarcada [ngClass]="filme.selecionado ? 'marcacaoSelecionado' : 'marcacaoNaoSelecionado'" (tap)="selecionaFilme(filme);" >
+          <img style="width: 100px; position: relative; left: 38%; top:20px" src="./images/imgSelecionado.png"/>
+      </div>
+
+
+      <div>
+        <ion-chip class="ratingIMDB">
+          <div class="estrelaRating"><img src="./images/starRating.png" class="estrelaRatingTamanho"></div>
+          <ion-label style="color:white; position:absolute;left:30px"><b> {{trataDetalhes("N",filme.notaimdb)}}</b> /<span style="font-size: 10px;">10</span></ion-label>
+        </ion-chip>
+      </div>
+
+      <div class="tagRanking" *ngIf="i<3 && filme.qtacesso > 0"><b>{{i + 1}}º</b> MAIS PROCURADO</div>
+
+      <img  src={{filme.imagem}} (tap)="selecionaFilme(filme);"  />
+
+      <div class="card-subtitle">
+          <ion-row>
+              <ion-col >
+                  <ion-row (tap)="verDetalhes(filme)">
+                      <ion-col class="fonteTituloFilme" >
+                      {{filme.nome}}
+                      <div class="botaoDetalhes" ><ion-icon name="md-more"></ion-icon></div>
+                      </ion-col>
+
+                  </ion-row>
+                  <ion-row>
+                      <ion-col  class="labelGeneroFilme">
+                            {{filme.genero}} | {{filme.duracao}} minutos | {{ filme.classificacao}}
+                      </ion-col>
+                  </ion-row>
+                </ion-col>
+         </ion-row>
+      </div>
+
+   </ion-card>
+
+</ion-scroll>
+
+</ion-content>
+
+
+
+<!-- ##########################################################################-->
+<ion-toolbar position="bottom" class="toolbarVerSessoes" >
+<ion-grid >
+  <ion-row>
+      <ion-col width-50  style="text-align:center; margin-top: 5%;">
+           <span class="fonteLabel" style="font-size: 80%; color: white"><b>{{ contadorFilmesEscolhidos }} FILMES ESCOLHIDOS</b></span>
+      </ion-col>
+        <ion-col width-50>
+          <button class="botaoVerSessoes" (click)="verSessoes()">VER SESSÕES</button>
+      </ion-col>
+ </ion-row>
+</ion-grid>
+</ion-toolbar>

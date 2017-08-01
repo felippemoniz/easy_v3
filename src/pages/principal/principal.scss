@@ -1,0 +1,44 @@
+
+/*
+ion-navbar>.toolbar-background{
+          background-image: url(../../images/navBarBackground.png);
+          background-size: 100%;
+ }
+*/
+
+
+.card-filtros {
+
+  font-family: "Open Sans", "Helvetica";
+
+  ion-card {
+    position: relative;
+    text-align: center;
+    height: 50%;
+    width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+
+
+  }
+
+  .card-textoGrande {
+    position: absolute;
+    top: 30%;
+    font-size: 2.2em;
+    line-height: 40px;
+    width: 100%;
+    color: #fff;
+
+  }
+
+  .card-textoPequeno {
+    font-size: 1em;
+    position: absolute;
+    top: 70%;
+    width: 100%;
+    color: #fff;
+  }
+
+}
+

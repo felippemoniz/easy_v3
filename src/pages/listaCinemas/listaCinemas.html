@@ -1,0 +1,74 @@
+<ion-toolbar >
+  <ion-buttons start>
+    <button ion-button icon-only color="white" (tap)="voltar()">
+        <ion-icon name="md-arrow-back"></ion-icon>
+    </button>
+  </ion-buttons>
+  <ion-title color="primary">EasyMovie</ion-title>
+</ion-toolbar>
+
+<ion-content class="card-background-page">
+<br>
+<div class="labelTituloTela">
+<b>Cinemas na sua cidade</b>
+</div>
+<div class="labelSubTituloTela">{{formataData(filtroData)}} | {{diaSemanaEscolhido}}</div>
+<br><br>
+
+
+
+
+
+
+<!--Scrol somente da tela de resultado -->
+<ion-scroll  scrollY="true" class="scrollVerticalCinemas" overflow-scroll="true" >
+
+<!-- ################################ CARDS #####################################-->
+
+
+   <ion-card  #cinemaCard *ngFor=" let cinema of cinemas ">
+
+
+
+     <div  #layerMarcada [ngClass]="cinema.selecionado ? 'marcacaoSelecionado' : 'marcacaoNaoSelecionado'" (tap)="selecionaCinema(cinema);" >
+         <img style="width: 100px; position: relative; left: 38%; top:20px" src="./images/imgSelecionado.png"/>
+     </div>
+
+
+      <img  src={{cinema.imagem}}  (tap)="selecionaCinema(cinema);" >
+
+      <div class="card-subtitle">
+          <ion-row>
+              <ion-col>
+                  <ion-row>
+                      <ion-col class="fonteTituloFilme">
+                      {{cinema.nome}}
+                      </ion-col>
+                  </ion-row>
+                  <ion-row>
+                      <ion-col  class="labelGeneroFilme">
+                            <b>{{ formataDistanciaAmigavel(cinema.distancia) }}</b> de você ({{cinema.distancia}} km)
+                      </ion-col>
+                  </ion-row>
+                </ion-col>
+         </ion-row>
+      </div>
+
+   </ion-card>
+
+</ion-scroll>
+</ion-content>
+
+
+<ion-toolbar position="bottom" class="toolbarVerSessoes" >
+<ion-grid >
+  <ion-row>
+      <ion-col width-50  style="text-align:center; margin-top: 5%;">
+           <span class="fonteLabel" style="font-size: 80%; color: white"><b>{{ contadorCinemasEscolhidos }} FILMES ESCOLHIDOS</b></span>
+      </ion-col>
+        <ion-col width-50>
+          <button class="botaoVerSessoes" (click)="verSessoes()">VER SESSÕES</button>
+      </ion-col>
+ </ion-row>
+</ion-grid>
+</ion-toolbar>
