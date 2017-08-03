@@ -1,4 +1,3 @@
-"use strict";
 var filmeEmCartaz = (function () {
     function filmeEmCartaz(id, nomeFilme, genero, duracao, rating, selecionado) {
         this.id = id;
@@ -6,8 +5,9 @@ var filmeEmCartaz = (function () {
         this.genero = genero;
         this.duracao = duracao;
         this.rating = rating;
-        this.selecionado=selecionado;
+        this.selecionado = selecionado;
     }
     return filmeEmCartaz;
 }());
-exports.filmeEmCartaz = filmeEmCartaz;
+export { filmeEmCartaz };
+//# sourceMappingURL=filmeEmCartaz.js.map

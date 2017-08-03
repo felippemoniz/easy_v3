@@ -1,10 +1,10 @@
-"use strict";
 var dataDisponivel = (function () {
-    function dataDisponivel(data,diasemana,selecionado) {
+    function dataDisponivel(data, diasemana, selecionado) {
         this.data = data;
         this.diasemana = diasemana;
         this.selecionado = selecionado;
     }
     return dataDisponivel;
 }());
-exports.dataDisponivel = dataDisponivel;
+export { dataDisponivel };
+//# sourceMappingURL=dataDisponivel.js.map

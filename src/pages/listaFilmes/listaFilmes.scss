@@ -104,7 +104,11 @@
     height: 67.5%
 }
 
-
+.toastAlerta {
+  > div{
+       background-color: #e1b612!important;
+   }
+}
 
 .toolbarVerSessoes {
     padding: 4px;
@@ -123,7 +127,7 @@
   }
 
   .scrollVerticalFilmes {
-      height: 63.5%;
+      height: 59%;
   }
 
 }

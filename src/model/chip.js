@@ -1,11 +1,10 @@
-"use strict";
 var chip = (function () {
-    function chip(nome, nomeDetalhado,selecionado) {
-        if (chip === void 0) { chip = []; }
+    function chip(nome, nomeDetalhado, selecionado) {
         this.nome = nome;
         this.nomeDetalhado = nomeDetalhado;
         this.selecionado = selecionado;
     }
     return chip;
 }());
-exports.chip = chip;
+export { chip };
+//# sourceMappingURL=chip.js.map

@@ -7,11 +7,9 @@ import {filtro} from '../../model/filtro';
 import {cinema} from '../../model/cinema';
 import {filme} from '../../model/filme';
 import {chip} from '../../model/chip';
-//import {Geolocation} from 'ionic-native';
 import {cinemaService} from '../../services/cinema-service';
 import {filmesEmCartazService} from '../../services/filmesEmCartaz-service';
-//import { Loading } from 'ionic-angular';
-//import { Popover } from 'ionic-angular';
+import {LoadingController } from 'ionic-angular';
 
 
 
@@ -41,7 +39,7 @@ export class Sessoes {
   sessoesOriginais = [];
   qtSessoes = 0;
   diaSemanaEscolhido : string = "";
-  //public loading = Loading.create();
+  loading ;
 
 
 
@@ -49,8 +47,16 @@ export class Sessoes {
              private navParams: NavParams ,
              private sessoesService : sessoesService,
              private cinemaService : cinemaService,
-             private filmesEmCartazService : filmesEmCartazService){
+             private filmesEmCartazService : filmesEmCartazService,
+             public loadingCtrl: LoadingController = null){
 
+
+    let loading = this.loadingCtrl.create({
+      spinner: 'ios',
+      content: 'Aguarde...'
+    }); 
+
+    loading.present();
 
 
     this.itensSelecionados = navParams.get('param1');
@@ -68,8 +74,6 @@ export class Sessoes {
 
     this.carregaTags();
 
-    //this.nav.present(this.loading);
-
 
 
     //Se a consulta vier da página de cinemas
@@ -85,7 +89,7 @@ export class Sessoes {
                             this.sessoes = data;
                             this.qtSessoes = this.sessoes.length;
                             this.sessoesOriginais = this.sessoes;
-                            //this.loading.dismiss();
+                            loading.dismiss();
                         },
                         err => {
                             console.log(err);
@@ -117,7 +121,7 @@ export class Sessoes {
                         data => {
                             this.sessoes = data;
                             this.qtSessoes = this.sessoes.length;
-                            //this.loading.dismiss();
+                            loading.dismiss();
                         },
                         err => {
                             console.log(err);

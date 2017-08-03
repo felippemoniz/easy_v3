@@ -8,8 +8,9 @@ import {NavParams} from 'ionic-angular';
 import {filtro} from '../../model/filtro';
 import {filmesEmCartazService} from '../../services/filmesEmCartaz-service';
 import {chip} from '../../model/chip';
-//import {Toast} from 'ionic-native';
-//import { Loading } from 'ionic-angular';
+import {LoadingController } from 'ionic-angular';
+import { ToastController } from 'ionic-angular';
+
 
 
 @Component({
@@ -31,25 +32,34 @@ export class ListaFilmes {
   qtFilme = 0;
   filtroData : string;
   diaSemanaEscolhido : string = "";
-    //public loading = Loading.create();
+
 
 
   constructor(private nav: NavController,
               private navParams: NavParams,
-              private filmesEmCartazService) {
+              private filmesEmCartazService:filmesEmCartazService,
+              public toastCtrl: ToastController = null,
+              public loadingCtrl: LoadingController = null) {
+
+
+   
+    let loading = this.loadingCtrl.create({
+      spinner: 'ios',
+      content: 'Aguarde...'
+    }); 
+
+    loading.present();
 
     this.filtroData = navParams.get('param1');
     this.diaSemanaEscolhido = navParams.get('param2');
     this.filmesEmCartazService = filmesEmCartazService;
 
-    //this.nav.present(this.loading);
 
-    //futuramente passar a data como parametro findAll(data.data)
     this.filmesEmCartazService.findAll(this.filtroData).subscribe(
                 data => {
                     this.filmes = data;
                     this.qtFilme = this.filmes.length;
-                    //this.loading.dismiss();
+                    loading.dismiss();
                     //console.log(this.qtFilme);
                 },
                 err => {
@@ -58,28 +68,26 @@ export class ListaFilmes {
                 () => console.log(this.qtFilme)
             );
 
- //this.showToast();
 
   }
 
 
-/*  showToast() {
-    Toast.show("This is my toast", 'short', 'top').subscribe(
-      toast => {
-        console.log('Success', toast);
-      },
-      error => {
-        console.log('Error', error);
-      },
-      () => {
-        console.log('Completed');
-      }
-    );
-}*/
+ 
+exibeAlerta(){
+
+    let toast = this.toastCtrl.create({
+      message: 'Ops! Você não escolheu nenhum filme ainda...',
+      duration: 3000,
+      cssClass: "toastAlerta",
+      position: 'top'
+    });
+    toast.present();
+}
+
 
 
   static get parameters() {
-      return [[NavController], [NavParams], [filmesEmCartazService]];
+      return [[NavController], [NavParams], [filmesEmCartazService],[ToastController],[LoadingController]];
   }
 
   retornaDataAtual(){
@@ -129,12 +137,17 @@ export class ListaFilmes {
 
 
    verSessoes(){
-     this.nav.push(Sessoes, {
-          param1: this.filmesSelecionados,
-          param2 : this.filtroData,
-          param3 : "F",
-          param4 : this.diaSemanaEscolhido
-      });
+
+     if (this.filmesSelecionados.length > 0 ){
+         this.nav.push(Sessoes, {
+              param1: this.filmesSelecionados,
+              param2 : this.filtroData,
+              param3 : "F",
+              param4 : this.diaSemanaEscolhido
+          });
+      }else{
+        this.exibeAlerta();
+      }
    }
 
 

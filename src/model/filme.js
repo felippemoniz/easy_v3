@@ -1,10 +1,10 @@
-"use strict";
 var filme = (function () {
-    function filmeEmCartaz(id, nomeFilme, selecionado) {
-        this.idfilme = id;
+    function filme(idfilme, nomeFilme, selecionado) {
+        this.idfilme = idfilme;
         this.nomeFilme = nomeFilme;
-        this.selecionado=selecionado;
+        this.selecionado = selecionado;
     }
     return filme;
 }());
-exports.filme = filme;
+export { filme };
+//# sourceMappingURL=filme.js.map

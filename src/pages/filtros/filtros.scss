@@ -23,12 +23,23 @@
     background-color: #f8f4f1;
   }
 
+  .imageHeader{
+    position: relative;
+    top: 20%;
+    box-shadow: 0 7px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  .gradeBotoes{
+    padding-top: 7%;
+    padding-left: 0;
+    padding-right: 0;
+
+  }
 
   .divHeader {
     position: relative;
     text-align: center;
     height: 31%;
-    box-shadow: 0 7px 6px rgba(0, 0, 0, 0.3);
   }
 
 
@@ -46,6 +57,7 @@
 
     position: absolute;
     line-height: 26px;
+    top: 105%;
     width: 100%;
     color: #ffffff;
     font-family: "Open Sans", "Helvetica";

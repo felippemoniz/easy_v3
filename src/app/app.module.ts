@@ -8,6 +8,10 @@ import {ListaFilmes} from '../pages/listaFilmes/listaFilmes';
 import {Principal} from '../pages/principal/principal';
 import {Sessoes} from '../pages/sessoes/sessoes';
 import {Filtros} from '../pages/filtros/filtros';
+import {Detalhes} from '../pages/detalhes/detalhes';
+import {ListaCinemas} from '../pages/listaCinemas/listaCinemas';
+import {SessoesAgora} from '../pages/sessoesAgora/sessoesAgora';
+import {FiltroSessoes} from '../pages/filtroSessoes/filtroSessoes';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -18,7 +22,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ListaFilmes,
     Principal,
     Sessoes,
-    Filtros
+    Filtros,
+    Detalhes,
+    ListaCinemas,
+    SessoesAgora,
+    FiltroSessoes
   ],
   imports: [
     BrowserModule,
@@ -31,7 +39,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ListaFilmes,
     Principal,
     Sessoes,
-    Filtros
+    Filtros,
+    Detalhes,
+    ListaCinemas,
+    SessoesAgora,
+    FiltroSessoes
   ],
   providers: [
     StatusBar,

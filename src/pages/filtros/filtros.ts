@@ -6,7 +6,7 @@ import {SessoesAgora} from '../sessoesAgora/sessoesAgora';
 import {filtro} from '../../model/filtro';
 import {dataDisponivel} from '../../model/dataDisponivel';
 import {chip} from '../../model/chip';
-//import { Loading } from 'ionic-angular';
+import {LoadingController } from 'ionic-angular';
 import {filmesEmCartazService} from '../../services/filmesEmCartaz-service';
 import {sessoesService} from '../../services/sessoes-service';
 import {filmeEmCartaz} from '../../model/filmeEmCartaz';
@@ -22,7 +22,7 @@ export class Filtros {
 
   filmes: filmeEmCartaz[];
   datas : dataDisponivel[];
-  //public loading = Loading.create();
+  loading ;
   testSlides: string[] = [];
   @ViewChild('botaoCinema') botaoCinema: any;
   dataAtual: string ="";
@@ -33,11 +33,16 @@ export class Filtros {
   constructor(private nav: NavController,
               private navParams: NavParams,
               private filmesEmCartazService: filmesEmCartazService,
-              private sessoesService : sessoesService){
+              private sessoesService : sessoesService,
+              public loadingCtrl: LoadingController){
 
 
+      this.loading = loadingCtrl.create({
+        content: 'Aguarde...'
+      });
 
-     //this.nav.present(this.loading);
+
+     this.loading.present();
      this.dataAtual = this.retornaDataAtual();
 
      this.filmesEmCartazService = filmesEmCartazService;
@@ -59,7 +64,7 @@ export class Filtros {
                   data => {
                       this.datas = data;
                       this.marcaDataDefault();
-                     // this.loading.dismiss();
+                      this.loading.dismiss();
                   },
                   err => {
                       console.log(err);
