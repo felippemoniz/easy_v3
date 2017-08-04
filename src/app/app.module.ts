@@ -15,6 +15,7 @@ import {FiltroSessoes} from '../pages/filtroSessoes/filtroSessoes';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
+    YoutubeVideoPlayer,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

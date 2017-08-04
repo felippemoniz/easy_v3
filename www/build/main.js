@@ -4,13 +4,191 @@ webpackJsonp([0],{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Filtros; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__listaFilmes_listaFilmes__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__listaCinemas_listaCinemas__ = __webpack_require__(205);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__sessoesAgora_sessoesAgora__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_filmesEmCartaz_service__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_sessoes_service__ = __webpack_require__(102);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+var Filtros = (function () {
+    function Filtros(nav, navParams, filmesEmCartazService, sessoesService, loadingCtrl) {
+        var _this = this;
+        this.nav = nav;
+        this.navParams = navParams;
+        this.filmesEmCartazService = filmesEmCartazService;
+        this.sessoesService = sessoesService;
+        this.loadingCtrl = loadingCtrl;
+        this.testSlides = [];
+        this.dataAtual = "";
+        this.dataEscolhida = "";
+        this.diaSemanaEscolhido = "";
+        this.loading = loadingCtrl.create({
+            content: 'Aguarde...'
+        });
+        this.loading.present();
+        this.dataAtual = this.retornaDataAtual();
+        this.filmesEmCartazService = filmesEmCartazService;
+        this.sessoesService = sessoesService;
+        this.filmesEmCartazService.getTop6().subscribe(function (data) {
+            _this.filmes = data;
+            //console.log(this.filmes.length)
+        }, function (err) {
+            console.log(err);
+        }, function () { return console.log(); });
+        this.sessoesService.getDates(this.dataAtual).subscribe(function (data) {
+            _this.datas = data;
+            _this.marcaDataDefault();
+            _this.loading.dismiss();
+        }, function (err) {
+            console.log(err);
+        }, function () { return console.log(); });
+    }
+    Filtros.prototype.marcaDataDefault = function () {
+        var dataDoScroll;
+        if (this.dataEscolhida == "") {
+            for (var i = 0; i < this.datas.length; i++) {
+                var item = this.datas[i];
+                dataDoScroll = this.formataDataServico(item.data);
+                if (dataDoScroll == this.retornaDataAtual()) {
+                    item.selecionado = true;
+                    this.dataEscolhida = dataDoScroll;
+                    this.diaSemanaEscolhido = item.diasemana;
+                }
+            }
+        }
+    };
+    Filtros.prototype.retornaDataAtual = function () {
+        var dataAtual = new Date();
+        var dia = ("0" + (dataAtual.getDate())).slice(-2);
+        var mes = ("0" + (dataAtual.getMonth() + 1)).slice(-2);
+        var ano = dataAtual.getFullYear();
+        return ano + "-" + mes + "-" + dia;
+    };
+    Filtros.prototype.retornaDataAtualSessoesAgora = function () {
+        var dataAtual = new Date();
+        var dia = ("0" + (dataAtual.getDate())).slice(-2);
+        var mes = ("0" + (dataAtual.getMonth() + 1)).slice(-2);
+        var ano = dataAtual.getFullYear();
+        var hora = dataAtual.getHours();
+        var minuto = dataAtual.getMinutes();
+        return ano + "-" + mes + "-" + dia + "-" + hora + "-" + minuto;
+    };
+    Filtros.prototype.formataData = function (data) {
+        var dia, mes, ano, dataReduzida;
+        dataReduzida = data.substring(0, 10);
+        mes = data.substring(5, 7);
+        dia = data.substring(8, 10);
+        if (dataReduzida == this.retornaDataAtual()) {
+            return "Hoje";
+        }
+        else {
+            return dia + "/" + mes;
+        }
+    };
+    Filtros.prototype.formataDataServico = function (data) {
+        var dia, mes, ano, dataReduzida;
+        dataReduzida = data.substring(0, 10);
+        mes = data.substring(5, 7);
+        dia = data.substring(8, 10);
+        if (data != null) {
+            return data.substring(0, 10);
+        }
+        else {
+            return null;
+        }
+    };
+    Filtros.prototype.verCinemas = function () {
+        var data = this.dataEscolhida;
+        if (data == "") {
+            data = this.dataAtual;
+        }
+        else {
+            data = this.formataDataServico(this.dataEscolhida);
+        }
+        this.nav.push(__WEBPACK_IMPORTED_MODULE_3__listaCinemas_listaCinemas__["a" /* ListaCinemas */], {
+            param1: data,
+            param2: this.diaSemanaEscolhido
+        });
+    };
+    Filtros.prototype.verFilmes = function () {
+        var data = this.dataEscolhida;
+        if (data == "") {
+            data = this.dataAtual;
+        }
+        else {
+            data = this.formataDataServico(this.dataEscolhida);
+        }
+        this.nav.push(__WEBPACK_IMPORTED_MODULE_2__listaFilmes_listaFilmes__["a" /* ListaFilmes */], {
+            param1: data,
+            param2: this.diaSemanaEscolhido
+        });
+    };
+    Filtros.prototype.verSessoesAgora = function () {
+        var dataAgora = this.retornaDataAtualSessoesAgora();
+        this.nav.push(__WEBPACK_IMPORTED_MODULE_4__sessoesAgora_sessoesAgora__["a" /* SessoesAgora */], {
+            param1: dataAgora
+        });
+    };
+    Filtros.prototype.selecionaOpcaoQueroIr = function (listaQuero) {
+        for (var i = 0; i < this.datas.length; i++) {
+            var item = this.datas[i];
+            item.selecionado = false;
+        }
+        listaQuero.selecionado = !listaQuero.selecionado;
+        this.dataEscolhida = listaQuero.data;
+        this.diaSemanaEscolhido = listaQuero.diasemana;
+    };
+    return Filtros;
+}());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_13" /* ViewChild */])('botaoCinema'),
+    __metadata("design:type", Object)
+], Filtros.prototype, "botaoCinema", void 0);
+Filtros = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"D:\Felippe\IONIC\easy_v3\src\pages\filtros\filtros.html"*/'<ion-toolbar >\n\n   <ion-title color="primary">EasyMovie</ion-title>\n\n</ion-toolbar>\n\n\n\n<!--\n\n<ion-navbar>\n\n  <ion-title>EasyMovie</ion-title>\n\n</ion-navbar>\n\n-->\n\n\n\n  <ion-content class="background" no-bounce>\n\n\n\n    <div class="divHeader" >\n\n\n\n            <div class="imageHeader">\n\n           <img src="./images/headerPrincipal.png" />\n\n            </div>\n\n\n\n           <div class="card-textoGrande" style="top: 50%;">\n\n              Existem <span style="color:#e1b612"><b>21 sessões</b></span><br>\n\n              começando agora na sua cidade.<br>\n\n          </div>\n\n\n\n          <div class="botaoSuperior" style=" bottom: 0%; width: 100%; height: 20% ">\n\n\n\n            <ion-scroll  scrollX="true" class="scrollHorizontalDatas" overflow-scroll="true" >\n\n              <ion-chip  *ngFor=" let data of datas"  [ngClass]="data.selecionado ? \'ativo\' : \'inativo\'" (tap)="selecionaOpcaoQueroIr(data)">\n\n                <ion-label  class="tag"><b>{{formataData(data.data)}}</b> ({{data.diasemana}})</ion-label>\n\n              </ion-chip>\n\n            </ion-scroll>\n\n\n\n          </div>\n\n\n\n\n\n          \n\n    </div>\n\n\n\n<br><br>\n\n\n\n<ion-grid class="gradeBotoes">\n\n  <ion-row>\n\n    <ion-col col-50 class="botaoMenu" style="border-right:  1px solid #ccc8c5;" (tap)="verFilmes()" >\n\n    <br>\n\n              <ion-grid >\n\n                  <ion-row >\n\n                      <ion-col class="botaoTexto">Comece por<br><span class="botaoTexto2">Filmes</span></ion-col>\n\n                  </ion-row>\n\n             </ion-grid>\n\n    <br>\n\n    </ion-col>\n\n    <ion-col col-50 class="botaoMenu" (tap)="verCinemas()">\n\n    <br>\n\n              <ion-grid >\n\n                  <ion-row >\n\n                      <ion-col class="botaoTexto">Comece por<br><span class="botaoTexto2">Cinemas</span></ion-col>\n\n                  </ion-row>\n\n             </ion-grid>\n\n    <br>\n\n    </ion-col>\n\n  </ion-row>\n\n  <ion-row>\n\n    <ion-col class="botaoMenu" (tap)="verSessoesAgora()" style="border-bottom:  1px solid #ccc8c5;">\n\n    <br>\n\n            <ion-grid >\n\n                <ion-row >\n\n                    <ion-col class="botaoTexto">Buscar por<br><span class="botaoTexto2">Sessões agora!</span></ion-col>\n\n                </ion-row>\n\n           </ion-grid>\n\n    <br>\n\n    </ion-col>\n\n  </ion-row>\n\n</ion-grid>\n\n\n\n<br>\n\n\n\n<ion-grid style="padding: 0;">\n\n  <ion-row>\n\n    <ion-col class="labelMaisProcurados" style="padding: 2%;">O QUE VAI ESTREAR <b>EM BREVE</b></ion-col>\n\n  </ion-row>\n\n    <ion-row>\n\n    <ion-col class="labelMaisProcurados" style="opacity:0.8">\n\n\n\n\n\n      <div  #filmeCard *ngFor=" let filme of filmes;let i=index"   style="width:100%">\n\n        <div class="overlayFilme">{{filme.title}}<br><span style="font-size:0.7em">Estréia em <b>{{filme.premiereDate.dayAndMonth}}</b> ({{filme.premiereDate.dayOfWeek}})</span></div>\n\n        <img  src={{filme.images[1].url}}  />\n\n      </div>\n\n\n\n\n\n    </ion-col>\n\n  </ion-row>\n\n  <ion-row>\n\n    <ion-col style="background-color: #ffffff;"><br></ion-col>\n\n  </ion-row>\n\n</ion-grid>\n\n\n\n  </ion-content>\n\n'/*ion-inline-end:"D:\Felippe\IONIC\easy_v3\src\pages\filtros\filtros.html"*/,
+        providers: [__WEBPACK_IMPORTED_MODULE_5__services_filmesEmCartaz_service__["a" /* filmesEmCartazService */], __WEBPACK_IMPORTED_MODULE_6__services_sessoes_service__["a" /* sessoesService */]]
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_5__services_filmesEmCartaz_service__["a" /* filmesEmCartazService */],
+        __WEBPACK_IMPORTED_MODULE_6__services_sessoes_service__["a" /* sessoesService */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* LoadingController */]])
+], Filtros);
+
+//# sourceMappingURL=filtros.js.map
+
+/***/ }),
+
+/***/ 101:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Sessoes; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_sessoes_service__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_sessoes_service__ = __webpack_require__(102);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__model_chip__ = __webpack_require__(201);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_cinema_service__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_filmesEmCartaz_service__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_filmesEmCartaz_service__ = __webpack_require__(105);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -291,7 +469,7 @@ var Sessoes = (function () {
     return Sessoes;
 }());
 Sessoes = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"D:\Felippe\IONIC\easy_v3\src\pages\sessoes\sessoes.html"*/'<ion-toolbar >\n\n  <ion-buttons start>\n\n    <button ion-button icon-only style="color:white" (tap)="voltar()">\n\n        <ion-icon name="md-arrow-back"></ion-icon>\n\n    </button>\n\n  </ion-buttons>\n\n  <ion-title color="primary">EasyMovie</ion-title>\n\n <ion-buttons end>\n\n      <button ion-button icon-only style="color:white">\n\n        <ion-icon name="options"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n</ion-toolbar>\n\n\n\n<ion-content style="position: relative;">\n\n<br>\n\n<div class="labelTituloTela">\n\n<b>Sessões Disponíveis</b>\n\n</div>\n\n<div class="labelSubTituloTela">{{formataData(filtroData)}} | {{diaSemanaEscolhido}}</div>\n\n\n\n<!--  {{filmes | json}}  -->\n\n\n\n<br>\n\n\n\n\n\n<ion-scroll  scrollX="true" class="scrollHorizontal" overflow-scroll="true" >\n\n  <ion-chip  *ngFor=" let tag of tags"  [ngClass]="tag.selecionado ? \'ativo\' : \'inativo\'"  (tap)="selecionaTag(tag)">\n\n    <ion-label class="tag"> {{tag.nome }}</ion-label>\n\n  </ion-chip>\n\n</ion-scroll>\n\n\n\n\n\n<!--\n\n<ion-scroll  scrollX="true" class="scrollHorizontal" overflow-scroll="true" *ngIf="tipoPesquisa === \'F\'">\n\n  <ion-chip  *ngFor=" let cinema of cinemas"  [ngClass]="cinema.selecionado ? \'ativo\' : \'inativo\'"  (tap)="selecionaTagCinema(cinema)">\n\n    <ion-label class="tag"> {{cinema.nome }}</ion-label>\n\n  </ion-chip>\n\n</ion-scroll>\n\n\n\n<ion-scroll  scrollX="true" class="scrollHorizontal" overflow-scroll="true" *ngIf="tipoPesquisa === \'C\'">\n\n  <ion-chip  *ngFor=" let filme of filmes"  [ngClass]="filme.selecionado ? \'ativo\' : \'inativo\'"  (tap)="selecionaTagFilme(filme)">\n\n    <ion-label class="tag"> {{filme.nomeFilme }}</ion-label>\n\n  </ion-chip>\n\n</ion-scroll>\n\n-->\n\n\n\n\n\n<br><br>\n\n\n\n\n\n<ion-row class="headerSessoes">\n\n  <ion-col  *ngIf="qtSessoes === 0">Nenhuma sessão encontrada :-(</ion-col>\n\n  <ion-col  *ngIf="qtSessoes === 1">Foi encontrada apenas <b>uma</b> sessão</ion-col>\n\n  <ion-col  *ngIf="qtSessoes > 1">Foram encontradas <b>{{qtSessoes}}</b> sessões</ion-col>\n\n</ion-row>\n\n\n\n<!--Scrol somente da tela de resultado -->\n\n<ion-scroll  scrollY="true" class="scrollVertical" overflow-scroll="true" >\n\n<br>\n\n<ion-list class="itemListaSessao" no-lines>\n\n\n\n<div *ngFor=" let sessao of sessoes">\n\n\n\n  <ion-item class="itemItemSessao" #sessaoFilme  *ngIf="sessao.selecionado==0">\n\n  		<div style="position: absolute;  width: 100% ; top: 10%" >\n\n  			<ion-row style="height:90%">\n\n  				<ion-col col-2 style="text-align: center">\n\n\n\n          <span class="fonteLabelTituloHorario" style="font-weight:bold;">{{formataHora(sessao.hora)}}</span>\n\n\n\n  				</ion-col>\n\n  				<ion-col col-9>\n\n                      <img src={{sessao.poster}}  class="posterPequeno">\n\n                      <div style="padding-left: 19%">\n\n                          <span class="fonteLabelTituloFilme">{{sessao.nomeFilme}}</span><br>\n\n                          <span class="fonteLabelTituloCinema" >{{sessao.nomeCinema}}</span><br>\n\n                          <span class="fonteLabelTituloDistancia" *ngIf="formataData(filtroData)==\'Hoje\' "><ion-icon ios="md-time" ></ion-icon>&nbsp;Começa em <b>{{formataTempoAteSessao(sessao.hora)}}</b></span><br>\n\n                          <span class="fonteLabelTituloDistancia"> {{sessao.tipo}} {{sessao.tipo3d}}</span><br>\n\n                          <div class="estrelaRatingSessao"><img src="./images/starRatingSessao.png" class="estrelaRatingTamanhoSessao"></div><div class="estrelaRatingTamanhoSessaoTexto"><b>6.9</b></div>\n\n\n\n\n\n                      </div>\n\n  				</ion-col>\n\n  			</ion-row>\n\n\n\n  		</div>\n\n  		<img  src="./images/linhaSessaoAlta.png" style="max-width: 95%;" *ngIf="sessao.selecionado==0"/>\n\n\n\n  </ion-item>\n\n</div>\n\n\n\n\n\n</ion-list>\n\n</ion-scroll>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Felippe\IONIC\easy_v3\src\pages\sessoes\sessoes.html"*/,
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"D:\Felippe\IONIC\easy_v3\src\pages\sessoes\sessoes.html"*/'<ion-toolbar >\n\n  <ion-buttons start>\n\n    <button ion-button icon-only style="color:white" (tap)="voltar()">\n\n        <ion-icon name="md-arrow-back"></ion-icon>\n\n    </button>\n\n  </ion-buttons>\n\n  <ion-title color="primary">EasyMovie</ion-title>\n\n <ion-buttons end>\n\n      <button ion-button icon-only style="color:white">\n\n        <ion-icon name="options"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n</ion-toolbar>\n\n\n\n<ion-content style="position: relative;">\n\n<br>\n\n<div class="labelTituloTela">\n\n<b>Sessões Disponíveis</b>\n\n</div>\n\n<div class="labelSubTituloTela">{{formataData(filtroData)}} | {{diaSemanaEscolhido}}</div>\n\n\n\n<!--  {{filmes | json}}  -->\n\n\n\n<br>\n\n\n\n\n\n<ion-scroll  scrollX="true" class="scrollHorizontal" overflow-scroll="true" >\n\n  <ion-chip  *ngFor=" let tag of tags"  [ngClass]="tag.selecionado ? \'ativoSessao\' : \'inativoSessao\'"  (tap)="selecionaTag(tag)">\n\n    <ion-label class="tag"> {{tag.nome }}</ion-label>\n\n  </ion-chip>\n\n</ion-scroll>\n\n\n\n\n\n<!--\n\n<ion-scroll  scrollX="true" class="scrollHorizontal" overflow-scroll="true" *ngIf="tipoPesquisa === \'F\'">\n\n  <ion-chip  *ngFor=" let cinema of cinemas"  [ngClass]="cinema.selecionado ? \'ativo\' : \'inativo\'"  (tap)="selecionaTagCinema(cinema)">\n\n    <ion-label class="tag"> {{cinema.nome }}</ion-label>\n\n  </ion-chip>\n\n</ion-scroll>\n\n\n\n<ion-scroll  scrollX="true" class="scrollHorizontal" overflow-scroll="true" *ngIf="tipoPesquisa === \'C\'">\n\n  <ion-chip  *ngFor=" let filme of filmes"  [ngClass]="filme.selecionado ? \'ativo\' : \'inativo\'"  (tap)="selecionaTagFilme(filme)">\n\n    <ion-label class="tag"> {{filme.nomeFilme }}</ion-label>\n\n  </ion-chip>\n\n</ion-scroll>\n\n-->\n\n\n\n\n\n<br><br>\n\n\n\n\n\n<ion-row class="headerSessoes">\n\n  <ion-col  *ngIf="qtSessoes === 0">Nenhuma sessão encontrada :-(</ion-col>\n\n  <ion-col  *ngIf="qtSessoes === 1">Foi encontrada apenas <b>uma</b> sessão</ion-col>\n\n  <ion-col  *ngIf="qtSessoes > 1">Foram encontradas <b>{{qtSessoes}}</b> sessões</ion-col>\n\n</ion-row>\n\n\n\n<!--Scrol somente da tela de resultado -->\n\n<ion-scroll  scrollY="true" class="scrollVertical" overflow-scroll="true" >\n\n<br>\n\n<ion-list class="itemListaSessao" no-lines>\n\n\n\n<div *ngFor=" let sessao of sessoes">\n\n\n\n  <ion-item class="itemItemSessao" #sessaoFilme  *ngIf="sessao.selecionado==0">\n\n  		<div style="position: absolute;  width: 100% ; top: 10%" >\n\n  			<ion-row style="height:90%">\n\n  				<ion-col col-2 style="text-align: center">\n\n\n\n          <span class="fonteLabelTituloHorario" style="font-weight:bold;">{{formataHora(sessao.hora)}}</span>\n\n\n\n  				</ion-col>\n\n  				<ion-col col-9>\n\n                      <img src={{sessao.poster}}  class="posterPequeno">\n\n                      <div style="padding-left: 19%">\n\n                          <span class="fonteLabelTituloFilme" >{{sessao.nomeFilme}}</span><br>\n\n                          <span class="fonteLabelTituloCinema" >{{sessao.nomeCinema}}</span><br>\n\n                          <span class="fonteLabelTituloDistancia" *ngIf="formataData(filtroData)==\'Hoje\' "><ion-icon ios="md-time" ></ion-icon>&nbsp;Começa em <b>{{formataTempoAteSessao(sessao.hora)}}</b></span><br>\n\n                          <span class="fonteLabelTituloDistancia"> {{sessao.tipo}} {{sessao.tipo3d}}</span><br>\n\n                          <div class="estrelaRatingSessao"><img src="./images/starRatingSessao.png" class="estrelaRatingTamanhoSessao"></div><div class="estrelaRatingTamanhoSessaoTexto"><b>6.9</b></div>\n\n\n\n\n\n                      </div>\n\n  				</ion-col>\n\n  			</ion-row>\n\n\n\n  		</div>\n\n  		<img  src="./images/linhaSessaoAlta.png" style="max-width: 95%;" *ngIf="sessao.selecionado==0"/>\n\n\n\n  </ion-item>\n\n</div>\n\n\n\n\n\n</ion-list>\n\n</ion-scroll>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Felippe\IONIC\easy_v3\src\pages\sessoes\sessoes.html"*/,
         providers: [__WEBPACK_IMPORTED_MODULE_2__services_sessoes_service__["a" /* sessoesService */], __WEBPACK_IMPORTED_MODULE_4__services_cinema_service__["a" /* cinemaService */], __WEBPACK_IMPORTED_MODULE_5__services_filmesEmCartaz_service__["a" /* filmesEmCartazService */]]
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */],
@@ -306,17 +484,17 @@ Sessoes = __decorate([
 
 /***/ }),
 
-/***/ 101:
+/***/ 102:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return sessoesService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(103);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -407,7 +585,7 @@ sessoesService = __decorate([
 
 /***/ }),
 
-/***/ 102:
+/***/ 103:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -419,17 +597,17 @@ var SERVER_URL = "https://shrouded-shelf-45541.herokuapp.com/";
 
 /***/ }),
 
-/***/ 104:
+/***/ 105:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return filmesEmCartazService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(103);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -485,14 +663,14 @@ filmesEmCartazService = __decorate([
 
 /***/ }),
 
-/***/ 105:
+/***/ 106:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SessoesAgora; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_sessoes_service__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_sessoes_service__ = __webpack_require__(102);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__model_chip__ = __webpack_require__(201);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -663,7 +841,7 @@ var SessoesAgora = (function () {
     return SessoesAgora;
 }());
 SessoesAgora = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"D:\Felippe\IONIC\easy_v3\src\pages\sessoesAgora\sessoesAgora.html"*/'<ion-toolbar >\n\n  <ion-buttons start>\n\n    <button ion-button icon-only style="color:white" (tap)="voltar()">\n\n        <ion-icon name="md-arrow-back"></ion-icon>\n\n    </button>\n\n  </ion-buttons>\n\n  <ion-title color="primary">EasyMovie</ion-title>\n\n <ion-buttons end>\n\n      <button ion-button icon-only style="color:white">\n\n        <ion-icon name="options"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n</ion-toolbar>\n\n\n\n<ion-content style="position: relative;">\n\n<br>\n\n<div class="labelTituloTela">\n\n<b>Sessões agora!</b>\n\n</div>\n\n<div class="labelSubTituloTela">Filmes que estão para começar</div>\n\n\n\n\n\n<br>\n\n\n\n\n\n<ion-scroll  scrollX="true" class="scrollHorizontal" overflow-scroll="true" >\n\n  <ion-chip  *ngFor=" let tag of tags"  [ngClass]="tag.selecionado ? \'ativo\' : \'inativo\'"  (tap)="selecionaTag(tag)">\n\n    <ion-label class="tag"> {{tag.nome }}</ion-label>\n\n  </ion-chip>\n\n</ion-scroll>\n\n\n\n<br><br>\n\n\n\n<ion-row class="headerSessoes">\n\n  <ion-col  *ngIf="qtSessoes === 0">Nenhuma sessão encontrada :-(</ion-col>\n\n    <ion-col  *ngIf="qtSessoes === 1">Foi encontrada apenas <b>uma</b> sessão</ion-col>\n\n    <ion-col  *ngIf="qtSessoes > 1">Foram encontradas <b>{{qtSessoes}}</b> sessões</ion-col>\n\n</ion-row>\n\n\n\n<!--Scrol somente da tela de resultado -->\n\n<ion-scroll  scrollY="true" class="scrollVertical" overflow-scroll="true" >\n\n<br>\n\n<ion-list class="itemListaSessao" no-lines>\n\n\n\n<div *ngFor=" let sessao of sessoes">\n\n\n\n  <ion-item class="itemItemSessao" #sessaoFilme  *ngIf="sessao.selecionado==0">\n\n      <div style="position: absolute;  width: 100% ; top: 10%" >\n\n        <ion-row style="height:90%">\n\n          <ion-col col-2 style="text-align: center">\n\n\n\n          <span class="fonteLabelTituloHorario" style="font-weight:bold;">{{formataHora(sessao.hora)}}</span>\n\n\n\n          </ion-col>\n\n          <ion-col col-9>\n\n                      <img src={{sessao.poster}}  class="posterPequeno">\n\n                      <div style="padding-left: 19%">\n\n                          <span class="fonteLabelTituloFilme">{{sessao.nomeFilme}}</span><br>\n\n                          <span class="fonteLabelTituloCinema" >{{sessao.nomeCinema}}</span><br>\n\n                          <span class="fonteLabelTituloDistancia" *ngIf="formataData(filtroData)==\'Hoje\' "><ion-icon ios="md-time" ></ion-icon>&nbsp;Começa em <b>{{formataTempoAteSessao(sessao.hora)}}</b></span><br>\n\n                          <span class="fonteLabelTituloDistancia"> {{sessao.tipo}} {{sessao.tipo3d}}</span><br>\n\n                          <div class="estrelaRatingSessao"><img src="./images/starRatingSessao.png" class="estrelaRatingTamanhoSessao"></div><div class="estrelaRatingTamanhoSessaoTexto"><b>6.9</b></div>\n\n\n\n\n\n                      </div>\n\n          </ion-col>\n\n        </ion-row>\n\n\n\n      </div>\n\n      <img  src="./images/linhaSessaoAlta.png" style="max-width: 95%;" *ngIf="sessao.selecionado==0"/>\n\n\n\n  </ion-item>\n\n</div>\n\n\n\n\n\n</ion-list>\n\n</ion-scroll>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Felippe\IONIC\easy_v3\src\pages\sessoesAgora\sessoesAgora.html"*/,
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"D:\Felippe\IONIC\easy_v3\src\pages\sessoesAgora\sessoesAgora.html"*/'<ion-toolbar >\n\n  <ion-buttons start>\n\n    <button ion-button icon-only style="color:white" (tap)="voltar()">\n\n        <ion-icon name="md-arrow-back"></ion-icon>\n\n    </button>\n\n  </ion-buttons>\n\n  <ion-title color="primary">EasyMovie</ion-title>\n\n <ion-buttons end>\n\n      <button ion-button icon-only style="color:white">\n\n        <ion-icon name="options"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n</ion-toolbar>\n\n\n\n<ion-content style="position: relative;">\n\n<br>\n\n<div class="labelTituloTela">\n\n<b>Sessões agora!</b>\n\n</div>\n\n<div class="labelSubTituloTela">Filmes que estão para começar</div>\n\n\n\n\n\n<br>\n\n\n\n\n\n<ion-scroll  scrollX="true" class="scrollHorizontal" overflow-scroll="true" >\n\n  <ion-chip  *ngFor=" let tag of tags"  [ngClass]="tag.selecionado ? \'ativoSessao\' : \'inativoSessao\'"  (tap)="selecionaTag(tag)">\n\n    <ion-label class="tag"> {{tag.nome }}</ion-label>\n\n  </ion-chip>\n\n</ion-scroll>\n\n\n\n<br><br>\n\n\n\n<ion-row class="headerSessoes">\n\n  <ion-col  *ngIf="qtSessoes === 0">Nenhuma sessão encontrada :-(</ion-col>\n\n    <ion-col  *ngIf="qtSessoes === 1">Foi encontrada apenas <b>uma</b> sessão</ion-col>\n\n    <ion-col  *ngIf="qtSessoes > 1">Foram encontradas <b>{{qtSessoes}}</b> sessões</ion-col>\n\n</ion-row>\n\n\n\n<!--Scrol somente da tela de resultado -->\n\n<ion-scroll  scrollY="true" class="scrollVertical" overflow-scroll="true" >\n\n<br>\n\n<ion-list class="itemListaSessao" no-lines>\n\n\n\n<div *ngFor=" let sessao of sessoes">\n\n\n\n  <ion-item class="itemItemSessao" #sessaoFilme  *ngIf="sessao.selecionado==0">\n\n      <div style="position: absolute;  width: 100% ; top: 10%" >\n\n        <ion-row style="height:90%">\n\n          <ion-col col-2 style="text-align: center">\n\n\n\n          <span class="fonteLabelTituloHorario" style="font-weight:bold;">{{formataHora(sessao.hora)}}</span>\n\n\n\n          </ion-col>\n\n          <ion-col col-9>\n\n                      <img src={{sessao.poster}}  class="posterPequeno">\n\n                      <div style="padding-left: 19%">\n\n                          <span class="fonteLabelTituloFilme">{{sessao.nomeFilme}}</span><br>\n\n                          <span class="fonteLabelTituloCinema" >{{sessao.nomeCinema}}</span><br>\n\n                          <span class="fonteLabelTituloDistancia" *ngIf="formataData(filtroData)==\'Hoje\' "><ion-icon ios="md-time" ></ion-icon>&nbsp;Começa em <b>{{formataTempoAteSessao(sessao.hora)}}</b></span><br>\n\n                          <span class="fonteLabelTituloDistancia"> {{sessao.tipo}} {{sessao.tipo3d}}</span><br>\n\n                          <div class="estrelaRatingSessao"><img src="./images/starRatingSessao.png" class="estrelaRatingTamanhoSessao"></div><div class="estrelaRatingTamanhoSessaoTexto"><b>6.9</b></div>\n\n\n\n\n\n                      </div>\n\n          </ion-col>\n\n        </ion-row>\n\n\n\n      </div>\n\n      <img  src="./images/linhaSessaoAlta.png" style="max-width: 95%;" *ngIf="sessao.selecionado==0"/>\n\n\n\n  </ion-item>\n\n</div>\n\n\n\n\n\n</ion-list>\n\n</ion-scroll>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Felippe\IONIC\easy_v3\src\pages\sessoesAgora\sessoesAgora.html"*/,
         providers: [__WEBPACK_IMPORTED_MODULE_2__services_sessoes_service__["a" /* sessoesService */]]
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__services_sessoes_service__["a" /* sessoesService */]])
@@ -673,7 +851,7 @@ SessoesAgora = __decorate([
 
 /***/ }),
 
-/***/ 114:
+/***/ 115:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -682,11 +860,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 114;
+webpackEmptyAsyncContext.id = 115;
 
 /***/ }),
 
-/***/ 156:
+/***/ 157:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -695,7 +873,7 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 156;
+webpackEmptyAsyncContext.id = 157;
 
 /***/ }),
 
@@ -706,9 +884,9 @@ webpackEmptyAsyncContext.id = 156;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ListaFilmes; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sessoes_sessoes__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sessoes_sessoes__ = __webpack_require__(101);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__detalhes_detalhes__ = __webpack_require__(203);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_filmesEmCartaz_service__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_filmesEmCartaz_service__ = __webpack_require__(105);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -807,7 +985,7 @@ var ListaFilmes = (function () {
                 return "-";
             }
             else {
-                return detalhe;
+                return '6.9';
             }
         }
     };
@@ -901,11 +1079,11 @@ var chip = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return cinemaService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(103);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -969,6 +1147,7 @@ cinemaService = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Detalhes; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_youtube_video_player__ = __webpack_require__(204);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -981,15 +1160,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var Detalhes = (function () {
-    function Detalhes(nav, navParams) {
+    function Detalhes(nav, navParams, youtube) {
         this.nav = nav;
         this.navParams = navParams;
+        this.youtube = youtube;
         this.filmeSelecionado = navParams.get('param1');
     }
     Object.defineProperty(Detalhes, "parameters", {
         get: function () {
-            return [[__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */]], [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */]]];
+            return [[__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */]], [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */]], [__WEBPACK_IMPORTED_MODULE_2__ionic_native_youtube_video_player__["a" /* YoutubeVideoPlayer */]]];
         },
         enumerable: true,
         configurable: true
@@ -1004,29 +1185,34 @@ var Detalhes = (function () {
             }
         }
     };
+    Detalhes.prototype.abrirTrailer = function (link) {
+        this.youtube.openVideo('MuDLw1zIc94');
+    };
     Detalhes.prototype.voltar = function () {
         this.nav.pop();
     };
     return Detalhes;
 }());
 Detalhes = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"D:\Felippe\IONIC\easy_v3\src\pages\detalhes\detalhes.html"*/'<ion-toolbar >\n\n  <ion-buttons start>\n\n    <button ion-button icon-only style="color:white" (tap)="voltar()">\n\n        <ion-icon name="md-arrow-back"></ion-icon>\n\n    </button>\n\n  </ion-buttons>\n\n  <ion-title color="primary">EasyMovie</ion-title>\n\n</ion-toolbar>\n\n\n\n\n\n\n\n<ion-content style="position: relative;">\n\n\n\n<div>\n\n<img class=\'imagemTamanhoFixo\'  src={{filmeSelecionado.imagem}}>\n\n</div>\n\n\n\n<div class="headerDetalhesFilme">\n\n\n\n    <div class="posCabecalhoFilme">\n\n        <span class="fonteTituloFilme">{{filmeSelecionado.nome}}</span> <br>\n\n        <span class="labelGeneroFilme"> {{filmeSelecionado.genero}} | {{filmeSelecionado.duracao}} min |  {{filmeSelecionado.classificacao}}</span>\n\n    </div>\n\n\n\n    <div class="posCartazFilme">\n\n      <img class="imagemTamanhoCartaz" src={{filmeSelecionado.poster}}>\n\n    </div>\n\n\n\n\n\n\n\n</div>\n\n\n\n\n\n<div class="headerSubDetalhesFilme">\n\n\n\n  <div class="posRatingIMDB">\n\n    <ion-chip class="ratingIMDBDetalhe">\n\n      <div class="estrelaRatingDetalhe"><img src="./images/starRating.png" class="estrelaRatingTamanhoDetalhe"></div>\n\n      <ion-label style="color:white; position:absolute;left:38%"><b>6.7</b>/<span style="font-size: 10px;">10</span></ion-label>\n\n    </ion-chip>\n\n  </div>\n\n\n\n  <div class="posBotaoTrailer">\n\n  <button ion-button outline class="botaoTrailer">ASSISTA AO TRAILER</button>\n\n  </div>\n\n\n\n</div>\n\n\n\n\n\n\n\n<div class="conteudo">\n\n<p><b>SINOPSE</b><br><br>\n\n{{filmeSelecionado.sinopse}}\n\n</p>\n\n</div>\n\n\n\n\n\n\n\n\n\n<!--ion-row style="height: 10%">\n\n		<ion-col class="headerDetalhesFilme">\n\n		          <ion-row>\n\n		              <ion-col>\n\n		                  <ion-row>\n\n		                      <ion-col class="fonteTituloFilmeDetalhe">\n\n		                       		{{filmeSelecionado.nomeFilme}}\n\n		                      </ion-col>\n\n		                  </ion-row>\n\n		                  <ion-row>\n\n		                      <ion-col width-75 class="labelGeneroFilme">\n\n                            		{{filmeSelecionado.genero}} - {{filmeSelecionado.duracao}} minutos\n\n		                      </ion-col>\n\n		                       <ion-col width-25 class="celulaRating">\n\n		                             <img class=\'imagemTamanhoFixo\' src="./images/1estrelas.png" *ngIf="filmeSelecionado.rating === 1"/>\n\n			                         <img class=\'imagemTamanhoFixo\'  src="./images/2estrelas.png" *ngIf="filmeSelecionado.rating === 2"/>\n\n		                             <img class=\'imagemTamanhoFixo\'  src="./images/3estrelas.png" *ngIf="filmeSelecionado.rating === 3"/>\n\n		                             <img class=\'imagemTamanhoFixo\'  src="./images/4estrelas.png" *ngIf="filmeSelecionado.rating === 4"/>\n\n		                             <img class=\'imagemTamanhoFixo\'  src="./images/5estrelas.png" *ngIf="filmeSelecionado.rating === 5"/>\n\n		                      </ion-col>\n\n		                  </ion-row>\n\n		              </ion-col>\n\n		         </ion-row>\n\n		</ion-col>\n\n</ion-row>\n\n<ion-row style="height: 40%">\n\n		<ion-col class="imagemDetalhe">\n\n			<img  src="./images/angrybirdsDetalhe.png"  />\n\n			<button ion-button  #botaoAdiciona class="botaoPlayTrailer"  (click)="selecionaFilme(filme, filmeCard);" round small ><ion-icon name="play"></ion-icon></button >\n\n		</ion-col>\n\n</ion-row>\n\n<ion-row >\n\n		<ion-col>{{filmeSelecionado.sinopse}}</ion-col>\n\n</ion-row>\n\n<ion-row>\n\n		<ion-col>Direção: {{filmeSelecionado.direcao}}</ion-col>\n\n</ion-row>\n\n<ion-row>\n\n		<ion-col>Atores principais:{{filmeSelecionado.atores}}</ion-col>\n\n</ion-row>\n\n<ion-row>\n\n		<ion-col>Distribuidora:{{filmeSelecionado.distribuidora}}</ion-col>\n\n</ion-row>\n\n<ion-row>\n\n		<ion-col><img  src="{{filmeSelecionado.cartaz}}" /></ion-col>\n\n</ion-row-->\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Felippe\IONIC\easy_v3\src\pages\detalhes\detalhes.html"*/
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"D:\Felippe\IONIC\easy_v3\src\pages\detalhes\detalhes.html"*/'<ion-toolbar >\n\n  <ion-buttons start>\n\n    <button ion-button icon-only style="color:white" (tap)="voltar()">\n\n        <ion-icon name="md-arrow-back"></ion-icon>\n\n    </button>\n\n  </ion-buttons>\n\n  <ion-title color="primary">EasyMovie</ion-title>\n\n</ion-toolbar>\n\n\n\n\n\n\n\n<ion-content style="position: relative;">\n\n\n\n\n\n<div>\n\n<img class=\'imagemTamanhoFixo\'  src={{filmeSelecionado.imagem}}>\n\n</div>\n\n\n\n<div class="headerDetalhesFilme">\n\n\n\n    <div class="posCabecalhoFilme">\n\n        <span class="fonteTituloFilme">{{filmeSelecionado.nome}}</span> <br>\n\n        <span class="labelGeneroFilme"> {{filmeSelecionado.genero}} | {{filmeSelecionado.duracao}} min |  {{filmeSelecionado.classificacao}}</span>\n\n    </div>\n\n\n\n    <div class="posCartazFilme">\n\n      <img class="imagemTamanhoCartaz" src={{filmeSelecionado.poster}}>\n\n    </div>\n\n\n\n\n\n\n\n</div>\n\n\n\n\n\n<div class="headerSubDetalhesFilme">\n\n\n\n  <div class="posRatingIMDB">\n\n    <ion-chip class="ratingIMDBDetalhe">\n\n      <div class="estrelaRatingDetalhe"><img src="./images/starRating.png" class="estrelaRatingTamanhoDetalhe"></div>\n\n      <ion-label style="color:white; position:absolute;left:38%"><b>6.7</b>/<span style="font-size: 10px;">10</span></ion-label>\n\n    </ion-chip>\n\n  </div>\n\n\n\n  <div class="posBotaoTrailer">\n\n  <button ion-button outline class="botaoTrailer" (tap)="abrirTrailer(filmeSelecionado.linktrailer)">ASSISTA AO TRAILER</button>\n\n  </div>\n\n\n\n</div>\n\n\n\n\n\n\n\n<div class="conteudo">\n\n<p><b>SINOPSE</b><br>\n\n{{filmeSelecionado.sinopse}}\n\n</p>\n\n\n\n<p><b>Direção</b><br>\n\n{{filmeSelecionado.diretor}}\n\n</p>\n\n\n\n<p><b>Atores principais</b><br>\n\n{{filmeSelecionado.cast}}\n\n</p>\n\n\n\n<br><br><br>\n\n</div>\n\n\n\n\n\n<!--ion-row style="height: 10%">\n\n		<ion-col class="headerDetalhesFilme">\n\n		          <ion-row>\n\n		              <ion-col>\n\n		                  <ion-row>\n\n		                      <ion-col class="fonteTituloFilmeDetalhe">\n\n		                       		{{filmeSelecionado.nomeFilme}}\n\n		                      </ion-col>\n\n		                  </ion-row>\n\n		                  <ion-row>\n\n		                      <ion-col width-75 class="labelGeneroFilme">\n\n                            		{{filmeSelecionado.genero}} - {{filmeSelecionado.duracao}} minutos\n\n		                      </ion-col>\n\n		                       <ion-col width-25 class="celulaRating">\n\n		                             <img class=\'imagemTamanhoFixo\' src="./images/1estrelas.png" *ngIf="filmeSelecionado.rating === 1"/>\n\n			                         <img class=\'imagemTamanhoFixo\'  src="./images/2estrelas.png" *ngIf="filmeSelecionado.rating === 2"/>\n\n		                             <img class=\'imagemTamanhoFixo\'  src="./images/3estrelas.png" *ngIf="filmeSelecionado.rating === 3"/>\n\n		                             <img class=\'imagemTamanhoFixo\'  src="./images/4estrelas.png" *ngIf="filmeSelecionado.rating === 4"/>\n\n		                             <img class=\'imagemTamanhoFixo\'  src="./images/5estrelas.png" *ngIf="filmeSelecionado.rating === 5"/>\n\n		                      </ion-col>\n\n		                  </ion-row>\n\n		              </ion-col>\n\n		         </ion-row>\n\n		</ion-col>\n\n</ion-row>\n\n<ion-row style="height: 40%">\n\n		<ion-col class="imagemDetalhe">\n\n			<img  src="./images/angrybirdsDetalhe.png"  />\n\n			<button ion-button  #botaoAdiciona class="botaoPlayTrailer"  (click)="selecionaFilme(filme, filmeCard);" round small ><ion-icon name="play"></ion-icon></button >\n\n		</ion-col>\n\n</ion-row>\n\n<ion-row >\n\n		<ion-col>{{filmeSelecionado.sinopse}}</ion-col>\n\n</ion-row>\n\n<ion-row>\n\n		<ion-col>Direção: {{filmeSelecionado.direcao}}</ion-col>\n\n</ion-row>\n\n<ion-row>\n\n		<ion-col>Atores principais:{{filmeSelecionado.atores}}</ion-col>\n\n</ion-row>\n\n<ion-row>\n\n		<ion-col>Distribuidora:{{filmeSelecionado.distribuidora}}</ion-col>\n\n</ion-row>\n\n<ion-row>\n\n		<ion-col><img  src="{{filmeSelecionado.cartaz}}" /></ion-col>\n\n</ion-row-->\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Felippe\IONIC\easy_v3\src\pages\detalhes\detalhes.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_2__ionic_native_youtube_video_player__["a" /* YoutubeVideoPlayer */]])
 ], Detalhes);
 
 //# sourceMappingURL=detalhes.js.map
 
 /***/ }),
 
-/***/ 204:
+/***/ 205:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ListaCinemas; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sessoes_sessoes__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sessoes_sessoes__ = __webpack_require__(101);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_cinema_service__ = __webpack_require__(202);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1176,13 +1362,13 @@ ListaCinemas = __decorate([
 
 /***/ }),
 
-/***/ 205:
+/***/ 206:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(206);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(224);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(207);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(225);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -1190,7 +1376,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 224:
+/***/ 225:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1198,24 +1384,26 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(264);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(265);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_listaFilmes_listaFilmes__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_principal_principal__ = __webpack_require__(273);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_sessoes_sessoes__ = __webpack_require__(100);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_filtros_filtros__ = __webpack_require__(99);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_principal_principal__ = __webpack_require__(274);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_sessoes_sessoes__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_filtros_filtros__ = __webpack_require__(100);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_detalhes_detalhes__ = __webpack_require__(203);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_listaCinemas_listaCinemas__ = __webpack_require__(204);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_sessoesAgora_sessoesAgora__ = __webpack_require__(105);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_filtroSessoes_filtroSessoes__ = __webpack_require__(274);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_status_bar__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_listaCinemas_listaCinemas__ = __webpack_require__(205);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_sessoesAgora_sessoesAgora__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_filtroSessoes_filtroSessoes__ = __webpack_require__(275);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_status_bar__ = __webpack_require__(197);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_splash_screen__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__ionic_native_youtube_video_player__ = __webpack_require__(204);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -1269,6 +1457,7 @@ AppModule = __decorate([
         providers: [
             __WEBPACK_IMPORTED_MODULE_13__ionic_native_status_bar__["a" /* StatusBar */],
             __WEBPACK_IMPORTED_MODULE_14__ionic_native_splash_screen__["a" /* SplashScreen */],
+            __WEBPACK_IMPORTED_MODULE_15__ionic_native_youtube_video_player__["a" /* YoutubeVideoPlayer */],
             { provide: __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* IonicErrorHandler */] }
         ]
     })
@@ -1278,16 +1467,16 @@ AppModule = __decorate([
 
 /***/ }),
 
-/***/ 264:
+/***/ 265:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(197);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(199);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_filtros_filtros__ = __webpack_require__(99);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_filtros_filtros__ = __webpack_require__(100);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1324,15 +1513,15 @@ MyApp = __decorate([
 
 /***/ }),
 
-/***/ 273:
+/***/ 274:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Principal; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filtros_filtros__ = __webpack_require__(99);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__sessoesAgora_sessoesAgora__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filtros_filtros__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__sessoesAgora_sessoesAgora__ = __webpack_require__(106);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1369,7 +1558,7 @@ Principal = __decorate([
 
 /***/ }),
 
-/***/ 274:
+/***/ 275:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1394,185 +1583,7 @@ FiltroSessoes = __decorate([
 
 //# sourceMappingURL=filtroSessoes.js.map
 
-/***/ }),
-
-/***/ 99:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Filtros; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__listaFilmes_listaFilmes__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__listaCinemas_listaCinemas__ = __webpack_require__(204);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__sessoesAgora_sessoesAgora__ = __webpack_require__(105);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_filmesEmCartaz_service__ = __webpack_require__(104);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_sessoes_service__ = __webpack_require__(101);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-
-var Filtros = (function () {
-    function Filtros(nav, navParams, filmesEmCartazService, sessoesService, loadingCtrl) {
-        var _this = this;
-        this.nav = nav;
-        this.navParams = navParams;
-        this.filmesEmCartazService = filmesEmCartazService;
-        this.sessoesService = sessoesService;
-        this.loadingCtrl = loadingCtrl;
-        this.testSlides = [];
-        this.dataAtual = "";
-        this.dataEscolhida = "";
-        this.diaSemanaEscolhido = "";
-        this.loading = loadingCtrl.create({
-            content: 'Aguarde...'
-        });
-        this.loading.present();
-        this.dataAtual = this.retornaDataAtual();
-        this.filmesEmCartazService = filmesEmCartazService;
-        this.sessoesService = sessoesService;
-        this.filmesEmCartazService.getTop6().subscribe(function (data) {
-            _this.filmes = data;
-            //console.log(this.filmes.length)
-        }, function (err) {
-            console.log(err);
-        }, function () { return console.log(); });
-        this.sessoesService.getDates(this.dataAtual).subscribe(function (data) {
-            _this.datas = data;
-            _this.marcaDataDefault();
-            _this.loading.dismiss();
-        }, function (err) {
-            console.log(err);
-        }, function () { return console.log(); });
-    }
-    Filtros.prototype.marcaDataDefault = function () {
-        var dataDoScroll;
-        if (this.dataEscolhida == "") {
-            for (var i = 0; i < this.datas.length; i++) {
-                var item = this.datas[i];
-                dataDoScroll = this.formataDataServico(item.data);
-                if (dataDoScroll == this.retornaDataAtual()) {
-                    item.selecionado = true;
-                    this.dataEscolhida = dataDoScroll;
-                    this.diaSemanaEscolhido = item.diasemana;
-                }
-            }
-        }
-    };
-    Filtros.prototype.retornaDataAtual = function () {
-        var dataAtual = new Date();
-        var dia = ("0" + (dataAtual.getDate())).slice(-2);
-        var mes = ("0" + (dataAtual.getMonth() + 1)).slice(-2);
-        var ano = dataAtual.getFullYear();
-        return ano + "-" + mes + "-" + dia;
-    };
-    Filtros.prototype.retornaDataAtualSessoesAgora = function () {
-        var dataAtual = new Date();
-        var dia = ("0" + (dataAtual.getDate())).slice(-2);
-        var mes = ("0" + (dataAtual.getMonth() + 1)).slice(-2);
-        var ano = dataAtual.getFullYear();
-        var hora = dataAtual.getHours();
-        var minuto = dataAtual.getMinutes();
-        return ano + "-" + mes + "-" + dia + "-" + hora + "-" + minuto;
-    };
-    Filtros.prototype.formataData = function (data) {
-        var dia, mes, ano, dataReduzida;
-        dataReduzida = data.substring(0, 10);
-        mes = data.substring(5, 7);
-        dia = data.substring(8, 10);
-        if (dataReduzida == this.retornaDataAtual()) {
-            return "Hoje";
-        }
-        else {
-            return dia + "/" + mes;
-        }
-    };
-    Filtros.prototype.formataDataServico = function (data) {
-        var dia, mes, ano, dataReduzida;
-        dataReduzida = data.substring(0, 10);
-        mes = data.substring(5, 7);
-        dia = data.substring(8, 10);
-        if (data != null) {
-            return data.substring(0, 10);
-        }
-        else {
-            return null;
-        }
-    };
-    Filtros.prototype.verCinemas = function () {
-        var data = this.dataEscolhida;
-        if (data == "") {
-            data = this.dataAtual;
-        }
-        else {
-            data = this.formataDataServico(this.dataEscolhida);
-        }
-        this.nav.push(__WEBPACK_IMPORTED_MODULE_3__listaCinemas_listaCinemas__["a" /* ListaCinemas */], {
-            param1: data,
-            param2: this.diaSemanaEscolhido
-        });
-    };
-    Filtros.prototype.verFilmes = function () {
-        var data = this.dataEscolhida;
-        if (data == "") {
-            data = this.dataAtual;
-        }
-        else {
-            data = this.formataDataServico(this.dataEscolhida);
-        }
-        this.nav.push(__WEBPACK_IMPORTED_MODULE_2__listaFilmes_listaFilmes__["a" /* ListaFilmes */], {
-            param1: data,
-            param2: this.diaSemanaEscolhido
-        });
-    };
-    Filtros.prototype.verSessoesAgora = function () {
-        var dataAgora = this.retornaDataAtualSessoesAgora();
-        this.nav.push(__WEBPACK_IMPORTED_MODULE_4__sessoesAgora_sessoesAgora__["a" /* SessoesAgora */], {
-            param1: dataAgora
-        });
-    };
-    Filtros.prototype.selecionaOpcaoQueroIr = function (listaQuero) {
-        for (var i = 0; i < this.datas.length; i++) {
-            var item = this.datas[i];
-            item.selecionado = false;
-        }
-        listaQuero.selecionado = !listaQuero.selecionado;
-        this.dataEscolhida = listaQuero.data;
-        this.diaSemanaEscolhido = listaQuero.diasemana;
-    };
-    return Filtros;
-}());
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_13" /* ViewChild */])('botaoCinema'),
-    __metadata("design:type", Object)
-], Filtros.prototype, "botaoCinema", void 0);
-Filtros = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"D:\Felippe\IONIC\easy_v3\src\pages\filtros\filtros.html"*/'<ion-toolbar >\n\n   <ion-title color="primary">EasyMovie</ion-title>\n\n</ion-toolbar>\n\n\n\n<!--\n\n<ion-navbar>\n\n  <ion-title>EasyMovie</ion-title>\n\n</ion-navbar>\n\n-->\n\n\n\n  <ion-content class="background" no-bounce>\n\n\n\n    <div class="divHeader" >\n\n\n\n            <div class="imageHeader">\n\n           <img src="./images/headerPrincipal.png" />\n\n            </div>\n\n\n\n           <div class="card-textoGrande" style="top: 50%;">\n\n              Existem <span style="color:#e1b612"><b>21 sessões</b></span><br>\n\n              começando agora na sua cidade.<br>\n\n          </div>\n\n\n\n          <div class="botaoSuperior" style=" bottom: 0%; width: 100%; height: 20% ">\n\n\n\n            <ion-scroll  scrollX="true" class="scrollHorizontalDatas" overflow-scroll="true" >\n\n              <ion-chip  *ngFor=" let data of datas"  [ngClass]="data.selecionado ? \'ativo\' : \'inativo\'" (tap)="selecionaOpcaoQueroIr(data)">\n\n                <ion-label  class="tag"><b>{{formataData(data.data)}}</b> ({{data.diasemana}})</ion-label>\n\n              </ion-chip>\n\n            </ion-scroll>\n\n\n\n          </div>\n\n\n\n\n\n          \n\n    </div>\n\n\n\n<br><br>\n\n\n\n<ion-grid class="gradeBotoes">\n\n  <ion-row>\n\n    <ion-col col-50 class="botaoMenu" style="border-right:  1px solid #ccc8c5;" (tap)="verFilmes()" >\n\n    <br>\n\n              <ion-grid >\n\n                  <ion-row >\n\n                      <ion-col class="botaoTexto">Comece por<br><span class="botaoTexto2">Filmes</span></ion-col>\n\n                  </ion-row>\n\n             </ion-grid>\n\n    <br>\n\n    </ion-col>\n\n    <ion-col col-50 class="botaoMenu" (tap)="verCinemas()">\n\n    <br>\n\n              <ion-grid >\n\n                  <ion-row >\n\n                      <ion-col class="botaoTexto">Comece por<br><span class="botaoTexto2">Cinemas</span></ion-col>\n\n                  </ion-row>\n\n             </ion-grid>\n\n    <br>\n\n    </ion-col>\n\n  </ion-row>\n\n  <ion-row>\n\n    <ion-col class="botaoMenu" (tap)="verSessoesAgora()" style="border-bottom:  1px solid #ccc8c5;">\n\n    <br>\n\n            <ion-grid >\n\n                <ion-row >\n\n                    <ion-col class="botaoTexto">Buscar por<br><span class="botaoTexto2">Sessões agora!</span></ion-col>\n\n                </ion-row>\n\n           </ion-grid>\n\n    <br>\n\n    </ion-col>\n\n  </ion-row>\n\n</ion-grid>\n\n\n\n<br>\n\n\n\n<ion-grid style="padding: 0;">\n\n  <ion-row>\n\n    <ion-col class="labelMaisProcurados" style="padding: 2%;">O QUE VAI ESTREAR <b>EM BREVE</b></ion-col>\n\n  </ion-row>\n\n    <ion-row>\n\n    <ion-col class="labelMaisProcurados" style="opacity:0.8">\n\n\n\n\n\n      <div  #filmeCard *ngFor=" let filme of filmes;let i=index"   style="width:100%">\n\n        <div class="overlayFilme">{{filme.title}}<br><span style="font-size:0.7em">Estréia em <b>{{filme.premiereDate.dayAndMonth}}</b> ({{filme.premiereDate.dayOfWeek}})</span></div>\n\n        <img  src={{filme.images[1].url}}  />\n\n      </div>\n\n\n\n\n\n    </ion-col>\n\n  </ion-row>\n\n  <ion-row>\n\n    <ion-col style="background-color: #ffffff;"><br></ion-col>\n\n  </ion-row>\n\n</ion-grid>\n\n\n\n  </ion-content>\n\n'/*ion-inline-end:"D:\Felippe\IONIC\easy_v3\src\pages\filtros\filtros.html"*/,
-        providers: [__WEBPACK_IMPORTED_MODULE_5__services_filmesEmCartaz_service__["a" /* filmesEmCartazService */], __WEBPACK_IMPORTED_MODULE_6__services_sessoes_service__["a" /* sessoesService */]]
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_5__services_filmesEmCartaz_service__["a" /* filmesEmCartazService */],
-        __WEBPACK_IMPORTED_MODULE_6__services_sessoes_service__["a" /* sessoesService */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* LoadingController */]])
-], Filtros);
-
-//# sourceMappingURL=filtros.js.map
-
 /***/ })
 
-},[205]);
+},[206]);
 //# sourceMappingURL=main.js.map

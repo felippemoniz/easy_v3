@@ -5,6 +5,7 @@ import {Sessoes} from '../sessoes/sessoes';
 import {filmeEmCartaz} from '../../model/filmeEmCartaz';
 import {NavParams} from 'ionic-angular';
 import {filtro} from '../../model/filtro';
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 
 
 
@@ -17,14 +18,16 @@ export class Detalhes {
 	filmeSelecionado : filmeEmCartaz;
 
 
-  	constructor(private nav: NavController, private navParams: NavParams){
+  	constructor(private nav: NavController, 
+                private navParams: NavParams,
+                private youtube: YoutubeVideoPlayer){
 
     	this.filmeSelecionado = navParams.get('param1');
   }
 
 
     static get parameters() {
-      return [[NavController], [NavParams]];
+      return [[NavController], [NavParams],[YoutubeVideoPlayer]];
   }
 
 
@@ -38,9 +41,15 @@ export class Detalhes {
     }
   }
 
+
+  abrirTrailer(link){
+    this.youtube.openVideo('MuDLw1zIc94');
+  }
+
+
   voltar()
   {
-      this.nav.pop();
+     this.nav.pop();
   }
 
 }

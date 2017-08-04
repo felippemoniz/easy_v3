@@ -11,6 +11,7 @@
 
 <ion-content style="position: relative;">
 
+
 <div>
 <img class='imagemTamanhoFixo'  src={{filmeSelecionado.imagem}}>
 </div>
@@ -41,7 +42,7 @@
   </div>
 
   <div class="posBotaoTrailer">
-  <button ion-button outline class="botaoTrailer">ASSISTA AO TRAILER</button>
+  <button ion-button outline class="botaoTrailer" (tap)="abrirTrailer(filmeSelecionado.linktrailer)">ASSISTA AO TRAILER</button>
   </div>
 
 </div>
@@ -49,12 +50,20 @@
 
 
 <div class="conteudo">
-<p><b>SINOPSE</b><br><br>
+<p><b>SINOPSE</b><br>
 {{filmeSelecionado.sinopse}}
 </p>
+
+<p><b>Direção</b><br>
+{{filmeSelecionado.diretor}}
+</p>
+
+<p><b>Atores principais</b><br>
+{{filmeSelecionado.cast}}
+</p>
+
+<br><br><br>
 </div>
-
-
 
 
 <!--ion-row style="height: 10%">
