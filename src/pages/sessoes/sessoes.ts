@@ -10,7 +10,8 @@ import {chip} from '../../model/chip';
 import {cinemaService} from '../../services/cinema-service';
 import {filmesEmCartazService} from '../../services/filmesEmCartaz-service';
 import {LoadingController } from 'ionic-angular';
-
+import { ModalController } from 'ionic-angular';
+import { FiltroSessoes } from '../filtroSessoes/filtroSessoes';
 
 
 declare var geolib : any;
@@ -48,12 +49,13 @@ export class Sessoes {
              private sessoesService : sessoesService,
              private cinemaService : cinemaService,
              private filmesEmCartazService : filmesEmCartazService,
+             public modalCtrl: ModalController,
              public loadingCtrl: LoadingController = null){
 
 
     let loading = this.loadingCtrl.create({
       spinner: 'ios',
-      content: 'Aguarde...'
+      content: 'Procurando sessões disponíveis...'
     }); 
 
     loading.present();
@@ -176,6 +178,13 @@ export class Sessoes {
   }
 
 
+  abreFiltros() {
+    let modal = this.modalCtrl.create(FiltroSessoes);
+    modal.present();
+  }
+
+
+
   formataTempoAteSessao(horaSessao){
     var horaSessaoAtual = this.formataHora(horaSessao);
     var d = new Date();
@@ -216,9 +225,9 @@ export class Sessoes {
 
 
     if (hour == 0){
-      return min + " minutos"
+      return min + " minuto(s)"
     }else{
-      return (hour+' horas e '+min+' minutos');
+      return (hour+' hora(s) e '+min+' minuto(s)');
     }
 
   }

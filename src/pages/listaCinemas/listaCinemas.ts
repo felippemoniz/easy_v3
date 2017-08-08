@@ -10,7 +10,8 @@ import {filtro} from '../../model/filtro';
 import {cinemaService} from '../../services/cinema-service';
 import {chip} from '../../model/chip';
 //import {Geolocation} from 'ionic-native';
-//import { Loading } from 'ionic-angular';
+import {LoadingController } from 'ionic-angular';
+import { ToastController } from 'ionic-angular';
 
 
 declare var geolib : any;
@@ -32,18 +33,30 @@ export class ListaCinemas {
   filtroData : string;
   diaSemanaEscolhido : string = "";
 
-  constructor(private nav: NavController, private navParams: NavParams, private cinemaService:cinemaService) {
+  constructor(private nav: NavController, 
+  	      private navParams: NavParams, 
+  	      private cinemaService:cinemaService,
+  	      public toastCtrl: ToastController = null,
+              public loadingCtrl: LoadingController = null) {
+
+
+    let loading = this.loadingCtrl.create({
+      spinner: 'ios',
+      content: 'Procurando cinemas da sua cidade...'
+    }); 
+
+    loading.present();
+
 
     this.filtroData = navParams.get('param1');
     this.diaSemanaEscolhido = navParams.get('param2');
 
     this.cinemaService = cinemaService;
-    //this.nav.present(this.loading);
 
     this.cinemaService.findAll().subscribe(
                   data => {
                       this.cinemas = data;
-                      //this.loading.dismiss();
+                      loading.dismiss();
                   },
                   err => {
                       console.log(err);
@@ -55,6 +68,19 @@ export class ListaCinemas {
     //this.getAllDistances();
 
   }
+
+
+exibeAlerta(){
+
+    let toast = this.toastCtrl.create({
+      message: 'Ops! Você não escolheu nenhum cinema ainda...',
+      duration: 3000,
+      cssClass: "toastAlerta",
+      position: 'top'
+    });
+    toast.present();
+}
+
 
 
   retornaDataAtual(){
@@ -176,13 +202,21 @@ export class ListaCinemas {
 
 
 verSessoes(){
-  this.nav.push(Sessoes, {
-       param1: this.cinemasSelecionados,
-       param2 : this.filtroData,
-       param3 : "C",
-       param4 : this.diaSemanaEscolhido
-   });
+    if (this.cinemasSelecionados.length > 0 ){
+  	this.nav.push(Sessoes, {
+	       param1: this.cinemasSelecionados,
+	       param2 : this.filtroData,
+	       param3 : "C",
+	       param4 : this.diaSemanaEscolhido
+	   });
+    }else{
+	       this.exibeAlerta();
+    }
 }
+
+
+
+
 
 voltar()
 {

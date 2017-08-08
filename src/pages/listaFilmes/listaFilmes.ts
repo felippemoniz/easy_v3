@@ -45,7 +45,7 @@ export class ListaFilmes {
    
     let loading = this.loadingCtrl.create({
       spinner: 'ios',
-      content: 'Aguarde...'
+      content: 'Procurando filmes em cartaz...'
     }); 
 
     loading.present();

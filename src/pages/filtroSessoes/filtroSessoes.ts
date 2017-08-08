@@ -1,5 +1,6 @@
 import {Component, ViewChild} from '@angular/core'
-import {NavController, NavParams} from 'ionic-angular';
+import {NavController, NavParams,ViewController} from 'ionic-angular';
+
 
 
 @Component({
@@ -7,5 +8,16 @@ import {NavController, NavParams} from 'ionic-angular';
   })
 
 export class FiltroSessoes {
+
+  constructor(public viewCtrl: ViewController, private params: NavParams) {
+  
+  }
+
+
+  fechar() {
+    this.viewCtrl.dismiss();
+  }
+
+
 
 }

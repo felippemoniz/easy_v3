@@ -16,6 +16,7 @@ import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 export class Detalhes {
 
 	filmeSelecionado : filmeEmCartaz;
+  isEstreia : boolean = false;
 
 
   	constructor(private nav: NavController, 
@@ -23,6 +24,9 @@ export class Detalhes {
                 private youtube: YoutubeVideoPlayer){
 
     	this.filmeSelecionado = navParams.get('param1');
+      if (navParams.get('param2')==="ESTREIA"){
+        this.isEstreia = true
+      }
   }
 
 
