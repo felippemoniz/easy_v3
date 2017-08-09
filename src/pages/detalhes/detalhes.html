@@ -11,12 +11,13 @@
 
 <ion-content style="position: relative;">
 
+<!--{{ filmeSelecionado | json }} -->
 
 <div>
 <img class='imagemTamanhoFixo'  src={{filmeSelecionado.imagem}}>
 </div>
 
-<div class="headerDetalhesFilme">
+<div class="headerDetalhesFilme" *ngIf="!isEstreia">
 
     <div class="posCabecalhoFilme">
         <span class="fonteTituloFilme">{{filmeSelecionado.nome}}</span> <br>
@@ -26,9 +27,18 @@
     <div class="posCartazFilme">
       <img class="imagemTamanhoCartaz" src={{filmeSelecionado.poster}}>
     </div>
+</div>
 
+<div class="headerDetalhesFilme" *ngIf="isEstreia">
 
+    <div class="posCabecalhoFilme">
+        <span class="fonteTituloFilme">{{filmeSelecionado.title}}</span> <br>
+        <span class="labelGeneroFilme"> {{filmeSelecionado.genres[0]}} | {{filmeSelecionado.duration}} min |  {{filmeSelecionado.contentRating}}</span>
+    </div>
 
+    <div class="posCartazFilme">
+      <img class="imagemTamanhoCartaz" src={{filmeSelecionado.poster}}>
+    </div>
 </div>
 
 

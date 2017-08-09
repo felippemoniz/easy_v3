@@ -10,7 +10,7 @@ import {LoadingController } from 'ionic-angular';
 import {filmesEmCartazService} from '../../services/filmesEmCartaz-service';
 import {sessoesService} from '../../services/sessoes-service';
 import {filmeEmCartaz} from '../../model/filmeEmCartaz';
-
+import {Detalhes} from '../detalhes/detalhes';
 
 
 @Component({
@@ -189,6 +189,13 @@ export class Filtros {
         param1: dataAgora
      });
   }
+
+   verDetalhes(filmeEmCartaz){
+    this.nav.push(Detalhes, {
+         param1: filmeEmCartaz,
+         param2: "ESTREIA"
+     });
+   }
 
 
   selecionaOpcaoQueroIr(listaQuero){

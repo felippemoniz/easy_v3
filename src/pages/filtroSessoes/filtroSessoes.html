@@ -1,0 +1,25 @@
+<ion-toolbar >
+  <ion-buttons start>
+    <button ion-button icon-only style="color:white" (tap)="fechar()">
+        <ion-icon name="md-close"></ion-icon>
+    </button>
+  </ion-buttons>
+  <ion-title color="primary"></ion-title>
+ <ion-buttons end>
+      <button ion-button icon-only style="color:white" (tap)="abreFiltros()">
+        <ion-icon name="md-refresh"></ion-icon>
+      </button>
+    </ion-buttons>
+</ion-toolbar>
+
+<ion-content style="position: relative;">
+<br>
+<div class="labelTituloTela">
+<b>Filtrar Sessões</b>
+</div>
+
+
+
+<button class="botaoVerSessoes" (click)="verSessoes()">SALVAR FILTROS</button>
+
+</ion-content>

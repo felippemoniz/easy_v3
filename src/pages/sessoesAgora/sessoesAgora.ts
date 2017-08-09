@@ -4,8 +4,7 @@ import {NavController, NavParams} from 'ionic-angular';
 import {sessoesService} from '../../services/sessoes-service';
 import {sessao} from '../../model/sessao';
 import {filtro} from '../../model/filtro';
-//import {Geolocation} from 'ionic-native';
-//import { Loading } from 'ionic-angular';
+import {LoadingController } from 'ionic-angular';
 import {chip} from '../../model/chip';
 
 
@@ -31,7 +30,16 @@ export class SessoesAgora {
   tags = [];
 
 //lições aprendidas: tive que definir o tipo sessoesService pois dava pau no momento da execução, não faço ideia do porquê
- constructor(private nav: NavController, private navParams: NavParams , private sessoesService : sessoesService){
+ constructor(private nav: NavController, private navParams: NavParams , private sessoesService : sessoesService,
+             public loadingCtrl: LoadingController = null){
+
+
+    let loading = this.loadingCtrl.create({
+      spinner: 'ios',
+      content: 'Procurando filmes que vão começar em breve...'
+    }); 
+
+    loading.present();
 
     this.filtroData = navParams.get('param1');
     this.sessoesService = sessoesService;
@@ -43,7 +51,7 @@ export class SessoesAgora {
                 data => {
                     this.sessoes = data;
                     this.qtSessoes = this.sessoes.length;
-                    //this.loading.dismiss();
+                    loading.dismiss();
                 },
                 err => {
                     console.log(err);
@@ -126,9 +134,9 @@ export class SessoesAgora {
 
 
     if (hour == 0){
-      return min + " minutos"
+      return min + " minuto(s)"
     }else{
-      return (hour+' horas e '+min+' minutos');
+      return (hour+' hora(s) e '+min+' minuto(s)');
     }
 
   }

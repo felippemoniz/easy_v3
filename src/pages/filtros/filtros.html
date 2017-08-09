@@ -2,13 +2,13 @@
    <ion-title color="primary">EasyMovie</ion-title>
 </ion-toolbar>
 
-<!--
-<ion-navbar>
-  <ion-title>EasyMovie</ion-title>
-</ion-navbar>
--->
+
+
+
 
   <ion-content class="background" no-bounce>
+
+
 
     <div class="divHeader" >
 
@@ -83,7 +83,7 @@
 
       <div  #filmeCard *ngFor=" let filme of filmes;let i=index"   style="width:100%">
         <div class="overlayFilme">{{filme.title}}<br><span style="font-size:0.7em">Estréia em <b>{{filme.premiereDate.dayAndMonth}}</b> ({{filme.premiereDate.dayOfWeek}})</span></div>
-        <img  src={{filme.images[1].url}}  />
+        <img (tap)="verDetalhes(filme)" src={{filme.images[1].url}}  />
       </div>
 
 
