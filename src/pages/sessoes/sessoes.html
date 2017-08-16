@@ -71,8 +71,14 @@
 
   				</ion-col>
   				<ion-col col-9>
-                      <img src={{sessao.poster}}  class="posterPequeno">
-                      <div style="padding-left: 19%">
+                      <!--img src={{sessao.poster}}  class="posterPequeno"-->
+
+                      <ion-avatar  class="posterPequeno">
+                        <img src="{{sessao.poster}}">
+                      </ion-avatar>
+
+
+                      <div style="padding-left: 22%">
                           <span class="fonteLabelTituloFilme" >{{sessao.nomeFilme}}</span><br>
                           <span class="fonteLabelTituloCinema" >{{sessao.nomeCinema}}</span><br>
                           <span class="fonteLabelTituloDistancia" *ngIf="formataData(filtroData)=='Hoje' "><ion-icon ios="md-time" ></ion-icon>&nbsp;Começa em <b>{{formataTempoAteSessao(sessao.hora)}}</b></span><br>

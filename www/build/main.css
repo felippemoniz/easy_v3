@@ -25756,12 +25756,13 @@ ion-chip.inativo {
 
 .botaoDetalhes {
   position: absolute;
-  right: 0px;
+  right: 9px;
   font-size: 35px;
-  margin-top: -6%;
+  margin-top: 0;
   width: 12%;
   text-align: center;
-  color: #9fa3ad;
+  color: #adb1b9;
+  background-color: rgba(110, 121, 137, 0.06);
 }
 
 .marcacaoNaoSelecionado {
@@ -25806,7 +25807,8 @@ ion-chip.inativo {
   }
   .botaoDetalhes {
     font-size: 32px;
-    margin-top: -7.5%;
+    margin-top: -0.8%;
+    right: 9px;
   }
 }
 
@@ -25882,6 +25884,10 @@ ion-chip.inativo {
   padding: 0px;
   text-align: left;
   font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 86%;
 }
 
 .labelGeneroFilme {
@@ -26071,7 +26077,7 @@ ion-chip.ratingIMDBSessao {
 .estrelaRatingSessao {
   position: absolute;
   left: 8.5%;
-  top: 52%;
+  top: 45%;
   margin-left: -5px;
   width: 8%;
 }
@@ -26079,7 +26085,7 @@ ion-chip.ratingIMDBSessao {
 .estrelaRatingTamanhoSessaoTexto {
   position: absolute;
   left: 13.5%;
-  top: 55%;
+  top: 48%;
   margin-left: -5px;
   width: 7%;
   color: #686c74;

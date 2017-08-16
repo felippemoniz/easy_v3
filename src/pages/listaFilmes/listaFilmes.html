@@ -43,14 +43,17 @@
 
       <img  src={{filme.imagem}}  (tap)="selecionaFilme(filme);"  />
 
-      <div class="card-subtitle" (tap)="verDetalhes(filme)">
+      <div class="card-subtitle" >
           <ion-row>
               <ion-col >
                   <ion-row >
                       <ion-col class="fonteTituloFilme">
                       {{filme.nome }}
-                      <div class="botaoDetalhes" ><ion-icon name="ios-arrow-dropright"></ion-icon></div>
                       </ion-col>
+
+                        <button class="botaoDetalhes" (tap)="verDetalhes(filme)">
+<ion-icon name="arrow-dropright-circle"></ion-icon>
+                        </button>
 
                   </ion-row>
                   <ion-row>

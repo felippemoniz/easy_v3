@@ -75,13 +75,16 @@
 
 .botaoDetalhes {
     position: absolute;
-    right: 0px;
+      right: 9px;
     font-size: 35px;
-    margin-top: -6%;
+    margin-top: 0;
     width: 12%;
     text-align: center;
-    color: #9fa3ad;
+    color: #adb1b9;
+    background-color: rgba(110, 121, 137, 0.06);
 }
+
+
 
 .marcacaoNaoSelecionado {
    padding: 0px;
@@ -134,7 +137,8 @@
 
   .botaoDetalhes {
     font-size: 32px;
-    margin-top: -7.5%;
+    margin-top: -0.8%;
+          right: 9px;
   }
 
 }
@@ -220,6 +224,10 @@
   padding: 0px;
   text-align: left;
   font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 86%
 
 }
 
