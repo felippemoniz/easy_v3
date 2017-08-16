@@ -7,10 +7,12 @@
     position:relative;
     text-align: center;
     margin-left: 0px;
+    margin-bottom: 5%;
     height: 186px;
     width: 100%;
     font-family: "Open Sans", "Helvetica";
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
+    //border-radius: 5px;
 
   }
 
@@ -73,13 +75,16 @@
 
 .botaoDetalhes {
     position: absolute;
-    right: 0px;
+      right: 9px;
     font-size: 35px;
-    margin-top: -26px;
-    background-color: #768190;
+    margin-top: 0;
     width: 12%;
     text-align: center;
+    color: #adb1b9;
+    background-color: rgba(110, 121, 137, 0.06);
 }
+
+
 
 .marcacaoNaoSelecionado {
    padding: 0px;
@@ -128,6 +133,12 @@
 
   .scrollVerticalFilmes {
       height: 59%;
+  }
+
+  .botaoDetalhes {
+    font-size: 32px;
+    margin-top: -0.8%;
+          right: 9px;
   }
 
 }
@@ -213,6 +224,11 @@
   padding: 0px;
   text-align: left;
   font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 86%
+
 }
 
 .labelGeneroFilme {
@@ -233,7 +249,7 @@ ion-chip.ratingIMDB {
   margin: 3px 3px;
   padding: 0 11px;
   height: 22px;
-  border-radius: 11px;
+  border-radius: 4px;
   font-size: 12px;
   color: white;
   font-weight: normal;
@@ -250,7 +266,7 @@ ion-chip.ratingIMDB {
 
 .estrelaRating {
   position:absolute;
-  left: 10px;
+  left: 10%;
 }
 
 .estrelaRatingTamanho {

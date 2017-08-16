@@ -28,6 +28,7 @@ export class SessoesAgora {
   filtroData: string;
   qtSessoes = 0;
   tags = [];
+  filtroString = []
 
 //lições aprendidas: tive que definir o tipo sessoesService pois dava pau no momento da execução, não faço ideia do porquê
  constructor(private nav: NavController, private navParams: NavParams , private sessoesService : sessoesService,
@@ -37,7 +38,7 @@ export class SessoesAgora {
     let loading = this.loadingCtrl.create({
       spinner: 'ios',
       content: 'Procurando filmes que vão começar em breve...'
-    }); 
+    });
 
     loading.present();
 
@@ -183,6 +184,56 @@ export class SessoesAgora {
     }
 
   }
+
+
+  selecionaTag(tag){
+    tag.selecionado = !tag.selecionado;
+    var retorno=""
+
+    if (tag.nome == "LEG"){
+      if (tag.selecionado)this.filtroString[0]="Legendado"
+      if (!tag.selecionado)this.filtroString[0]=""
+    }
+    if (tag.nome == "DUB" ){
+      if (tag.selecionado)this.filtroString[1]="Dublado"
+      if (!tag.selecionado)this.filtroString[1]=""
+    }
+    if (tag.nome == "3D" ){
+      if (tag.selecionado)this.filtroString[2]="3D"
+      if (!tag.selecionado)this.filtroString[2]=""
+    }
+    if (tag.nome == "2D" ){
+      if (tag.selecionado)this.filtroString[3]="Normal"
+      if (!tag.selecionado)this.filtroString[3]=""
+    }
+
+    retorno = this.filtroString.join();
+
+    this.mostraSessao(retorno.replace(/^,|,$/g,''))
+
+    }
+
+
+    mostraSessao(tags){
+    var item, tipoSessao, tags_temp
+
+    tags_temp = tags.replace(",,,",",");
+    tags_temp = tags_temp.replace(",,",",");
+    this.qtSessoes=0;
+
+      for (var i = 0; i < this.sessoes.length; i++) {
+          item = this.sessoes[i];
+          tipoSessao = item.tipo;
+
+              if (tipoSessao.indexOf(tags_temp)==-1){
+                  item.selecionado = 1;
+              }
+              else{
+                item.selecionado = 0;
+                this.qtSessoes = this.qtSessoes + 1;
+              }
+          }
+      }
 
 
   private getDistance (origin, destination){

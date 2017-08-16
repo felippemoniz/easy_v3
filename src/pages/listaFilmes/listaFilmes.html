@@ -35,22 +35,25 @@
       <div>
         <ion-chip class="ratingIMDB">
           <div class="estrelaRating"><img src="./images/starRating.png" class="estrelaRatingTamanho"></div>
-          <ion-label style="color:white; position:absolute;left:30px"><b> {{trataDetalhes("N",filme.notaimdb)}}</b> /<span style="font-size: 10px;">10</span></ion-label>
+          <ion-label style="color:white; position:absolute;left:25%"><b> {{trataDetalhes("N",filme.notaimdb)}}</b>/<span style="font-size: 10px;">10</span></ion-label>
         </ion-chip>
       </div>
 
       <div class="tagRanking" *ngIf="i<3 && filme.qtacesso > 0"><b>{{i + 1}}º</b> MAIS PROCURADO</div>
 
-      <img  src={{filme.imagem}} (tap)="selecionaFilme(filme);"  />
+      <img  src={{filme.imagem}}  (tap)="selecionaFilme(filme);"  />
 
-      <div class="card-subtitle">
+      <div class="card-subtitle" >
           <ion-row>
               <ion-col >
-                  <ion-row (tap)="verDetalhes(filme)">
-                      <ion-col class="fonteTituloFilme" >
-                      {{filme.nome}}
-                      <div class="botaoDetalhes" ><ion-icon name="md-more"></ion-icon></div>
+                  <ion-row >
+                      <ion-col class="fonteTituloFilme">
+                      {{filme.nome }}
                       </ion-col>
+
+                        <button class="botaoDetalhes" (tap)="verDetalhes(filme)">
+<ion-icon name="arrow-dropright-circle"></ion-icon>
+                        </button>
 
                   </ion-row>
                   <ion-row>
@@ -82,4 +85,3 @@
 
 
 <!-- ##########################################################################-->
-

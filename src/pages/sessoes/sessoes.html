@@ -5,11 +5,11 @@
     </button>
   </ion-buttons>
   <ion-title color="primary">EasyMovie</ion-title>
- <ion-buttons end>
+ <!--ion-buttons end>
       <button ion-button icon-only style="color:white" (tap)="abreFiltros()">
         <ion-icon name="ios-options"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons-->
 </ion-toolbar>
 
 <ion-content style="position: relative;">
@@ -71,8 +71,14 @@
 
   				</ion-col>
   				<ion-col col-9>
-                      <img src={{sessao.poster}}  class="posterPequeno">
-                      <div style="padding-left: 19%">
+                      <!--img src={{sessao.poster}}  class="posterPequeno"-->
+
+                      <ion-avatar  class="posterPequeno">
+                        <img src="{{sessao.poster}}">
+                      </ion-avatar>
+
+
+                      <div style="padding-left: 22%">
                           <span class="fonteLabelTituloFilme" >{{sessao.nomeFilme}}</span><br>
                           <span class="fonteLabelTituloCinema" >{{sessao.nomeCinema}}</span><br>
                           <span class="fonteLabelTituloDistancia" *ngIf="formataData(filtroData)=='Hoje' "><ion-icon ios="md-time" ></ion-icon>&nbsp;Começa em <b>{{formataTempoAteSessao(sessao.hora)}}</b></span><br>

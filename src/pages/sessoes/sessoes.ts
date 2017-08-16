@@ -35,6 +35,7 @@ export class Sessoes {
   sessoes: sessao[];
   filtroData: string;
   tipoPesquisa;
+  filtroString = []
   latitude : number;
   Longitude : number;
   sessoesOriginais = [];
@@ -55,8 +56,8 @@ export class Sessoes {
 
     let loading = this.loadingCtrl.create({
       spinner: 'ios',
-      content: 'Procurando sessões disponíveis...'
-    }); 
+      content: 'Procurando sessï¿½es disponï¿½veis...'
+    });
 
     loading.present();
 
@@ -261,35 +262,62 @@ export class Sessoes {
   }
 
 
+
+
   selecionaTag(tag){
     tag.selecionado = !tag.selecionado;
-    var tipo = tag.nomeDetalhado
+    var retorno=""
 
-    console.log(tag)
-
-    if (this.tagsSelecionadas.indexOf(tipo) == -1){
-       this.tagsSelecionadas.push(tipo)
-    }else{
-       this.tagsSelecionadas.splice(this.tagsSelecionadas.indexOf(tipo), 1);
+    if (tag.nome == "LEG"){
+      if (tag.selecionado)this.filtroString[0]="Legendado"
+      if (!tag.selecionado)this.filtroString[0]=""
+    }
+    if (tag.nome == "DUB" ){
+      if (tag.selecionado)this.filtroString[1]="Dublado"
+      if (!tag.selecionado)this.filtroString[1]=""
+    }
+    if (tag.nome == "3D" ){
+      if (tag.selecionado)this.filtroString[2]="3D"
+      if (!tag.selecionado)this.filtroString[2]=""
+    }
+    if (tag.nome == "2D" ){
+      if (tag.selecionado)this.filtroString[3]="Normal"
+      if (!tag.selecionado)this.filtroString[3]=""
     }
 
-    this.filtraSessoes(tag)
-    //console.log(this.tagsSelecionadas)
-  }
+    retorno = this.filtroString.join();
+
+    this.mostraSessao(retorno.replace(/^,|,$/g,''))
+
+    }
+
+
+    mostraSessao(tags){
+    var item, tipoSessao, tags_temp
+
+    tags_temp = tags.replace(",,,",",");
+    tags_temp = tags_temp.replace(",,",",");
+    this.qtSessoes=0;
+
+      for (var i = 0; i < this.sessoes.length; i++) {
+          item = this.sessoes[i];
+          tipoSessao = item.tipo;
+
+              if (tipoSessao.indexOf(tags_temp)==-1){
+                  item.selecionado = 1;
+              }
+              else{
+                item.selecionado = 0;
+                this.qtSessoes = this.qtSessoes + 1;
+              }
+          }
+      }
 
 
 
 
 
-  filtraSessoes_(tag){
 
-
-    var uniqueArray = this.sessoes.filter( function( elem, index, array ) {
-        return array.indexOf( elem ) === index;
-    } );
-
-
-  }
 
 
 filtraSessoes(tag){
@@ -306,16 +334,12 @@ filtraSessoes(tag){
                               if (tipoSessao.indexOf(this.tagsSelecionadas[y])==-1){
                                   item.selecionado = 1;
                               }
-                        }/*else{
-                              if (tipoSessao.indexOf(this.tagsSelecionadas[y])>=0){
-                                  item.selecionado = 0;
-                              }
-                        }*/
+                        }
+
                   }
-            }
-            else{
+            }else{
               item.selecionado = 0;
-              console.log("mostra")
+
             }
     }
 
@@ -323,27 +347,6 @@ filtraSessoes(tag){
   }
 
 
-  selecionaTag_temp(tag){
-  var item, tipo
-      for (var i = 0; i < this.sessoes.length; i++) {
-          item = this.sessoes[i];
-          tipo = item.tipo;
-          //console.log(tag.nomeDetalhado + " estÃ¡ dentro de => " + tipo + "=" + tipo.indexOf(tag.nomeDetalhado))
-
-          if (tag.selecionado == false) { //marcando, ou seja, quero excluir
-                if (tipo.indexOf(tag.nomeDetalhado)<0){
-                      item.selecionado = 1;
-                 }
-          }else{ //desmarcando, ou seja, quero exibir
-                if (tipo.indexOf(tag.nomeDetalhado)>=0){
-                      alert("Entrei")
-                      item.selecionado = 0;
-                 }
-          }
-      }
-      //this.contaSessoes()
-      tag.selecionado = !tag.selecionado;
-  }
 
 
   contaSessoes(){
