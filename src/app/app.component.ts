@@ -15,7 +15,7 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.backgroundColorByHexString('#51596d');
-      splashScreen.hide();
+      //splashScreen.hide();
     });
   }
 }
