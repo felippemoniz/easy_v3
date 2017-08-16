@@ -21,6 +21,7 @@ dist/
 node_modules/
 tmp/
 temp/
+www/build
 hooks/
 platforms/
 plugins/
