@@ -40,7 +40,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 200px;
+  max-width: 210px;
 }
 
 .fonteLabelTituloCinema{
@@ -48,6 +48,10 @@
   font-family: "Open Sans", "Helvetica";
   font-size: 14px;
   font-weight:bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 210px;
 }
 
 .fonteLabelTituloDistancia{
@@ -152,11 +156,14 @@ position: absolute;
 
   .fonteLabelTituloFilme{
       font-size: 13px;
+      max-width: 193px;
   }
 
   .fonteLabelTituloCinema{
       font-size: 13px;
+      max-width: 193px;
   }
+
 
   .fonteLabelTituloDistancia{
       font-size: 11px;
