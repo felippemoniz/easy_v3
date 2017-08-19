@@ -24,8 +24,8 @@
 <div class="headerDetalhesFilme" *ngIf="!isEstreia">
 
     <div class="posCabecalhoFilme">
-        <span class="fonteTituloFilmeDetalhe">{{filmeSelecionado.nome}}</span> <br>
-        <span class="labelGeneroFilme"> {{filmeSelecionado.genero}} | {{filmeSelecionado.duracao}} min |  {{filmeSelecionado.classificacao}}</span>
+        <div class="fonteTituloFilmeDetalhe" text-wrap>{{filmeSelecionado.nome}}</div>
+        <div class="labelGeneroFilme"> {{filmeSelecionado.genero}} | {{filmeSelecionado.duracao}} min |  {{filmeSelecionado.classificacao}}</div>
     </div>
 
     <div class="posCartazFilme">
@@ -36,8 +36,8 @@
 <div class="headerDetalhesFilme" *ngIf="isEstreia">
 
     <div class="posCabecalhoFilme">
-        <span class="fonteTituloFilme">{{filmeSelecionado.title}}</span> <br>
-        <span class="labelGeneroFilme"> {{filmeSelecionado.genres[0]}} | {{filmeSelecionado.duration}} min |  {{filmeSelecionado.contentRating}}</span>
+        <div class="fonteTituloFilme">{{filmeSelecionado.title}}</div> <br>
+        <div class="labelGeneroFilme"> {{filmeSelecionado.genres[0]}} | {{filmeSelecionado.duration}} min |  {{filmeSelecionado.contentRating}}</div>
     </div>
 
     <div class="posCartazFilme">
