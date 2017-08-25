@@ -47,7 +47,7 @@ export class Detalhes {
 
 
   abrirTrailer(link){
-    this.youtube.openVideo('MuDLw1zIc94');
+    this.youtube.openVideo('https://www.youtube.com/watch?v=DCNEMfQ_uUg');
   }
 
 

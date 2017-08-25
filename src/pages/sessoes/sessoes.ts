@@ -12,6 +12,7 @@ import {filmesEmCartazService} from '../../services/filmesEmCartaz-service';
 import {LoadingController } from 'ionic-angular';
 import { ModalController } from 'ionic-angular';
 import { FiltroSessoes } from '../filtroSessoes/filtroSessoes';
+import { PopoverController } from 'ionic-angular';
 
 
 declare var geolib : any;
@@ -50,7 +51,7 @@ export class Sessoes {
              private sessoesService : sessoesService,
              private cinemaService : cinemaService,
              private filmesEmCartazService : filmesEmCartazService,
-             public modalCtrl: ModalController,
+             public popoverCtrl: PopoverController,
              public loadingCtrl: LoadingController = null){
 
 
@@ -179,9 +180,9 @@ export class Sessoes {
   }
 
 
-  abreFiltros() {
-    let modal = this.modalCtrl.create(FiltroSessoes);
-    modal.present();
+  abreDetalhesSessao(sessao) {
+     let popover = this.popoverCtrl.create(FiltroSessoes,{sessao});
+     popover.present();
   }
 
 
@@ -226,9 +227,9 @@ export class Sessoes {
 
 
     if (hour == 0){
-      return min + " minuto(s)"
+      return min + " min"
     }else{
-      return (hour+' hora(s) e '+min+' minuto(s)');
+      return (hour+' h e '+min+' min');
     }
 
   }

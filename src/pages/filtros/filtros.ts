@@ -21,6 +21,7 @@ import {Detalhes} from '../detalhes/detalhes';
 export class Filtros {
 
   filmes: filmeEmCartaz[];
+  filmeEstreia : filmeEmCartaz;
   datas : dataDisponivel[];
   loading ;
   testSlides: string[] = [];
@@ -48,16 +49,17 @@ export class Filtros {
      this.filmesEmCartazService = filmesEmCartazService;
      this.sessoesService = sessoesService;
 
-     this.filmesEmCartazService.getTop6().subscribe(
+/*
+     this.filmesEmCartazService.findEstreiaDaSemana().subscribe(
                   data => {
-                      this.filmes = data
-                      //console.log(this.filmes.length)
+                      this.filmeEstreia = data
                   },
                   err => {
                       console.log(err);
                   },
                   () => console.log()
       );
+*/
 
 
       this.sessoesService.getDates(this.dataAtual).subscribe(

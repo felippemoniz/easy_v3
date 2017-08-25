@@ -26,10 +26,9 @@ export class filmesEmCartazService {
   }
 
 
-  getTop6() {
-      return this.http.get(SERVER_URL + "topFilmes/")
-          .map(res => res.json());
-
+  findEstreiaDaSemana(){
+	return this.http.get(SERVER_URL + 'filmeEstreiaDaSemana/')
+	  .map(res => res.json());
   }
 
   findFilmesPorSessao(id,data) {

@@ -1,0 +1,82 @@
+
+.popover-ios .popover-content {
+    border-radius: 3px;
+    width: 280px;
+    height: 300px;
+ }
+
+    
+.popover-ios .popover-content .ion-backdrop {
+    opacity: 0.5;
+}
+    
+
+ .imageHeaderDetalheSessao{
+    position: absolute;
+  }
+
+ .imagemMarcaDagua{
+ 	opacity: 0.1
+ }
+
+ .tituloFilmeDetalheSessao{
+  color: #eaeaea;
+  font-family: "Open Sans";
+  font-size: 15px;
+  font-weight:bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width:  261px;
+  padding-left: 8px;
+  line-height: 36px;
+}
+
+.tituloFilmeSubDetalheSessao{
+    color: #cac9c9;
+    font-family: "Open Sans", "Helvetica";
+    font-size: 11px;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 261px;
+    padding-left: 8px;
+    line-height: 14px;
+    padding-bottom: 7px;
+}
+
+.tituloDia{
+	text-align: center; 
+	font-family: "Open Sans", "Helvetica";
+    font-size: 17px;
+    font-weight: bold;
+    color: #4b5264;
+    padding-top: 9px;
+}
+
+.botaoCompartilhar{
+    color: #ffffff;
+    background-color: #e1b612;
+    width: 104%;
+    height: 35px;
+    font-family: "Open Sans", "Helvetica";
+    font-size: 12px;
+    border-radius: 4px;
+}
+
+.botaoFechar{
+    color: #ffffff;
+    background-color: #c5c5c4;
+    width: 91%;
+    height: 35px;
+    font-family: "Open Sans", "Helvetica";
+    font-size: 12px;
+    border-radius: 4px;
+}
+
+.fonteDetalhesSessao{
+    font-family: "Open Sans", "Helvetica";
+    font-size: 13px;
+    color: #4b5264;
+}

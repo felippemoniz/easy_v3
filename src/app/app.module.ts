@@ -16,6 +16,7 @@ import {FiltroSessoes} from '../pages/filtroSessoes/filtroSessoes';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
     StatusBar,
     SplashScreen,
     YoutubeVideoPlayer,
+    SocialSharing,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
