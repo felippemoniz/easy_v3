@@ -25354,7 +25354,7 @@ ion-chip.ratingIMDBDetalhe {
 .popover-ios .popover-content {
   border-radius: 3px;
   width: 280px;
-  height: 300px;
+  height: 380px;
 }
 
 .popover-ios .popover-content .ion-backdrop {
@@ -25379,7 +25379,7 @@ ion-chip.ratingIMDBDetalhe {
   text-overflow: ellipsis;
   max-width: 261px;
   padding-left: 8px;
-  line-height: 36px;
+  line-height: 31px;
 }
 
 .tituloFilmeSubDetalheSessao {
@@ -25392,7 +25392,7 @@ ion-chip.ratingIMDBDetalhe {
   text-overflow: ellipsis;
   max-width: 261px;
   padding-left: 8px;
-  line-height: 14px;
+  line-height: 9px;
   padding-bottom: 7px;
 }
 
@@ -25403,6 +25403,24 @@ ion-chip.ratingIMDBDetalhe {
   font-weight: bold;
   color: #4b5264;
   padding-top: 9px;
+}
+
+.tituloDetalhe {
+  font-family: "Open Sans", "Helvetica";
+  font-size: 15px;
+  font-weight: bold;
+  color: #65a3c3;
+}
+
+.tituloCampo {
+  font-family: "Open Sans", "Helvetica";
+  font-size: 20px;
+  font-weight: bold;
+  color: #4b5264;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 210px;
 }
 
 .botaoCompartilhar {
@@ -25426,9 +25444,7 @@ ion-chip.ratingIMDBDetalhe {
 }
 
 .fonteDetalhesSessao {
-  font-family: "Open Sans", "Helvetica";
-  font-size: 13px;
-  color: #4b5264;
+  line-height: 15px;
 }
 
 .toolbar-background {

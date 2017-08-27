@@ -1,32 +1,43 @@
 
 <ion-content style="position: relative;">
 
+
 <div style="background-color: #4b5264;">
+
+  <img  src="https://ingresso-a.akamaihd.net/img/cinema/cartaz/19194-destaque.jpg"  (tap)="selecionaFilme(filme);"  />
+
+
 <div class="tituloFilmeDetalheSessao">{{sessao.nomeFilme}}</div>
 <div class="tituloFilmeSubDetalheSessao">{{sessao.genero}} | {{sessao.duracao}} minutos | {{ sessao.classificacao}}</div>
 <div  class="tituloFilmeSubDetalheSessao">{{sessao.tipo}}</div>
 </div>
 
-<div class="tituloDia"><b>{{sessao.diames}} ({{sessao.diasemana}})</b></div>
-
-
+<br>
 <ion-grid class="fonteDetalhesSessao">
-  <ion-row style="background-color: #f1f2f4">
-      <ion-col col-6>
-          Começa as <b>{{formataHora(sessao.hora)}}</b>
-      </ion-col>
-        <ion-col col-6 style="text-align: right">
-          Termina as  <b>{{calculaHoraFim(formataHora(sessao.hora), sessao.duracao)}}*</b>
-      </ion-col>
+  <ion-row >
+      <ion-col col-4 class="tituloDetalhe">Quando</ion-col>
+      <ion-col col-8 class="tituloDetalhe" style="text-align: left">Onde</ion-col>
  </ion-row>
-   <ion-row style="background-color: #f1f2f4">
-      <ion-col col-12>
-          No <b>{{sessao.nomeCinema}}</b>
-      </ion-col>
- </ion-row>
+ <ion-row >
+     <ion-col col-4 class="tituloCampo">{{sessao.diames}}</ion-col>
+     <ion-col col-8 class="tituloCampo" style="text-align: left; font-size:14px">{{sessao.nomeCinema}}</ion-col>
+</ion-row>
+<ion-row >
+      <ion-col col-12></ion-col>
+</ion-row>
+
+<ion-row >
+    <ion-col col-4 class="tituloDetalhe">Começa</ion-col>
+    <ion-col col-8 class="tituloDetalhe" style="text-align: left">Acaba até <span style="font-size:10px">(estimado)</span></ion-col>
+</ion-row>
+<ion-row >
+   <ion-col col-4 class="tituloCampo">{{formataHora(sessao.hora)}}</ion-col>
+   <ion-col col-8 class="tituloCampo" style="text-align: left">{{calculaHoraFim(formataHora(sessao.hora), sessao.duracao)}}</ion-col>
+</ion-row>
+
 </ion-grid>
 
-<br><br><br>
+<br>
 
 <ion-grid>
   <ion-row>
@@ -40,6 +51,31 @@
 </ion-grid>
 
 
+<!--
 
+<ion-grid class="fonteDetalhesSessao">
+  <ion-row >
+      <ion-col col-4 class="tituloDetalhe">Quando</ion-col>
+      <ion-col col-8 class="tituloDetalhe" style="text-align: left">Onde</ion-col>
+ </ion-row>
+ <ion-row >
+     <ion-col col-4 class="tituloCampo">{{sessao.diames}}</ion-col>
+     <ion-col col-8 class="tituloCampo" style="text-align: left; font-size:14px">{{sessao.nomeCinema}}</ion-col>
+</ion-row>
+<ion-row >
+      <ion-col col-12>&nbsp;</ion-col>
+</ion-row>
 
-</ion-content>
+<ion-row >
+    <ion-col col-4 class="tituloDetalhe">Começa</ion-col>
+    <ion-col col-8 class="tituloDetalhe" style="text-align: left">Acaba até (estimado)</ion-col>
+</ion-row>
+<ion-row >
+   <ion-col col-4 class="tituloCampo">{{formataHora(sessao.hora)}}</ion-col>
+   <ion-col col-8 class="tituloCampo" style="text-align: left">{{calculaHoraFim(formataHora(sessao.hora), sessao.duracao)}}</ion-col>
+</ion-row>
+
+</ion-grid>
+-->
+
+<ion-content>

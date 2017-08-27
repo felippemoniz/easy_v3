@@ -14,7 +14,7 @@ export class FiltroSessoes {
 
 
   constructor(public viewCtrl: ViewController, private params: NavParams, private socialSharing: SocialSharing) {
-  
+
     this.params = params;
     console.log(params.get('sessao'));
     this.sessao = params.get('sessao')
@@ -28,8 +28,8 @@ export class FiltroSessoes {
 
 
   shareSheetShare() {
-    //this.socialSharing.share("Olá! O filme " + this.sessao.nomeFilme + " vai ter uma sessão em "+ this.sessao.diames +"("+this.sessao.diasemana+") às "+this.formataHora(sessao.hora)+" horas. O que acha?", "Que tal um cineminha?", "https://ingresso-a.akamaihd.net/img/cinema/cartaz/19194-destaque.jpg", "A URL to share").then(() => {
-      this.socialSharing.share("Olá! O filme Anabelle: A criação do Mal vai ter uma sessão em 26/08(Sábado) às 13:39. O que acha?", "Que tal um cineminha?", "https://ingresso-a.akamaihd.net/img/cinema/cartaz/19194-destaque.jpg", "A URL to share").then(() => {
+    //this.socialSharing.share("Olï¿½! O filme " + this.sessao.nomeFilme + " vai ter uma sessï¿½o em "+ this.sessao.diames +"("+this.sessao.diasemana+") ï¿½s "+this.formataHora(sessao.hora)+" horas. O que acha?", "Que tal um cineminha?", "https://ingresso-a.akamaihd.net/img/cinema/cartaz/19194-destaque.jpg", "A URL to share").then(() => {
+      this.socialSharing.share("Olï¿½! O filme Anabelle: A criaï¿½ï¿½o do Mal vai ter uma sessï¿½o em 26/08(Sï¿½bado) ï¿½s 13:39. O que acha?", "Que tal um cineminha?", "https://ingresso-a.akamaihd.net/img/cinema/cartaz/19194-destaque.jpg", "https://ingresso-a.akamaihd.net/img/cinema/cartaz/19194-destaque.jpg").then(() => {
       console.log("shareSheetShare: Success");
     }).catch(() => {
       console.error("shareSheetShare: failed");
