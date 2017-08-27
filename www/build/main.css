@@ -25353,7 +25353,13 @@ ion-chip.ratingIMDBDetalhe {
 
 .popover-ios .popover-content {
   border-radius: 3px;
-  width: 280px;
+  width: 80%;
+  height: 380px;
+}
+
+.popover-md .popover-content {
+  border-radius: 3px;
+  width: 80%;
   height: 380px;
 }
 
