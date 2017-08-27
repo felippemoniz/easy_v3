@@ -26000,7 +26000,7 @@ ion-chip.inativo {
 
 .fonteTituloFilme {
   color: #ffffff;
-  font-family: "Open Sans", "Helvetica";
+  font-family: "Arial";
   text-align: left;
   font-size: 2.8vh;
   padding: 0px;
@@ -26014,7 +26014,7 @@ ion-chip.inativo {
 
 .labelGeneroFilme {
   font-size: 1.7vh;
-  font-family: "Open Sans", "Helvetica";
+  font-family: "Arial";
   text-align: left;
   padding-left: 0px;
   padding-top: 2px;
@@ -26125,7 +26125,7 @@ ion-navbar>.toolbar-background{
 
 .fonteLabelTituloFilme {
   color: #686c74;
-  font-family: "Open Sans";
+  font-family: "Arial";
   font-size: 15px;
   font-weight: bold;
   white-space: nowrap;
@@ -26136,7 +26136,7 @@ ion-navbar>.toolbar-background{
 
 .fonteLabelTituloCinema {
   color: #4281a0;
-  font-family: "Open Sans", "Helvetica";
+  font-family: "Arial";
   font-size: 14px;
   font-weight: bold;
   white-space: nowrap;
@@ -26147,7 +26147,7 @@ ion-navbar>.toolbar-background{
 
 .fonteLabelTituloDistancia {
   color: #686c74;
-  font-family: "Open Sans", "Helvetica";
+  font-family: "Arial";
   font-size: 12px;
   font-weight: lighter;
 }
@@ -26174,11 +26174,13 @@ ion-navbar>.toolbar-background{
 .headerSessoes {
   color: white;
   background-color: #5e6a7c;
-  font-family: "Open Sans", "Helvetica";
   font-size: 105%;
   font-weight: lighter;
   height: 35px;
   vertical-align: baseline;
+  font-family: "Arial";
+  vertical-align: middle;
+  margin-top: 1%;
 }
 
 ion-chip.ratingIMDBSessao {

@@ -34,7 +34,7 @@
 
 .fonteLabelTituloFilme{
   color: #686c74;
-  font-family: "Open Sans";
+  font-family: "Arial";
   font-size: 15px;
   font-weight:bold;
   white-space: nowrap;
@@ -45,7 +45,7 @@
 
 .fonteLabelTituloCinema{
   color: #4281a0;;
-  font-family: "Open Sans", "Helvetica";
+  font-family: "Arial";
   font-size: 14px;
   font-weight:bold;
   white-space: nowrap;
@@ -56,7 +56,7 @@
 
 .fonteLabelTituloDistancia{
   color: #686c74;
-  font-family: "Open Sans", "Helvetica";
+  font-family: "Arial";
   font-size: 12px;
   font-weight:lighter;
 }
@@ -87,11 +87,13 @@
 .headerSessoes{
   color: white;
   background-color: #5e6a7c;
-  font-family: "Open Sans", "Helvetica";
   font-size: 105%;
   font-weight:lighter;
   height: 35px;
   vertical-align: baseline;
+  font-family: "Arial";
+  vertical-align: middle;
+  margin-top: 1%;
 }
 
 
