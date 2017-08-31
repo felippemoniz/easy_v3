@@ -12,6 +12,7 @@ export class sessao{
  public latitude?:number,
  public longitude?:number,
  public distancia?:number,
+ public imagem2?:string,
  public selecionado?: boolean)
  {}
 }

@@ -25352,15 +25352,15 @@ ion-chip.ratingIMDBDetalhe {
 }
 
 .popover-ios .popover-content {
-  border-radius: 3px;
-  width: 80%;
-  height: 380px;
+  border-radius: 7px;
+  width: 90%;
+  height: 385px;
 }
 
 .popover-md .popover-content {
-  border-radius: 3px;
+  border-radius: 7px;
   width: 80%;
-  height: 380px;
+  height: 388px;
 }
 
 .popover-ios .popover-content .ion-backdrop {
@@ -25377,7 +25377,7 @@ ion-chip.ratingIMDBDetalhe {
 
 .tituloFilmeDetalheSessao {
   color: #eaeaea;
-  font-family: "Open Sans";
+  font-family: "Arial";
   font-size: 15px;
   font-weight: bold;
   white-space: nowrap;
@@ -25390,7 +25390,7 @@ ion-chip.ratingIMDBDetalhe {
 
 .tituloFilmeSubDetalheSessao {
   color: #cac9c9;
-  font-family: "Open Sans", "Helvetica";
+  font-family: "Arial";
   font-size: 11px;
   font-weight: bold;
   white-space: nowrap;
@@ -25404,7 +25404,7 @@ ion-chip.ratingIMDBDetalhe {
 
 .tituloDia {
   text-align: center;
-  font-family: "Open Sans", "Helvetica";
+  font-family: "Arial";
   font-size: 17px;
   font-weight: bold;
   color: #4b5264;
@@ -25412,14 +25412,14 @@ ion-chip.ratingIMDBDetalhe {
 }
 
 .tituloDetalhe {
-  font-family: "Open Sans", "Helvetica";
+  font-family: "Arial";
   font-size: 15px;
   font-weight: bold;
   color: #65a3c3;
 }
 
 .tituloCampo {
-  font-family: "Open Sans", "Helvetica";
+  font-family: "Arial";
   font-size: 20px;
   font-weight: bold;
   color: #4b5264;
@@ -25811,12 +25811,40 @@ ion-chip.inativo {
 }
 
 /* Classes para o card de filmes / cinemas */
+.card-background-page {
+  /*
+  ion-card {
+    position:relative;
+    text-align: center;
+    margin-left: 0px;
+    margin-bottom: 5%;
+    height: 186px;
+    width: 100%;
+    font-family: "Open Sans", "Helvetica";
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
+    //border-radius: 5px;
+  }*/
+  /*
+  .card-subtitle {
+    font-size: 1.0em;
+    position: absolute;
+    top: 70%;
+    width: 100%;
+    height: 30%;
+    color: white;
+    background-color: #5e6a7c;
+    margin: 0px;
+    opacity: 0.90;
+  }
+*/
+}
+
 .card-background-page ion-card {
   position: relative;
   text-align: center;
   margin-left: 0px;
   margin-bottom: 5%;
-  height: 186px;
+  height: 203px;
   width: 100%;
   font-family: "Open Sans", "Helvetica";
   -webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
@@ -25847,9 +25875,9 @@ ion-chip.inativo {
   width: 100%;
   height: 30%;
   color: white;
-  background-color: #5e6a7c;
+  background-color: #7f8896;
   margin: 0px;
-  opacity: 0.90;
+  opacity: 1;
 }
 
 .scrollHorizontal {
@@ -25906,7 +25934,7 @@ ion-chip.inativo {
   bottom: 0;
   right: 0;
   width: 100%;
-  height: 67.5%;
+  height: 65.5%;
 }
 
 .toastAlerta > div {
@@ -26010,6 +26038,7 @@ ion-chip.inativo {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 86%;
+  padding-top: 1%;
 }
 
 .labelGeneroFilme {

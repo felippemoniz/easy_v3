@@ -1,5 +1,5 @@
 <ion-toolbar >
-  <ion-buttons start>
+  <ion-buttons left>
     <button ion-button icon-only style="color:white" (tap)="voltar()">
         <ion-icon name="md-arrow-back"></ion-icon>
     </button>
@@ -28,7 +28,7 @@
 
 
       <div  #layerMarcada [ngClass]="filme.selecionado ? 'marcacaoSelecionado' : 'marcacaoNaoSelecionado'" (tap)="selecionaFilme(filme);" >
-          <img style="width: 100px; position: relative; left: 38%; top:20px" src="./images/imgSelecionado.png"/>
+          <img style="width: 100px; position: relative; left: 38%; top:33px" src="./images/imgSelecionado.png"/>
       </div>
 
 
@@ -52,7 +52,7 @@
                       </ion-col>
 
                         <button class="botaoDetalhes" (tap)="verDetalhes(filme)">
-<ion-icon name="arrow-dropright-circle"></ion-icon>
+<ion-icon name="ios-arrow-dropright-circle"></ion-icon>
                         </button>
 
                   </ion-row>
@@ -71,8 +71,8 @@
 <ion-toolbar position="bottom" class="toolbarVerSessoes" >
 <ion-grid >
   <ion-row>
-      <ion-col width-50  style="text-align:center; margin-top: 5%;">
-           <span class="fonteLabel" style="font-size: 80%; color: white"><b>{{ contadorFilmesEscolhidos }} FILMES ESCOLHIDOS</b></span>
+      <ion-col width-50  style="text-align:center; margin-top: 3%;">
+           <span class="fonteLabel" style="font-size: 90%; color: white"><b>{{ contadorFilmesEscolhidos }} FILMES ESCOLHIDOS</b></span>
       </ion-col>
         <ion-col width-50>
           <button class="botaoVerSessoes" (click)="verSessoes()">VER SESSÕES</button>

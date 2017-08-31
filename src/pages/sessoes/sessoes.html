@@ -1,5 +1,5 @@
 <ion-toolbar >
-  <ion-buttons start>
+  <ion-buttons left>
     <button ion-button icon-only style="color:white" (tap)="voltar()">
         <ion-icon name="md-arrow-back"></ion-icon>
     </button>
@@ -19,8 +19,6 @@
 </div>
 <div class="labelSubTituloTela">{{formataData(filtroData)}} | {{diaSemanaEscolhido}}</div>
 
-<!--  {{filmes | json}}  -->
-
 <br>
 
 
@@ -30,20 +28,6 @@
   </ion-chip>
 </ion-scroll>
 
-
-<!--
-<ion-scroll  scrollX="true" class="scrollHorizontal" overflow-scroll="true" *ngIf="tipoPesquisa === 'F'">
-  <ion-chip  *ngFor=" let cinema of cinemas"  [ngClass]="cinema.selecionado ? 'ativo' : 'inativo'"  (tap)="selecionaTagCinema(cinema)">
-    <ion-label class="tag"> {{cinema.nome }}</ion-label>
-  </ion-chip>
-</ion-scroll>
-
-<ion-scroll  scrollX="true" class="scrollHorizontal" overflow-scroll="true" *ngIf="tipoPesquisa === 'C'">
-  <ion-chip  *ngFor=" let filme of filmes"  [ngClass]="filme.selecionado ? 'ativo' : 'inativo'"  (tap)="selecionaTagFilme(filme)">
-    <ion-label class="tag"> {{filme.nomeFilme }}</ion-label>
-  </ion-chip>
-</ion-scroll>
--->
 
 
 <br><br>
@@ -79,14 +63,12 @@
 
 
                       <div style="padding-left: 22%;line-height: 20px;" >
-                          <div class="fonteLabelTituloFilme" >{{sessao.nomeFilme}}</div>
+                          <div class="fonteLabelTituloFilme" >{{sessao.nomeFilme}} </div>
                           <div class="fonteLabelTituloCinema" >{{sessao.nomeCinema}}</div>
                           <div class="fonteLabelTituloDistancia" *ngIf="formataData(filtroData)=='Hoje' "><ion-icon ios="md-time" ></ion-icon>&nbsp;Começa em <b>{{formataTempoAteSessao(sessao.hora)}}</b></div>
                          <div class="fonteLabelTituloDistancia" *ngIf="formataData(filtroData)!='Hoje' ">&nbsp;</div>                          
                           <div class="fonteLabelTituloDistancia"> {{sessao.tipo}} {{sessao.tipo3d}}</div>
                           <div class="estrelaRatingSessao"><img src="./images/starRatingSessao.png" class="estrelaRatingTamanhoSessao"></div><div class="estrelaRatingTamanhoSessaoTexto"><b>6.9</b></div>
-
-
                       </div>
   				</ion-col>
   			</ion-row>

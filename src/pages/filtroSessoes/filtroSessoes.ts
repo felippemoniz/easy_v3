@@ -10,14 +10,14 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 export class FiltroSessoes {
 
 
-  sessao: sessao;
+  sessao;
 
 
   constructor(public viewCtrl: ViewController, private params: NavParams, private socialSharing: SocialSharing) {
 
     this.params = params;
-    console.log(params.get('sessao'));
     this.sessao = params.get('sessao')
+    console.log( this.sessao.diames);
 
   }
 
@@ -28,8 +28,8 @@ export class FiltroSessoes {
 
 
   shareSheetShare() {
-    //this.socialSharing.share("Ol�! O filme " + this.sessao.nomeFilme + " vai ter uma sess�o em "+ this.sessao.diames +"("+this.sessao.diasemana+") �s "+this.formataHora(sessao.hora)+" horas. O que acha?", "Que tal um cineminha?", "https://ingresso-a.akamaihd.net/img/cinema/cartaz/19194-destaque.jpg", "A URL to share").then(() => {
-      this.socialSharing.share("Ol�! O filme Anabelle: A cria��o do Mal vai ter uma sess�o em 26/08(S�bado) �s 13:39. O que acha?", "Que tal um cineminha?", "https://ingresso-a.akamaihd.net/img/cinema/cartaz/19194-destaque.jpg", "https://ingresso-a.akamaihd.net/img/cinema/cartaz/19194-destaque.jpg").then(() => {
+    this.socialSharing.share("Oi! O filme " + this.sessao.nomeFilme + " vai ter uma sessão em "+ this.sessao.diames +"("+this.sessao.diasemana+") às "+this.formataHora(this.sessao.hora)+" horas. O que acha?", "Que tal um cineminha?", this.sessao.imagem2, this.sessao.linktrailer).then(() => {
+      //this.socialSharing.share("Ola! O filme Anabelle: A cria��o do Mal vai ter uma sess�o em 26/08(S�bado) �s 13:39. O que acha?", "Que tal um cineminha?", "https://ingresso-a.akamaihd.net/img/cinema/cartaz/19194-destaque.jpg", "https://ingresso-a.akamaihd.net/img/cinema/cartaz/19194-destaque.jpg").then(() => {
       console.log("shareSheetShare: Success");
     }).catch(() => {
       console.error("shareSheetShare: failed");

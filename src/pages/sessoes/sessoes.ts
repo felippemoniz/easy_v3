@@ -124,6 +124,7 @@ export class Sessoes {
             this.sessoesService.findById(filtro,this.filtroData).subscribe(
                         data => {
                             this.sessoes = data;
+                            console.log(data)
                             this.qtSessoes = this.sessoes.length;
                             loading.dismiss();
                         },

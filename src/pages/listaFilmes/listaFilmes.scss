@@ -2,7 +2,7 @@
 /* Classes para o card de filmes / cinemas */
 .card-background-page {
 
-
+/*
   ion-card {
     position:relative;
     text-align: center;
@@ -13,8 +13,18 @@
     font-family: "Open Sans", "Helvetica";
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
     //border-radius: 5px;
+  }*/
 
-  }
+ion-card {
+  position: relative;
+  text-align: center;
+  margin-left: 0px;
+  margin-bottom: 5%;
+  height: 203px;
+  width: 100%;
+  font-family: "Open Sans", "Helvetica";
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
+}
 
   .selected {
     color: black ;
@@ -34,7 +44,7 @@
     color: #ff;
   }
 
-
+/*
   .card-subtitle {
     font-size: 1.0em;
     position: absolute;
@@ -46,6 +56,20 @@
     margin: 0px;
     opacity: 0.90;
   }
+*/
+
+  .card-subtitle {
+    font-size: 1.0em;
+    position: absolute;
+    top: 70%;
+    width: 100%;
+    height: 30%;
+    color: white;
+    background-color: #7f8896;
+    margin: 0px;
+    opacity: 1;
+}
+
 
 }
 
@@ -106,7 +130,7 @@
     bottom: 0;
     right: 0 ;
     width: 100%;
-    height: 67.5%
+    height: 65.5%
 }
 
 .toastAlerta {
@@ -227,8 +251,8 @@ color: #ffffff;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 86%
-
+  max-width: 86%;
+  padding-top: 1%;
 }
 
 .labelGeneroFilme {

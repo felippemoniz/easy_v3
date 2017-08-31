@@ -1,5 +1,5 @@
 var sessao = (function () {
-    function sessao(idfilme, idcinema, nomeFilme, nomeCinema, horaInicio, horaFim, duracao, rating, imagemAvatar, latitude, longitude, distancia, selecionado) {
+    function sessao(idfilme, idcinema, nomeFilme, nomeCinema, horaInicio, horaFim, duracao, rating, imagemAvatar, latitude, longitude, distancia, imagem2,selecionado) {
         this.idfilme = idfilme;
         this.idcinema = idcinema;
         this.nomeFilme = nomeFilme;
@@ -12,6 +12,7 @@ var sessao = (function () {
         this.latitude = latitude;
         this.longitude = longitude;
         this.distancia = distancia;
+        this.imagem2 = imagem2;
         this.selecionado = selecionado;
     }
     return sessao;
