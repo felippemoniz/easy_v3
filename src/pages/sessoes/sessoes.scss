@@ -18,6 +18,11 @@
     margin: 0px 0px 11px 0;
 }
 
+
+.label-md {
+    margin: 0px 8px 13px 0;
+}
+
 .fontePadrao{
   font-family: "Open Sans", "Helvetica";
 }
@@ -35,12 +40,12 @@
 .fonteLabelTituloFilme{
   color: #686c74;
   font-family: "Arial";
-  font-size: 15px;
+  font-size: 17px;
   font-weight:bold;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 210px;
+  max-width: 243px;
 }
 
 .fonteLabelTituloCinema{
@@ -51,7 +56,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 210px;
+  max-width: 243px;
 }
 
 .fonteLabelTituloDistancia{
@@ -94,6 +99,7 @@
   font-family: "Arial";
   vertical-align: middle;
   margin-top: 1%;
+  padding: 9px;
 }
 
 
@@ -116,9 +122,9 @@ ion-chip.ratingIMDBSessao {
 }
 
 .estrelaRatingSessao {
-position: absolute;
+    position: absolute;
     left: 8.5%;
-    top: 45%;
+    top: 48%;
     margin-left: -5px;
     width: 8%;
 }

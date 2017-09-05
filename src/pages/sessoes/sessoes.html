@@ -47,7 +47,7 @@
 <div *ngFor=" let sessao of sessoes">
 
   <ion-item class="itemItemSessao" #sessaoFilme  *ngIf="sessao.selecionado==0" (tap)="abreDetalhesSessao(sessao)">
-  		<div style="position: absolute;  width: 100% ; top: 10%" >
+  		<div style="position: absolute;  width: 100% ; top: 12%" >
   			<ion-row style="height:90%">
   				<ion-col col-2 style="text-align: center">
 
@@ -65,7 +65,7 @@
                       <div style="padding-left: 22%;line-height: 20px;" >
                           <div class="fonteLabelTituloFilme" >{{sessao.nomeFilme}} </div>
                           <div class="fonteLabelTituloCinema" >{{sessao.nomeCinema}}</div>
-                          <div class="fonteLabelTituloDistancia" *ngIf="formataData(filtroData)=='Hoje' "><ion-icon ios="md-time" ></ion-icon>&nbsp;Começa em <b>{{formataTempoAteSessao(sessao.hora)}}</b></div>
+                          <div class="fonteLabelTituloDistancia" *ngIf="formataData(filtroData)=='Hoje' "><ion-icon ios="md-time" ></ion-icon>Começa em <b>{{formataTempoAteSessao(sessao.hora)}}</b></div>
                          <div class="fonteLabelTituloDistancia" *ngIf="formataData(filtroData)!='Hoje' ">&nbsp;</div>                          
                           <div class="fonteLabelTituloDistancia"> {{sessao.tipo}} {{sessao.tipo3d}}</div>
                           <div class="estrelaRatingSessao"><img src="./images/starRatingSessao.png" class="estrelaRatingTamanhoSessao"></div><div class="estrelaRatingTamanhoSessaoTexto"><b>6.9</b></div>

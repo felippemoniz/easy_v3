@@ -3826,6 +3826,11 @@ ion-icon::before {
   src: url("../assets/fonts/Futura.ttc");
 }
 
+@font-face {
+  font-family: 'Montserrat';
+  src: url("../assets/fonts/Montserrat-SemiBold.ttf");
+}
+
 ion-action-sheet {
   left: 0;
   top: 0;
@@ -25511,7 +25516,7 @@ ion-chip.ratingIMDBDetalhe {
 
 .card-textoGrande {
   position: absolute;
-  font-size: 1.5em;
+  font-size: 2em;
   line-height: 22px;
   width: 100%;
   color: #fff;
@@ -25736,7 +25741,7 @@ ion-chip.ativo {
   padding: 0 24px;
   height: 27px;
   border-radius: 11px;
-  font-size: 13px;
+  font-size: 15px;
   color: white;
   font-weight: normal;
   line-height: 25px;
@@ -26016,7 +26021,7 @@ ion-chip.inativo {
   background-color: #e1b612;
   width: 100%;
   height: 39px;
-  font-family: "Open Sans", "Helvetica";
+  font-family: "Montserrat";
   font-size: 13px;
   border-radius: 2px;
 }
@@ -26138,6 +26143,10 @@ ion-navbar>.toolbar-background{
   margin: 0px 0px 11px 0;
 }
 
+.label-md {
+  margin: 0px 8px 13px 0;
+}
+
 .fontePadrao {
   font-family: "Open Sans", "Helvetica";
 }
@@ -26155,12 +26164,12 @@ ion-navbar>.toolbar-background{
 .fonteLabelTituloFilme {
   color: #686c74;
   font-family: "Arial";
-  font-size: 15px;
+  font-size: 17px;
   font-weight: bold;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 210px;
+  max-width: 243px;
 }
 
 .fonteLabelTituloCinema {
@@ -26171,7 +26180,7 @@ ion-navbar>.toolbar-background{
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 210px;
+  max-width: 243px;
 }
 
 .fonteLabelTituloDistancia {
@@ -26210,6 +26219,7 @@ ion-navbar>.toolbar-background{
   font-family: "Arial";
   vertical-align: middle;
   margin-top: 1%;
+  padding: 9px;
 }
 
 ion-chip.ratingIMDBSessao {
@@ -26234,7 +26244,7 @@ ion-chip.ratingIMDBSessao {
 .estrelaRatingSessao {
   position: absolute;
   left: 8.5%;
-  top: 45%;
+  top: 48%;
   margin-left: -5px;
   width: 8%;
 }
