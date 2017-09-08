@@ -60,7 +60,7 @@ export class ListaFilmes {
                     this.filmes = data;
                     this.qtFilme = this.filmes.length;
                     loading.dismiss();
-                    //console.log(this.qtFilme);
+                    console.log(this.filmes);
                 },
                 err => {
                     console.log(err);
@@ -127,9 +127,9 @@ exibeAlerta(){
 
    if (tipo == "N"){
       if (detalhe == "0" || detalhe=="") {
-        return "-"
+        return "0"
       }else{
-        return '6.9';
+        return detalhe;
       }
     }
 

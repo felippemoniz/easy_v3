@@ -57,7 +57,7 @@ export class Sessoes {
 
     let loading = this.loadingCtrl.create({
       spinner: 'ios',
-      content: 'Procurando sess�es dispon�veis...'
+      content: 'Procurando sessões disponíveis...'
     });
 
     loading.present();

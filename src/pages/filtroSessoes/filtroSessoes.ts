@@ -29,7 +29,6 @@ export class FiltroSessoes {
 
   shareSheetShare() {
     this.socialSharing.share("Oi! O filme " + this.sessao.nomeFilme + " vai ter uma sessão em "+ this.sessao.diames +"("+this.sessao.diasemana+") às "+this.formataHora(this.sessao.hora)+" horas. O que acha?", "Que tal um cineminha?", this.sessao.imagem2, this.sessao.linktrailer).then(() => {
-      //this.socialSharing.share("Ola! O filme Anabelle: A cria��o do Mal vai ter uma sess�o em 26/08(S�bado) �s 13:39. O que acha?", "Que tal um cineminha?", "https://ingresso-a.akamaihd.net/img/cinema/cartaz/19194-destaque.jpg", "https://ingresso-a.akamaihd.net/img/cinema/cartaz/19194-destaque.jpg").then(() => {
       console.log("shareSheetShare: Success");
     }).catch(() => {
       console.error("shareSheetShare: failed");

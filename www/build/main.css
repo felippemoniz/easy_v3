@@ -25245,7 +25245,7 @@ ion-navbar.toolbar {
   font-size: large;
   padding: 0px;
   text-align: left;
-  height: 6%;
+  height: 5%;
   margin-top: -3px;
   -webkit-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
@@ -25264,13 +25264,13 @@ ion-navbar.toolbar {
 }
 
 .posRatingIMDB {
-  top: 34.5%;
+  /*top: 34.5%;*/
   left: 30.5%;
   position: absolute;
 }
 
 .posBotaoTrailer {
-  top: 33.7%;
+  /* top: 33.7%;*/
   left: 31%;
   width: 257%;
   position: absolute;
@@ -25917,6 +25917,7 @@ ion-chip.inativo {
   width: 12%;
   text-align: center;
   color: #adb1b9;
+  z-index: 1000;
   background-color: rgba(110, 121, 137, 0.06);
 }
 
@@ -26214,12 +26215,9 @@ ion-navbar>.toolbar-background{
   background-color: #5e6a7c;
   font-size: 105%;
   font-weight: lighter;
-  height: 35px;
   vertical-align: baseline;
   font-family: "Arial";
-  vertical-align: middle;
-  margin-top: 1%;
-  padding: 9px;
+  padding: 3px;
 }
 
 ion-chip.ratingIMDBSessao {

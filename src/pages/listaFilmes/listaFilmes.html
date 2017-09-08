@@ -35,7 +35,7 @@
       <div>
         <ion-chip class="ratingIMDB">
           <div class="estrelaRating"><img src="./images/starRating.png" class="estrelaRatingTamanho"></div>
-          <ion-label style="color:white; position:absolute;left:25%"><b> {{trataDetalhes("N",filme.notaimdb)}}</b>/<span style="font-size: 10px;">10</span></ion-label>
+          <ion-label style="color:white; position:absolute;left:25%"><b> {{filme.notaimdb | number:'1.1-1'}}</b>/<span style="font-size: 10px;">10</span></ion-label>
         </ion-chip>
       </div>
 

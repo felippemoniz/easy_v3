@@ -5,11 +5,11 @@
     </button>
   </ion-buttons>
   <ion-title color="primary">EasyMovie</ion-title>
- <!--ion-buttons end>
-      <button ion-button icon-only style="color:white" (tap)="abreFiltros()">
-        <ion-icon name="ios-options"></ion-icon>
+  <ion-buttons end>
+      <button ion-button icon-only style="color:#e26f6f;" >
+        <ion-icon name="ios-heart"></ion-icon>
       </button>
-    </ion-buttons-->
+    </ion-buttons>
 </ion-toolbar>
 
 <ion-content style="position: relative;">
@@ -65,7 +65,7 @@
                       <div style="padding-left: 22%;line-height: 20px;" >
                           <div class="fonteLabelTituloFilme" >{{sessao.nomeFilme}} </div>
                           <div class="fonteLabelTituloCinema" >{{sessao.nomeCinema}}</div>
-                          <div class="fonteLabelTituloDistancia" *ngIf="formataData(filtroData)=='Hoje' "><ion-icon ios="md-time" ></ion-icon>Começa em <b>{{formataTempoAteSessao(sessao.hora)}}</b></div>
+                          <div class="fonteLabelTituloDistancia" *ngIf="formataData(filtroData)=='Hoje' "> <ion-icon name="time"></ion-icon> Começa em <b>{{formataTempoAteSessao(sessao.hora)}}</b></div>
                          <div class="fonteLabelTituloDistancia" *ngIf="formataData(filtroData)!='Hoje' ">&nbsp;</div>                          
                           <div class="fonteLabelTituloDistancia"> {{sessao.tipo}} {{sessao.tipo3d}}</div>
                           <div class="estrelaRatingSessao"><img src="./images/starRatingSessao.png" class="estrelaRatingTamanhoSessao"></div><div class="estrelaRatingTamanhoSessaoTexto"><b>6.9</b></div>
