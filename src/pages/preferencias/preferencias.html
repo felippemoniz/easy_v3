@@ -1,0 +1,49 @@
+<ion-toolbar >
+   <ion-buttons start>
+     <button ion-button icon-only style="color:white" (tap)="fechar()">
+         <ion-icon name="md-close"></ion-icon>
+     </button>
+   </ion-buttons>
+   <ion-title color="primary"></ion-title>
+ </ion-toolbar>
+ 
+ <ion-content style="position: relative;">
+ <br>
+ <div class="labelTituloTela">
+ <b>Preferências</b>
+ </div>
+ 
+    
+<br>
+<div class="labelSubTituloTela">
+ <b>Meus Cinemas Favoritos</b>
+</div>
+
+<div class="labelSubSubTituloTela">
+Marque os cinemas que costuma ir com mais frequência e as sessões
+destes cinemas serão exibidas primeiro
+</div>
+
+<br>
+
+<ion-grid class="tabelaPreferencias">
+  <ion-row *ngFor=" let cinema of cinemas ">
+    <ion-col col-1><ion-icon name="ios-heart" style="font-size: 27px" [ngClass]="cinema.selecionado ? 'favoritoNaoSelecionado' : 'favoritoSelecionado'" (tap)="favoritos(cinema);"></ion-icon></ion-col>
+    <ion-col col-11 class="cinemaPreferencias">{{cinema.nome}}</ion-col>
+  </ion-row>
+</ion-grid>
+
+
+<div style="position: relative;">
+<ion-grid>
+  <ion-row>
+      <ion-col col-12  style="text-align: center;">
+           <button class="botaoGravarPreferencias" (tap)="setFavoritos()">GRAVAR PREFERÊNCIAS</button>
+      </ion-col>
+ </ion-row>
+</ion-grid>
+</div>
+
+{{cinemasGravados}}
+
+ </ion-content> 

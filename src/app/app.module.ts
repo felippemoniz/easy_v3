@@ -12,11 +12,15 @@ import {Detalhes} from '../pages/detalhes/detalhes';
 import {ListaCinemas} from '../pages/listaCinemas/listaCinemas';
 import {SessoesAgora} from '../pages/sessoesAgora/sessoesAgora';
 import {FiltroSessoes} from '../pages/filtroSessoes/filtroSessoes';
+import {Preferencias} from '../pages/preferencias/preferencias';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import {Localstorage} from '../providers/localstorage';
+import { IonicStorageModule } from '@ionic/storage';
+
 
 @NgModule({
   declarations: [
@@ -28,12 +32,14 @@ import { SocialSharing } from '@ionic-native/social-sharing';
     Detalhes,
     ListaCinemas,
     SessoesAgora,
-    FiltroSessoes
+    FiltroSessoes,
+    Preferencias
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -45,13 +51,15 @@ import { SocialSharing } from '@ionic-native/social-sharing';
     Detalhes,
     ListaCinemas,
     SessoesAgora,
-    FiltroSessoes
+    FiltroSessoes,
+    Preferencias
   ],
   providers: [
     StatusBar,
     SplashScreen,
     YoutubeVideoPlayer,
     SocialSharing,
+    Localstorage,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

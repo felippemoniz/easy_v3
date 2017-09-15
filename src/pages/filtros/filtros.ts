@@ -11,6 +11,8 @@ import {filmesEmCartazService} from '../../services/filmesEmCartaz-service';
 import {sessoesService} from '../../services/sessoes-service';
 import {filmeEmCartaz} from '../../model/filmeEmCartaz';
 import {Detalhes} from '../detalhes/detalhes';
+import { ModalController } from 'ionic-angular';
+import { Preferencias } from '../preferencias/preferencias';
 
 
 @Component({
@@ -37,6 +39,7 @@ export class Filtros {
               private navParams: NavParams,
               private filmesEmCartazService: filmesEmCartazService,
               private sessoesService : sessoesService,
+              public modalCtrl: ModalController,
               public loadingCtrl: LoadingController){
 
 
@@ -80,6 +83,11 @@ export class Filtros {
 
   }
 
+
+  abreFiltros() {
+     let modal = this.modalCtrl.create(Preferencias);
+     modal.present();
+  }
 
 
   marcaDataDefault(){
@@ -214,6 +222,13 @@ export class Filtros {
    listaQuero.selecionado = !listaQuero.selecionado;
    this.dataEscolhida = listaQuero.data;
    this.diaSemanaEscolhido = listaQuero.diasemana;
+
+  }
+
+
+  abrirPreferencias(){
+
+    alert("Aqui ")
 
   }
 

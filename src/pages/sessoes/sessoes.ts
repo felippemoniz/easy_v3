@@ -13,7 +13,7 @@ import {LoadingController } from 'ionic-angular';
 import { ModalController } from 'ionic-angular';
 import { FiltroSessoes } from '../filtroSessoes/filtroSessoes';
 import { PopoverController } from 'ionic-angular';
-
+import {Storage} from '@ionic/storage';
 
 declare var geolib : any;
 
@@ -43,6 +43,8 @@ export class Sessoes {
   qtSessoes = 0;
   diaSemanaEscolhido : string = "";
   loading ;
+  buttonColor: string = 'white'; 
+  cinemasGravados;
 
 
 
@@ -52,6 +54,7 @@ export class Sessoes {
              private cinemaService : cinemaService,
              private filmesEmCartazService : filmesEmCartazService,
              public popoverCtrl: PopoverController,
+             private storage:Storage,
              public loadingCtrl: LoadingController = null){
 
 
@@ -61,6 +64,7 @@ export class Sessoes {
     });
 
     loading.present();
+    this.getFavoritos();
 
 
     this.itensSelecionados = navParams.get('param1');
@@ -77,6 +81,7 @@ export class Sessoes {
     var filtro = ""
 
     this.carregaTags();
+
 
 
 
@@ -150,6 +155,25 @@ export class Sessoes {
 
   }
 
+
+
+  getFavoritos(){
+      this.storage.get('cinemasFavoritos').then(cinemasFavoritos=>{
+        this.cinemasGravados= cinemasFavoritos
+      });
+
+  }
+
+
+
+  favoritos(){
+    if (this.buttonColor == '#e26f6f'){
+      this.buttonColor = 'white'
+    }
+    else{
+      this.buttonColor = '#e26f6f'
+    }
+  }
 
 
   private carregaTags(){

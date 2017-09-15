@@ -6,7 +6,7 @@
   </ion-buttons>
   <ion-title color="primary">EasyMovie</ion-title>
   <ion-buttons end>
-      <button ion-button icon-only style="color:#e26f6f;" >
+      <button ion-button icon-only [ngStyle]="{'color': buttonColor}" (tap)="favoritos()">
         <ion-icon name="ios-heart"></ion-icon>
       </button>
     </ion-buttons>
