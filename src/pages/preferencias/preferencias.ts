@@ -52,46 +52,59 @@ export class Preferencias {
 
   setFavoritos(){
     this.localstorage.setFavoritos(this.favoritosSelecionados);
-    this.exibeAlerta("Suas preferências foram gravadas!");
+    this.exibeAlerta("Suas preferências de cinemas foram gravadas!");
 
     setInterval(() => {
       this.viewCtrl.dismiss();
     }, 1400);
 
-    
   }
 
+
+  marcaFavoritos(cinemasGravados){
+
+     for (var i = 0; i < this.cinemas.length; i++) {
+         var item = this.cinemas[i];
+         if ((cinemasGravados.indexOf(item.idcinema)) != -1){
+           item.selecionado=1
+         }
+     }
+
+  }
 
 
   getFavoritos(){
       this.storage.get('cinemasFavoritos').then(cinemasFavoritos=>{
         this.cinemasGravados= cinemasFavoritos
+        this.marcaFavoritos(this.cinemasGravados);
       });
 
   }
 
 
 
-exibeAlerta(msg){
+  exibeAlerta(msg){
 
-    let toast = this.toastCtrl.create({
-      message: msg,
-      duration: 1300,
-      cssClass: "toastSucesso",
-      position: 'top'
-    });
-    toast.present();
+      let toast = this.toastCtrl.create({
+        message: msg,
+        duration: 1300,
+        cssClass: "toastSucesso",
+        position: 'top'
+      });
+      toast.present();
 
-}
+  }
 
 
 
 
   favoritos(cinema){
 
+
     var indexSelecionado = this.cinemas.indexOf(cinema);
     var flagEncontrado=false;
     var index;
+    this.favoritosSelecionados = this.cinemasGravados;
 
     if (this.cinemas[indexSelecionado].selecionado == 1){
         this.cinemas[indexSelecionado].selecionado = 0
@@ -99,22 +112,24 @@ exibeAlerta(msg){
         this.cinemas[indexSelecionado].selecionado = 1
     }
 
-     //faz a busca no array de filmes selecionados
-     for (var i = 0; i < this.favoritosSelecionados.length; i++) {
-        var item = this.favoritosSelecionados[i];
 
-        if ( item.idfilme == cinema.idcinema) {
-           flagEncontrado = true;
-           index=i;
-        }
-     }
+
+    //faz a busca no array de filmes selecionados
+    for (var i = 0; i < this.favoritosSelecionados.length; i++) {
+      var item = this.favoritosSelecionados[i];
+
+      if ( item == cinema.idcinema) {
+         flagEncontrado = true;
+         index=i;
+      }
+    }
+
 
     if (flagEncontrado == false) {
       this.favoritosSelecionados.push (cinema.idcinema);
     }
     else{
       this.favoritosSelecionados.splice(index,1);
-  
     }
 
 

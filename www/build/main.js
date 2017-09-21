@@ -1,19 +1,19 @@
 webpackJsonp([0],{
 
-/***/ 102:
+/***/ 103:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Filtros; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__listaFilmes_listaFilmes__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__listaCinemas_listaCinemas__ = __webpack_require__(207);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__sessoesAgora_sessoesAgora__ = __webpack_require__(109);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_filmesEmCartaz_service__ = __webpack_require__(107);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_sessoes_service__ = __webpack_require__(104);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__detalhes_detalhes__ = __webpack_require__(108);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__preferencias_preferencias__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__listaFilmes_listaFilmes__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__listaCinemas_listaCinemas__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__sessoesAgora_sessoesAgora__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_filmesEmCartaz_service__ = __webpack_require__(108);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_sessoes_service__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__detalhes_detalhes__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__preferencias_preferencias__ = __webpack_require__(209);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -200,19 +200,19 @@ Filtros = __decorate([
 
 /***/ }),
 
-/***/ 103:
+/***/ 104:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Sessoes; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_sessoes_service__ = __webpack_require__(104);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__model_chip__ = __webpack_require__(203);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_cinema_service__ = __webpack_require__(106);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_filmesEmCartaz_service__ = __webpack_require__(107);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__filtroSessoes_filtroSessoes__ = __webpack_require__(204);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_storage__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_sessoes_service__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__model_chip__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_cinema_service__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_filmesEmCartaz_service__ = __webpack_require__(108);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__filtroSessoes_filtroSessoes__ = __webpack_require__(205);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_storage__ = __webpack_require__(52);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -303,7 +303,6 @@ var Sessoes = (function () {
             filtro = filtro.substring(1, filtro.length);
             this.sessoesService.findById(filtro, this.filtroData).subscribe(function (data) {
                 _this.sessoes = data;
-                console.log(data);
                 _this.qtSessoes = _this.sessoes.length;
                 loading.dismiss();
             }, function (err) {
@@ -328,12 +327,41 @@ var Sessoes = (function () {
         });
     };
     Sessoes.prototype.favoritos = function () {
+        var item, cinema;
+        var cinemasFavoritos = this.cinemasGravados;
+        this.qtSessoes = 0;
+        var loading;
         if (this.buttonColor == '#e26f6f') {
             this.buttonColor = 'white';
+            loading = this.loadingCtrl.create({
+                spinner: 'ios',
+                content: 'Exibindo todos os cinemas...'
+            });
         }
         else {
             this.buttonColor = '#e26f6f';
+            loading = this.loadingCtrl.create({
+                spinner: 'ios',
+                content: 'Exibindo seus cinemas favoritos...'
+            });
         }
+        loading.present();
+        for (var i = 0; i < this.sessoes.length; i++) {
+            item = this.sessoes[i];
+            cinema = item.idcinema;
+            if (item.selecionado == 0) {
+                if (cinemasFavoritos.indexOf(cinema) == -1) {
+                    item.selecionado = 1;
+                }
+                else {
+                    item.selecionado = 0;
+                    this.qtSessoes = this.qtSessoes + 1;
+                }
+            }
+        }
+        setInterval(function () {
+            loading.dismiss();
+        }, 900);
     };
     Sessoes.prototype.carregaTags = function () {
         var item = new __WEBPACK_IMPORTED_MODULE_3__model_chip__["a" /* chip */]();
@@ -394,24 +422,6 @@ var Sessoes = (function () {
             return (hour + ' h e ' + min + ' min');
         }
     };
-    Sessoes.prototype.selecionaTagCinema = function (listaPref) {
-        for (var i = 0; i < this.sessoes.length; i++) {
-            var item = this.sessoes[i];
-            if (item.idcinema == listaPref.idcinema) {
-                item.selecionado = !item.selecionado;
-            }
-        }
-        listaPref.selecionado = !listaPref.selecionado;
-    };
-    Sessoes.prototype.selecionaTagFilme = function (listaPref) {
-        for (var i = 0; i < this.sessoes.length; i++) {
-            var item = this.sessoes[i];
-            if (item.idfilme == listaPref.idfilme) {
-                item.selecionado = !item.selecionado;
-            }
-        }
-        listaPref.selecionado = !listaPref.selecionado;
-    };
     Sessoes.prototype.selecionaTag = function (tag) {
         tag.selecionado = !tag.selecionado;
         var retorno = "";
@@ -459,35 +469,6 @@ var Sessoes = (function () {
             }
         }
     };
-    Sessoes.prototype.filtraSessoes = function (tag) {
-        var item, tipoSessao, valorTag;
-        for (var i = 0; i < this.sessoes.length; i++) {
-            item = this.sessoes[i];
-            tipoSessao = item.tipo;
-            if (this.tagsSelecionadas.length > 0) {
-                for (var y = 0; y < this.tagsSelecionadas.length; y++) {
-                    if (item.selecionado == 0) {
-                        if (tipoSessao.indexOf(this.tagsSelecionadas[y]) == -1) {
-                            item.selecionado = 1;
-                        }
-                    }
-                }
-            }
-            else {
-                item.selecionado = 0;
-            }
-        }
-    };
-    Sessoes.prototype.contaSessoes = function () {
-        var item, count = 0;
-        for (var i = 0; i < this.sessoes.length; i++) {
-            item = this.sessoes[i];
-            if (item.selecionado) {
-                count++;
-            }
-        }
-        this.qtSessoes = count;
-    };
     Sessoes.prototype.formataData = function (data) {
         var dia, mes, ano, dataReduzida;
         dataReduzida = data.substring(0, 10);
@@ -534,13 +515,13 @@ var _a, _b, _c, _d, _e, _f, _g, _h;
 
 /***/ }),
 
-/***/ 104:
+/***/ 105:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return sessoesService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__);
@@ -635,7 +616,7 @@ sessoesService = __decorate([
 
 /***/ }),
 
-/***/ 105:
+/***/ 106:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -647,13 +628,13 @@ var SERVER_URL = "https://shrouded-shelf-45541.herokuapp.com/";
 
 /***/ }),
 
-/***/ 106:
+/***/ 107:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return cinemaService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__);
@@ -714,13 +695,13 @@ cinemaService = __decorate([
 
 /***/ }),
 
-/***/ 107:
+/***/ 108:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return filmesEmCartazService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__);
@@ -780,14 +761,14 @@ filmesEmCartazService = __decorate([
 
 /***/ }),
 
-/***/ 108:
+/***/ 109:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Detalhes; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_youtube_video_player__ = __webpack_require__(206);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_youtube_video_player__ = __webpack_require__(207);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -838,7 +819,7 @@ var Detalhes = (function () {
     return Detalhes;
 }());
 Detalhes = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"D:\Felippe\IONIC\easy_v3\src\pages\detalhes\detalhes.html"*/'<ion-toolbar >\n\n  <ion-buttons left>\n\n    <button ion-button icon-only style="color:white" (tap)="voltar()">\n\n        <ion-icon name="md-arrow-back"></ion-icon>\n\n    </button>\n\n  </ion-buttons>\n\n  <ion-title color="primary">EasyMovie</ion-title>\n\n</ion-toolbar>\n\n\n\n\n\n\n\n<ion-content style="position: relative;">\n\n\n\n\n\n\n\n\n\n\n\n\n\n<div>\n\n<img class=\'imagemTamanhoFixo\' *ngIf="!isEstreia" src={{filmeSelecionado.imagem}}>\n\n<img class=\'imagemTamanhoFixo\' *ngIf="isEstreia" src={{filmeSelecionado.images[1].url}}>\n\n</div>\n\n\n\n<div class="headerDetalhesFilme" *ngIf="!isEstreia">\n\n\n\n    <div class="posCabecalhoFilme">\n\n        <div class="fonteTituloFilmeDetalhe" text-wrap>{{filmeSelecionado.nome}}</div>\n\n        <div class="labelGeneroFilme"> {{filmeSelecionado.genero}} | {{filmeSelecionado.duracao}} min |  {{filmeSelecionado.classificacao}}</div>\n\n    </div>\n\n\n\n    <div class="posCartazFilme">\n\n      <img class="imagemTamanhoCartaz" src={{filmeSelecionado.poster}}>\n\n    </div>\n\n</div>\n\n\n\n<div class="headerDetalhesFilme" *ngIf="isEstreia">\n\n\n\n    <div class="posCabecalhoFilme">\n\n        <div class="fonteTituloFilme">{{filmeSelecionado.title}}</div> <br>\n\n        <div class="labelGeneroFilme"> {{filmeSelecionado.genres[0]}} | {{filmeSelecionado.duration}} min |  {{filmeSelecionado.contentRating}}</div>\n\n    </div>\n\n\n\n    <div class="posCartazFilme">\n\n      <img class="imagemTamanhoCartaz" src={{filmeSelecionado.images[0].url}}>\n\n    </div>\n\n</div>\n\n\n\n\n\n<div class="headerSubDetalhesFilme" *ngIf="!isEstreia">\n\n\n\n  <div class="posRatingIMDB">\n\n    <ion-chip class="ratingIMDBDetalhe">\n\n      <div class="estrelaRatingDetalhe"><img src="./images/starRating.png" class="estrelaRatingTamanhoDetalhe"></div>\n\n      <ion-label style="color:white; position:absolute;left:38%"><b>6.7</b>/<span style="font-size: 10px;">10</span></ion-label>\n\n    </ion-chip>\n\n  </div>\n\n\n\n  <div class="posBotaoTrailer">\n\n  <button ion-button outline class="botaoTrailer" (tap)="abrirTrailer(filmeSelecionado.linktrailer)">ASSISTA AO TRAILER</button>\n\n  </div>\n\n\n\n</div>\n\n\n\n\n\n<div class="headerSubDetalhesFilme" *ngIf="isEstreia">\n\n\n\n  <div class="posBotaoTrailerEstreia">\n\n  <button ion-button outline class="botaoTrailer" (tap)="abrirTrailer(filmeSelecionado.linktrailer)">ASSISTA AO TRAILER</button>\n\n  </div>\n\n\n\n</div>\n\n\n\n\n\n\n\n<div class="conteudo" *ngIf="!isEstreia">\n\n<p><b>SINOPSE</b><br>\n\n{{filmeSelecionado.sinopse}}\n\n</p>\n\n\n\n<p><b>Direção</b><br>\n\n{{filmeSelecionado.diretor}}\n\n</p>\n\n\n\n<p><b>Atores principais</b><br>\n\n{{filmeSelecionado.cast}}\n\n</p>\n\n\n\n<br><br><br>\n\n</div>\n\n\n\n\n\n<div class="conteudo" *ngIf="isEstreia">\n\n<p><b>SINOPSE</b><br>\n\n{{filmeSelecionado.synopsis}}\n\n</p>\n\n\n\n<p><b>Direção</b><br>\n\n{{filmeSelecionado.director}}\n\n</p>\n\n\n\n<p><b>Atores principais</b><br>\n\n{{filmeSelecionado.cast}}\n\n</p>\n\n\n\n<br><br><br>\n\n</div>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Felippe\IONIC\easy_v3\src\pages\detalhes\detalhes.html"*/
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"D:\Felippe\IONIC\easy_v3\src\pages\detalhes\detalhes.html"*/'<ion-toolbar >\n\n  <ion-buttons left>\n\n    <button ion-button icon-only style="color:white" (tap)="voltar()">\n\n        <ion-icon name="md-arrow-back"></ion-icon>\n\n    </button>\n\n  </ion-buttons>\n\n  <ion-title color="primary">EasyMovie</ion-title>\n\n</ion-toolbar>\n\n\n\n\n\n\n\n<ion-content style="position: relative;">\n\n\n\n\n\n\n\n\n\n\n\n\n\n<div>\n\n<img class=\'imagemTamanhoFixo\' *ngIf="!isEstreia" src={{filmeSelecionado.imagem}}>\n\n<img class=\'imagemTamanhoFixo\' *ngIf="isEstreia" src={{filmeSelecionado.images[1].url}}>\n\n</div>\n\n\n\n<div class="headerDetalhesFilme" *ngIf="!isEstreia">\n\n\n\n    <div class="posCabecalhoFilme">\n\n        <div class="fonteTituloFilmeDetalhe" text-wrap>{{filmeSelecionado.nome}}</div>\n\n        <div class="labelGeneroFilme"> {{filmeSelecionado.genero}} | {{filmeSelecionado.duracao}} min |  {{filmeSelecionado.classificacao}}</div>\n\n    </div>\n\n\n\n    <div class="posCartazFilme">\n\n      <img class="imagemTamanhoCartaz" src={{filmeSelecionado.poster}}>\n\n    </div>\n\n</div>\n\n\n\n<div class="headerDetalhesFilme" *ngIf="isEstreia">\n\n\n\n    <div class="posCabecalhoFilme">\n\n        <div class="fonteTituloFilme">{{filmeSelecionado.title}}</div> <br>\n\n        <div class="labelGeneroFilme"> {{filmeSelecionado.genres[0]}} | {{filmeSelecionado.duration}} min |  {{filmeSelecionado.contentRating}}</div>\n\n    </div>\n\n\n\n    <div class="posCartazFilme">\n\n      <img class="imagemTamanhoCartaz" src={{filmeSelecionado.images[0].url}}>\n\n    </div>\n\n</div>\n\n\n\n\n\n<div class="headerSubDetalhesFilme" *ngIf="!isEstreia">\n\n\n\n  <div class="posRatingIMDB">\n\n    <ion-chip class="ratingIMDBDetalhe">\n\n      <div class="estrelaRatingDetalhe"><img src="./images/starRating.png" class="estrelaRatingTamanhoDetalhe"></div>\n\n      <ion-label style="color:white; position:absolute;left:29%"><b>{{filmeSelecionado.notaimdb}}</b>/<span style="font-size: 10px;">10</span></ion-label>\n\n    </ion-chip>\n\n  </div>\n\n\n\n  <div class="posBotaoTrailer">\n\n  <button ion-button outline class="botaoTrailer" (tap)="abrirTrailer(filmeSelecionado.linktrailer)">ASSISTA AO TRAILER</button>\n\n  </div>\n\n\n\n</div>\n\n\n\n\n\n<div class="headerSubDetalhesFilme" *ngIf="isEstreia">\n\n\n\n  <div class="posBotaoTrailerEstreia">\n\n  <button ion-button outline class="botaoTrailer" (tap)="abrirTrailer(filmeSelecionado.linktrailer)">ASSISTA AO TRAILER</button>\n\n  </div>\n\n\n\n</div>\n\n\n\n\n\n\n\n<div class="conteudo" *ngIf="!isEstreia">\n\n<p><b>SINOPSE</b><br>\n\n{{filmeSelecionado.sinopse}}\n\n</p>\n\n\n\n<p><b>Direção</b><br>\n\n{{filmeSelecionado.diretor}}\n\n</p>\n\n\n\n<p><b>Atores principais</b><br>\n\n{{filmeSelecionado.cast}}\n\n</p>\n\n\n\n<br><br><br>\n\n</div>\n\n\n\n\n\n<div class="conteudo" *ngIf="isEstreia">\n\n<p><b>SINOPSE</b><br>\n\n{{filmeSelecionado.synopsis}}\n\n</p>\n\n\n\n<p><b>Direção</b><br>\n\n{{filmeSelecionado.director}}\n\n</p>\n\n\n\n<p><b>Atores principais</b><br>\n\n{{filmeSelecionado.cast}}\n\n</p>\n\n\n\n<br><br><br>\n\n</div>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Felippe\IONIC\easy_v3\src\pages\detalhes\detalhes.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */],
@@ -849,15 +830,15 @@ Detalhes = __decorate([
 
 /***/ }),
 
-/***/ 109:
+/***/ 110:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SessoesAgora; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_sessoes_service__ = __webpack_require__(104);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__model_chip__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_sessoes_service__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__model_chip__ = __webpack_require__(204);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1092,7 +1073,7 @@ SessoesAgora = __decorate([
 
 /***/ }),
 
-/***/ 117:
+/***/ 118:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -1101,11 +1082,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 117;
+webpackEmptyAsyncContext.id = 118;
 
 /***/ }),
 
-/***/ 159:
+/***/ 160:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -1114,20 +1095,20 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 159;
+webpackEmptyAsyncContext.id = 160;
 
 /***/ }),
 
-/***/ 202:
+/***/ 203:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ListaFilmes; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sessoes_sessoes__ = __webpack_require__(103);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__detalhes_detalhes__ = __webpack_require__(108);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_filmesEmCartaz_service__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sessoes_sessoes__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__detalhes_detalhes__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_filmesEmCartaz_service__ = __webpack_require__(108);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1299,7 +1280,7 @@ ListaFilmes = __decorate([
 
 /***/ }),
 
-/***/ 203:
+/***/ 204:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1317,14 +1298,14 @@ var chip = (function () {
 
 /***/ }),
 
-/***/ 204:
+/***/ 205:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FiltroSessoes; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_social_sharing__ = __webpack_require__(205);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_social_sharing__ = __webpack_require__(206);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1380,15 +1361,15 @@ FiltroSessoes = __decorate([
 
 /***/ }),
 
-/***/ 207:
+/***/ 208:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ListaCinemas; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sessoes_sessoes__ = __webpack_require__(103);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_cinema_service__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sessoes_sessoes__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_cinema_service__ = __webpack_require__(107);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1566,16 +1547,16 @@ ListaCinemas = __decorate([
 
 /***/ }),
 
-/***/ 208:
+/***/ 209:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Preferencias; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_cinema_service__ = __webpack_require__(106);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_localstorage__ = __webpack_require__(209);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_cinema_service__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_localstorage__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(52);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1616,15 +1597,24 @@ var Preferencias = (function () {
     Preferencias.prototype.setFavoritos = function () {
         var _this = this;
         this.localstorage.setFavoritos(this.favoritosSelecionados);
-        this.exibeAlerta("Suas preferências foram gravadas!");
+        this.exibeAlerta("Suas preferências de cinemas foram gravadas!");
         setInterval(function () {
             _this.viewCtrl.dismiss();
         }, 1400);
+    };
+    Preferencias.prototype.marcaFavoritos = function (cinemasGravados) {
+        for (var i = 0; i < this.cinemas.length; i++) {
+            var item = this.cinemas[i];
+            if ((cinemasGravados.indexOf(item.idcinema)) != -1) {
+                item.selecionado = 1;
+            }
+        }
     };
     Preferencias.prototype.getFavoritos = function () {
         var _this = this;
         this.storage.get('cinemasFavoritos').then(function (cinemasFavoritos) {
             _this.cinemasGravados = cinemasFavoritos;
+            _this.marcaFavoritos(_this.cinemasGravados);
         });
     };
     Preferencias.prototype.exibeAlerta = function (msg) {
@@ -1640,6 +1630,7 @@ var Preferencias = (function () {
         var indexSelecionado = this.cinemas.indexOf(cinema);
         var flagEncontrado = false;
         var index;
+        this.favoritosSelecionados = this.cinemasGravados;
         if (this.cinemas[indexSelecionado].selecionado == 1) {
             this.cinemas[indexSelecionado].selecionado = 0;
         }
@@ -1649,7 +1640,7 @@ var Preferencias = (function () {
         //faz a busca no array de filmes selecionados
         for (var i = 0; i < this.favoritosSelecionados.length; i++) {
             var item = this.favoritosSelecionados[i];
-            if (item.idfilme == cinema.idcinema) {
+            if (item == cinema.idcinema) {
                 flagEncontrado = true;
                 index = i;
             }
@@ -1664,18 +1655,22 @@ var Preferencias = (function () {
     return Preferencias;
 }());
 Preferencias = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"D:\Felippe\IONIC\easy_v3\src\pages\preferencias\preferencias.html"*/'<ion-toolbar >\n\n   <ion-buttons start>\n\n     <button ion-button icon-only style="color:white" (tap)="fechar()">\n\n         <ion-icon name="md-close"></ion-icon>\n\n     </button>\n\n   </ion-buttons>\n\n   <ion-title color="primary"></ion-title>\n\n </ion-toolbar>\n\n \n\n <ion-content style="position: relative;">\n\n <br>\n\n <div class="labelTituloTela">\n\n <b>Preferências</b>\n\n </div>\n\n \n\n    \n\n<br>\n\n<div class="labelSubTituloTela">\n\n <b>Meus Cinemas Favoritos</b>\n\n</div>\n\n\n\n<div class="labelSubSubTituloTela">\n\nMarque os cinemas que costuma ir com mais frequência e as sessões\n\ndestes cinemas serão exibidas primeiro\n\n</div>\n\n\n\n<br>\n\n\n\n<ion-grid class="tabelaPreferencias">\n\n  <ion-row *ngFor=" let cinema of cinemas ">\n\n    <ion-col col-1><ion-icon name="ios-heart" style="font-size: 27px" [ngClass]="cinema.selecionado ? \'favoritoNaoSelecionado\' : \'favoritoSelecionado\'" (tap)="favoritos(cinema);"></ion-icon></ion-col>\n\n    <ion-col col-11 class="cinemaPreferencias">{{cinema.nome}}</ion-col>\n\n  </ion-row>\n\n</ion-grid>\n\n\n\n\n\n<div style="position: relative;">\n\n<ion-grid>\n\n  <ion-row>\n\n      <ion-col col-12  style="text-align: center;">\n\n           <button class="botaoGravarPreferencias" (tap)="setFavoritos()">GRAVAR PREFERÊNCIAS</button>\n\n      </ion-col>\n\n </ion-row>\n\n</ion-grid>\n\n</div>\n\n\n\n{{cinemasGravados}}\n\n\n\n </ion-content> '/*ion-inline-end:"D:\Felippe\IONIC\easy_v3\src\pages\preferencias\preferencias.html"*/,
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"D:\Felippe\IONIC\easy_v3\src\pages\preferencias\preferencias.html"*/'<ion-toolbar >\n\n   <ion-buttons start>\n\n     <button ion-button icon-only style="color:white" (tap)="fechar()">\n\n         <ion-icon name="md-close"></ion-icon>\n\n     </button>\n\n   </ion-buttons>\n\n   <ion-title color="primary"></ion-title>\n\n </ion-toolbar>\n\n \n\n <ion-content style="position: relative;">\n\n <br>\n\n <div class="labelTituloTela">\n\n <b>Preferências</b>\n\n </div>\n\n \n\n    \n\n<br>\n\n<div class="labelSubTituloTela">\n\n <b>Meus Cinemas Favoritos</b>\n\n</div>\n\n\n\n<div class="labelSubSubTituloTela">\n\nMarque os cinemas que costuma ir com mais frequência e as sessões\n\ndestes cinemas serão exibidas primeiro\n\n</div>\n\n\n\n<br>\n\n\n\n<ion-grid class="tabelaPreferencias">\n\n  <ion-row *ngFor=" let cinema of cinemas " (tap)="favoritos(cinema);">\n\n    <ion-col col-1><ion-icon name="ios-heart" style="font-size: 27px" [ngClass]="cinema.selecionado ? \'favoritoNaoSelecionado\' : \'favoritoSelecionado\'" ></ion-icon></ion-col>\n\n    <ion-col col-11 class="cinemaPreferencias">{{cinema.nome}}</ion-col>\n\n  </ion-row>\n\n</ion-grid>\n\n\n\n\n\n<div style="position: relative;">\n\n<ion-grid>\n\n  <ion-row>\n\n      <ion-col col-12  style="text-align: center;">\n\n           <button class="botaoGravarPreferencias" (tap)="setFavoritos()">GRAVAR PREFERÊNCIAS</button>\n\n      </ion-col>\n\n </ion-row>\n\n</ion-grid>\n\n</div>\n\n\n\n\n\n\n\n </ion-content> '/*ion-inline-end:"D:\Felippe\IONIC\easy_v3\src\pages\preferencias\preferencias.html"*/,
         providers: [__WEBPACK_IMPORTED_MODULE_2__services_cinema_service__["a" /* cinemaService */], __WEBPACK_IMPORTED_MODULE_3__providers_localstorage__["a" /* Localstorage */]]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__services_cinema_service__["a" /* cinemaService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_cinema_service__["a" /* cinemaService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__providers_localstorage__["a" /* Localstorage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_localstorage__["a" /* Localstorage */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ToastController */]) === "function" && _f || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_2__services_cinema_service__["a" /* cinemaService */],
+        __WEBPACK_IMPORTED_MODULE_3__providers_localstorage__["a" /* Localstorage */],
+        __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ToastController */]])
 ], Preferencias);
 
-var _a, _b, _c, _d, _e, _f;
 //# sourceMappingURL=preferencias.js.map
 
 /***/ }),
 
-/***/ 209:
+/***/ 210:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1684,7 +1679,7 @@ var _a, _b, _c, _d, _e, _f;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(52);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1727,10 +1722,9 @@ var Localstorage = (function () {
 }());
 Localstorage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]])
 ], Localstorage);
 
-var _a, _b;
 //# sourceMappingURL=localstorage.js.map
 
 /***/ }),
@@ -1759,21 +1753,21 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(270);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_listaFilmes_listaFilmes__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_listaFilmes_listaFilmes__ = __webpack_require__(203);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_principal_principal__ = __webpack_require__(282);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_sessoes_sessoes__ = __webpack_require__(103);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_filtros_filtros__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_detalhes_detalhes__ = __webpack_require__(108);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_listaCinemas_listaCinemas__ = __webpack_require__(207);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_sessoesAgora_sessoesAgora__ = __webpack_require__(109);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_filtroSessoes_filtroSessoes__ = __webpack_require__(204);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_preferencias_preferencias__ = __webpack_require__(208);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_status_bar__ = __webpack_require__(199);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__ionic_native_splash_screen__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_native_youtube_video_player__ = __webpack_require__(206);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ionic_native_social_sharing__ = __webpack_require__(205);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__providers_localstorage__ = __webpack_require__(209);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_storage__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_sessoes_sessoes__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_filtros_filtros__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_detalhes_detalhes__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_listaCinemas_listaCinemas__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_sessoesAgora_sessoesAgora__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_filtroSessoes_filtroSessoes__ = __webpack_require__(205);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_preferencias_preferencias__ = __webpack_require__(209);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_status_bar__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__ionic_native_splash_screen__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_native_youtube_video_player__ = __webpack_require__(207);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ionic_native_social_sharing__ = __webpack_require__(206);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__providers_localstorage__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_storage__ = __webpack_require__(52);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1860,9 +1854,9 @@ AppModule = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(199);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_filtros_filtros__ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_filtros_filtros__ = __webpack_require__(103);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1906,8 +1900,8 @@ MyApp = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Principal; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filtros_filtros__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__sessoesAgora_sessoesAgora__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filtros_filtros__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__sessoesAgora_sessoesAgora__ = __webpack_require__(110);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);

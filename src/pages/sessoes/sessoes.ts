@@ -129,7 +129,7 @@ export class Sessoes {
             this.sessoesService.findById(filtro,this.filtroData).subscribe(
                         data => {
                             this.sessoes = data;
-                            console.log(data)
+                            
                             this.qtSessoes = this.sessoes.length;
                             loading.dismiss();
                         },
@@ -166,13 +166,53 @@ export class Sessoes {
 
 
 
-  favoritos(){
+   favoritos(){
+
+    var item, cinema
+    var cinemasFavoritos = this.cinemasGravados;
+    this.qtSessoes=0;
+    let loading
+
     if (this.buttonColor == '#e26f6f'){
       this.buttonColor = 'white'
+      loading = this.loadingCtrl.create({
+            spinner: 'ios',
+            content: 'Exibindo todos os cinemas...'
+      });
     }
     else{
       this.buttonColor = '#e26f6f'
+      loading = this.loadingCtrl.create({
+            spinner: 'ios',
+            content: 'Exibindo seus cinemas favoritos...'
+      });
     }
+
+
+
+    loading.present();
+
+
+    for (var i = 0; i < this.sessoes.length; i++) {
+    item = this.sessoes[i];
+    cinema = item.idcinema;
+
+  if (item.selecionado == 0) {
+      if (cinemasFavoritos.indexOf(cinema)==-1){
+          item.selecionado = 1;
+      }
+      else{
+        item.selecionado = 0;
+        this.qtSessoes = this.qtSessoes + 1;
+      }
+  }
+    }
+
+
+    setInterval(() => {
+      loading.dismiss();
+    }, 900);
+   
   }
 
 
@@ -221,6 +261,7 @@ export class Sessoes {
   }
 
 
+
   formataHora(hora){
     var horaString = hora.toString();
     return horaString.substring(0,2) + ":" + horaString.substring(2,4);
@@ -259,33 +300,6 @@ export class Sessoes {
 
   }
 
-
-
-
-
-  selecionaTagCinema(listaPref){
-
-    for (var i = 0; i < this.sessoes.length; i++) {
-        var item = this.sessoes[i];
-        if (item.idcinema == listaPref.idcinema){
-            item.selecionado = !item.selecionado;
-         }
-    }
-    listaPref.selecionado = !listaPref.selecionado;
-  }
-
-
-
-  selecionaTagFilme(listaPref){
-
-    for (var i = 0; i < this.sessoes.length; i++) {
-        var item = this.sessoes[i];
-        if (item.idfilme == listaPref.idfilme){
-            item.selecionado = !item.selecionado;
-         }
-    }
-    listaPref.selecionado = !listaPref.selecionado;
-  }
 
 
 
@@ -339,52 +353,6 @@ export class Sessoes {
           }
       }
 
-
-
-
-
-
-
-
-filtraSessoes(tag){
-
-    var item, tipoSessao, valorTag
-
-    for (var i = 0; i < this.sessoes.length; i++) {
-        item = this.sessoes[i];
-        tipoSessao = item.tipo;
-
-            if(this.tagsSelecionadas.length>0){
-                  for (var y = 0; y < this.tagsSelecionadas.length; y++) {
-                        if (item.selecionado==0){ //Só itera nas sessões que estão visiveis
-                              if (tipoSessao.indexOf(this.tagsSelecionadas[y])==-1){
-                                  item.selecionado = 1;
-                              }
-                        }
-
-                  }
-            }else{
-              item.selecionado = 0;
-
-            }
-    }
-
-
-  }
-
-
-
-
-  contaSessoes(){
-    var item, count=0
-     for (var i = 0; i < this.sessoes.length; i++) {
-       item = this.sessoes[i];
-       if (item.selecionado){
-         count++
-       }
-     }
-     this.qtSessoes = count;
-  }
 
 
   formataData(data){
