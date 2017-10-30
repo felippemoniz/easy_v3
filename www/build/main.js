@@ -253,6 +253,7 @@ var Sessoes = (function () {
         this.qtSessoes = 0;
         this.diaSemanaEscolhido = "";
         this.buttonColor = 'white';
+        this.flagfiltrado = "N";
         var loading = this.loadingCtrl.create({
             spinner: 'ios',
             content: 'Procurando sessões disponíveis...'
@@ -286,7 +287,6 @@ var Sessoes = (function () {
             /*  this.filmesEmCartazService.findFilmesPorSessao(filtro,this.filtroData).subscribe(
                           data => {
                               this.filmes = data;
-  
                           },
                           err => {
                               console.log(err);
@@ -311,7 +311,6 @@ var Sessoes = (function () {
             /*  this.cinemaService.findCinemaPorSessao(filtro,this.filtroData).subscribe(
                          data => {
                              this.cinemas = data;
- 
                          },
                          err => {
                              console.log(err);
@@ -325,43 +324,6 @@ var Sessoes = (function () {
         this.storage.get('cinemasFavoritos').then(function (cinemasFavoritos) {
             _this.cinemasGravados = cinemasFavoritos;
         });
-    };
-    Sessoes.prototype.favoritos = function () {
-        var item, cinema;
-        var cinemasFavoritos = this.cinemasGravados;
-        this.qtSessoes = 0;
-        var loading;
-        if (this.buttonColor == '#e26f6f') {
-            this.buttonColor = 'white';
-            loading = this.loadingCtrl.create({
-                spinner: 'ios',
-                content: 'Exibindo todos os cinemas...'
-            });
-        }
-        else {
-            this.buttonColor = '#e26f6f';
-            loading = this.loadingCtrl.create({
-                spinner: 'ios',
-                content: 'Exibindo seus cinemas favoritos...'
-            });
-        }
-        loading.present();
-        for (var i = 0; i < this.sessoes.length; i++) {
-            item = this.sessoes[i];
-            cinema = item.idcinema;
-            if (item.selecionado == 0) {
-                if (cinemasFavoritos.indexOf(cinema) == -1) {
-                    item.selecionado = 1;
-                }
-                else {
-                    item.selecionado = 0;
-                    this.qtSessoes = this.qtSessoes + 1;
-                }
-            }
-        }
-        setInterval(function () {
-            loading.dismiss();
-        }, 900);
     };
     Sessoes.prototype.carregaTags = function () {
         var item = new __WEBPACK_IMPORTED_MODULE_3__model_chip__["a" /* chip */]();
@@ -452,14 +414,47 @@ var Sessoes = (function () {
         retorno = this.filtroString.join();
         this.mostraSessao(retorno.replace(/^,|,$/g, ''));
     };
+    Sessoes.prototype.favoritos = function () {
+        var item, cinema;
+        var cinemasFavoritos = this.cinemasGravados;
+        this.qtSessoes = 0;
+        var loading;
+        var stLiga;
+        console.log("@@@ " + this.cinemasGravados);
+        if (this.buttonColor == '#e26f6f') {
+            this.buttonColor = 'white';
+            stLiga = false;
+            loading = this.loadingCtrl.create({
+                spinner: 'ios',
+                content: 'Exibindo <b>todos os cinemas</b>...'
+            });
+        }
+        else {
+            this.buttonColor = '#e26f6f';
+            stLiga = true;
+            loading = this.loadingCtrl.create({
+                spinner: 'ios',
+                content: 'Exibindo seus <b>cinemas favoritos</b>...'
+            });
+        }
+        loading.present();
+        this.mostraSessaoCinemasFavoritos("847,128");
+        setInterval(function () {
+            loading.dismiss();
+        }, 600);
+        this.flagfiltrado = "S";
+    };
     Sessoes.prototype.mostraSessao = function (tags) {
-        var item, tipoSessao, tags_temp;
+        var item, tipoSessao, tags_temp, cinema;
+        var cinemasFavoritos = this.cinemasGravados;
         tags_temp = tags.replace(",,,", ",");
         tags_temp = tags_temp.replace(",,", ",");
         this.qtSessoes = 0;
+        console.log(tags_temp);
         for (var i = 0; i < this.sessoes.length; i++) {
             item = this.sessoes[i];
             tipoSessao = item.tipo;
+            cinema = item.idcinema;
             if (tipoSessao.indexOf(tags_temp) == -1) {
                 item.selecionado = 1;
             }
@@ -468,6 +463,28 @@ var Sessoes = (function () {
                 this.qtSessoes = this.qtSessoes + 1;
             }
         }
+        this.flagfiltrado = "S";
+    };
+    Sessoes.prototype.mostraSessaoCinemasFavoritos = function (tags) {
+        var item, tipoSessao, tags_temp, cinema = "";
+        var cinemasFavoritos = this.cinemasGravados;
+        this.qtSessoes = 0;
+        console.log(tags);
+        for (var i = 0; i < this.sessoes.length; i++) {
+            item = this.sessoes[i];
+            tipoSessao = item.tipo;
+            cinema = item.idcinema + "";
+            if (item.selecionado == 0) {
+                if (tags.indexOf(cinema) == -1) {
+                    item.selecionado = 1;
+                }
+                else {
+                    item.selecionado = 0;
+                    this.qtSessoes = this.qtSessoes + 1;
+                }
+            }
+        }
+        this.flagfiltrado = "S";
     };
     Sessoes.prototype.formataData = function (data) {
         var dia, mes, ano, dataReduzida;
@@ -1266,7 +1283,7 @@ var ListaFilmes = (function () {
     return ListaFilmes;
 }());
 ListaFilmes = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"D:\Felippe\IONIC\easy_v3\src\pages\listaFilmes\listaFilmes.html"*/'<ion-toolbar >\n\n  <ion-buttons left>\n\n    <button ion-button icon-only style="color:white" (tap)="voltar()">\n\n        <ion-icon name="md-arrow-back"></ion-icon>\n\n    </button>\n\n  </ion-buttons>\n\n  <ion-title color="primary">EasyMovie</ion-title>\n\n</ion-toolbar>\n\n\n\n<ion-content class="card-background-page" style="position: relative;">\n\n<br>\n\n<div class="labelTituloTela">\n\n<b>Filmes em Cartaz</b> ({{qtFilme}})\n\n</div>\n\n<div class="labelSubTituloTela">{{formataData(filtroData)}} | {{diaSemanaEscolhido}}</div>\n\n<br><br>\n\n<!-- {{filmes | json}}  -->\n\n\n\n\n\n<ion-scroll  scrollY="true" class="scrollVerticalFilmes" overflow-scroll="true" >\n\n\n\n\n\n<!-- ################################ CARDS #####################################-->\n\n\n\n\n\n   <ion-card  #filmeCard *ngFor=" let filme of filmes;let i=index">\n\n\n\n\n\n\n\n      <div  #layerMarcada [ngClass]="filme.selecionado ? \'marcacaoSelecionado\' : \'marcacaoNaoSelecionado\'" (tap)="selecionaFilme(filme);" >\n\n          <img style="width: 100px; position: relative; left: 38%; top:33px" src="./images/imgSelecionado.png"/>\n\n      </div>\n\n\n\n\n\n      <div>\n\n        <ion-chip class="ratingIMDB">\n\n          <div class="estrelaRating"><img src="./images/starRating.png" class="estrelaRatingTamanho"></div>\n\n          <ion-label style="color:white; position:absolute;left:25%"><b> {{filme.notaimdb | number:\'1.1-1\'}}</b>/<span style="font-size: 10px;">10</span></ion-label>\n\n        </ion-chip>\n\n      </div>\n\n\n\n      <div class="tagRanking" *ngIf="i<3 && filme.qtacesso > 0"><b>{{i + 1}}º</b> MAIS PROCURADO</div>\n\n\n\n      <img  src={{filme.imagem}}  (tap)="selecionaFilme(filme);"  />\n\n\n\n      <div class="card-subtitle" >\n\n          <ion-row>\n\n              <ion-col >\n\n                  <ion-row >\n\n                      <ion-col class="fonteTituloFilme">\n\n                      {{filme.nome }}\n\n                      </ion-col>\n\n\n\n                        <button class="botaoDetalhes" (tap)="verDetalhes(filme)">\n\n<ion-icon name="ios-arrow-dropright-circle"></ion-icon>\n\n                        </button>\n\n\n\n                  </ion-row>\n\n                  <ion-row>\n\n                      <ion-col  class="labelGeneroFilme">\n\n                            {{filme.genero}} | {{filme.duracao}} minutos | {{ filme.classificacao}}\n\n                      </ion-col>\n\n                  </ion-row>\n\n                </ion-col>\n\n         </ion-row>\n\n      </div>\n\n\n\n   </ion-card>\n\n\n\n</ion-scroll>\n\n<ion-toolbar position="bottom" class="toolbarVerSessoes" >\n\n<ion-grid >\n\n  <ion-row>\n\n      <ion-col width-50  style="text-align:center; margin-top: 3%;">\n\n           <span class="fonteLabel" style="font-size: 90%; color: white"><b>{{ contadorFilmesEscolhidos }} FILMES ESCOLHIDOS</b></span>\n\n      </ion-col>\n\n        <ion-col width-50>\n\n          <button class="botaoVerSessoes" (click)="verSessoes()">VER SESSÕES</button>\n\n      </ion-col>\n\n </ion-row>\n\n</ion-grid>\n\n</ion-toolbar>\n\n</ion-content>\n\n\n\n\n\n\n\n<!-- ##########################################################################-->\n\n'/*ion-inline-end:"D:\Felippe\IONIC\easy_v3\src\pages\listaFilmes\listaFilmes.html"*/,
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"D:\Felippe\IONIC\easy_v3\src\pages\listaFilmes\listaFilmes.html"*/'<ion-toolbar >\n\n  <ion-buttons left>\n\n    <button ion-button icon-only style="color:white" (tap)="voltar()">\n\n        <ion-icon name="md-arrow-back"></ion-icon>\n\n    </button>\n\n  </ion-buttons>\n\n  <ion-title color="primary">EasyMovie</ion-title>\n\n</ion-toolbar>\n\n\n\n<ion-content class="card-background-page" style="position: relative;">\n\n<br>\n\n<div class="labelTituloTela" >\n\n<b>Filmes em Cartaz</b> ({{qtFilme}})\n\n</div>\n\n<div class="labelSubTituloTela">{{formataData(filtroData)}} | {{diaSemanaEscolhido}}</div>\n\n<br><br>\n\n<!-- {{filmes | json}}  -->\n\n\n\n\n\n<ion-scroll  scrollY="true" class="scrollVerticalFilmes" overflow-scroll="true" >\n\n\n\n\n\n<!-- ################################ CARDS #####################################-->\n\n\n\n\n\n   <ion-card  #filmeCard *ngFor=" let filme of filmes;let i=index">\n\n\n\n\n\n\n\n      <div  #layerMarcada [ngClass]="filme.selecionado ? \'marcacaoSelecionado\' : \'marcacaoNaoSelecionado\'" (tap)="selecionaFilme(filme);" >\n\n          <img style="width: 100px; position: relative; left: 38%; top:33px" src="./images/imgSelecionado.png"/>\n\n      </div>\n\n\n\n\n\n      <div>\n\n        <ion-chip class="ratingIMDB">\n\n          <div class="estrelaRating"><img src="./images/starRating.png" class="estrelaRatingTamanho"></div>\n\n          <ion-label style="color:white; position:absolute;left:25%"><b> {{filme.notaimdb | number:\'1.1-1\'}}</b>/<span style="font-size: 10px;">10</span></ion-label>\n\n        </ion-chip>\n\n      </div>\n\n\n\n      <div class="tagRanking" *ngIf="i<3 && filme.qtacesso > 0"><b>{{i + 1}}º</b> MAIS PROCURADO</div>\n\n\n\n      <img  src={{filme.imagem}}  (tap)="selecionaFilme(filme);"  />\n\n\n\n      <div class="card-subtitle" >\n\n          <ion-row>\n\n              <ion-col >\n\n                  <ion-row >\n\n                      <ion-col class="fonteTituloFilme">\n\n                      {{filme.nome }}\n\n                      </ion-col>\n\n\n\n                        <button class="botaoDetalhes" (tap)="verDetalhes(filme)">\n\n<ion-icon name="ios-arrow-dropright-circle"></ion-icon>\n\n                        </button>\n\n\n\n                  </ion-row>\n\n                  <ion-row>\n\n                      <ion-col  class="labelGeneroFilme">\n\n                            {{filme.genero}} | {{filme.duracao}} minutos | {{ filme.classificacao}}\n\n                      </ion-col>\n\n                  </ion-row>\n\n                </ion-col>\n\n         </ion-row>\n\n      </div>\n\n\n\n   </ion-card>\n\n\n\n</ion-scroll>\n\n<ion-toolbar position="bottom" class="toolbarVerSessoes" >\n\n<ion-grid >\n\n  <ion-row>\n\n      <ion-col width-50  style="text-align:center; margin-top: 3%;">\n\n           <span class="fonteLabel" style="font-size: 90%; color: white"><b>{{ contadorFilmesEscolhidos }} FILMES ESCOLHIDOS</b></span>\n\n      </ion-col>\n\n        <ion-col width-50>\n\n          <button class="botaoVerSessoes" (click)="verSessoes()">VER SESSÕES</button>\n\n      </ion-col>\n\n </ion-row>\n\n</ion-grid>\n\n</ion-toolbar>\n\n</ion-content>\n\n\n\n\n\n\n\n<!-- ##########################################################################-->\n\n'/*ion-inline-end:"D:\Felippe\IONIC\easy_v3\src\pages\listaFilmes\listaFilmes.html"*/,
         providers: [__WEBPACK_IMPORTED_MODULE_4__services_filmesEmCartaz_service__["a" /* filmesEmCartazService */]]
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */],

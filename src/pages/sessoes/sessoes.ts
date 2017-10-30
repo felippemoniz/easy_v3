@@ -45,6 +45,7 @@ export class Sessoes {
   loading ;
   buttonColor: string = 'white'; 
   cinemasGravados;
+  flagfiltrado : string = "N";
 
 
 
@@ -109,7 +110,6 @@ export class Sessoes {
           /*  this.filmesEmCartazService.findFilmesPorSessao(filtro,this.filtroData).subscribe(
                         data => {
                             this.filmes = data;
-
                         },
                         err => {
                             console.log(err);
@@ -142,7 +142,6 @@ export class Sessoes {
            /*  this.cinemaService.findCinemaPorSessao(filtro,this.filtroData).subscribe(
                         data => {
                             this.cinemas = data;
-
                         },
                         err => {
                             console.log(err);
@@ -166,54 +165,6 @@ export class Sessoes {
 
 
 
-   favoritos(){
-
-    var item, cinema
-    var cinemasFavoritos = this.cinemasGravados;
-    this.qtSessoes=0;
-    let loading
-
-    if (this.buttonColor == '#e26f6f'){
-      this.buttonColor = 'white'
-      loading = this.loadingCtrl.create({
-            spinner: 'ios',
-            content: 'Exibindo todos os cinemas...'
-      });
-    }
-    else{
-      this.buttonColor = '#e26f6f'
-      loading = this.loadingCtrl.create({
-            spinner: 'ios',
-            content: 'Exibindo seus cinemas favoritos...'
-      });
-    }
-
-
-
-    loading.present();
-
-
-    for (var i = 0; i < this.sessoes.length; i++) {
-    item = this.sessoes[i];
-    cinema = item.idcinema;
-
-  if (item.selecionado == 0) {
-      if (cinemasFavoritos.indexOf(cinema)==-1){
-          item.selecionado = 1;
-      }
-      else{
-        item.selecionado = 0;
-        this.qtSessoes = this.qtSessoes + 1;
-      }
-  }
-    }
-
-
-    setInterval(() => {
-      loading.dismiss();
-    }, 900);
-   
-  }
 
 
   private carregaTags(){
@@ -325,33 +276,123 @@ export class Sessoes {
       if (!tag.selecionado)this.filtroString[3]=""
     }
 
+   
     retorno = this.filtroString.join();
 
     this.mostraSessao(retorno.replace(/^,|,$/g,''))
+   
 
     }
 
 
+
+
+   favoritos(){
+
+    var item, cinema
+    var cinemasFavoritos = this.cinemasGravados;
+    this.qtSessoes=0;
+    let loading
+    var stLiga;
+
+    console.log("@@@ "+ this.cinemasGravados )
+
+    if (this.buttonColor == '#e26f6f'){
+      this.buttonColor = 'white'
+      stLiga = false;
+      loading = this.loadingCtrl.create({
+            spinner: 'ios',
+            content: 'Exibindo <b>todos os cinemas</b>...'
+      });
+    }
+    else{
+      this.buttonColor = '#e26f6f'
+      stLiga = true;
+      loading = this.loadingCtrl.create({
+            spinner: 'ios',
+            content: 'Exibindo seus <b>cinemas favoritos</b>...'
+      });
+    }
+
+    loading.present();
+
+    this.mostraSessaoCinemasFavoritos("847,128")
+
+
+    setInterval(() => {
+      loading.dismiss();
+    }, 600);
+   
+    this.flagfiltrado="S";
+
+  }
+
+
+
+
     mostraSessao(tags){
-    var item, tipoSessao, tags_temp
+
+    var item, tipoSessao, tags_temp,cinema
+    var cinemasFavoritos = this.cinemasGravados;
 
     tags_temp = tags.replace(",,,",",");
     tags_temp = tags_temp.replace(",,",",");
     this.qtSessoes=0;
 
+    console.log(tags_temp)
+
       for (var i = 0; i < this.sessoes.length; i++) {
           item = this.sessoes[i];
           tipoSessao = item.tipo;
+          cinema = item.idcinema;
 
-              if (tipoSessao.indexOf(tags_temp)==-1){
-                  item.selecionado = 1;
-              }
-              else{
-                item.selecionado = 0;
-                this.qtSessoes = this.qtSessoes + 1;
-              }
+
+                if (tipoSessao.indexOf(tags_temp)==-1 ){
+                    item.selecionado = 1;
+                }
+                else{
+                  item.selecionado = 0;
+                  this.qtSessoes = this.qtSessoes + 1;
+                }
           }
-      }
+
+
+    this.flagfiltrado="S";
+    }
+
+
+
+
+
+    mostraSessaoCinemasFavoritos(tags){
+
+    var item, tipoSessao, tags_temp,cinema="";
+    var cinemasFavoritos = this.cinemasGravados;
+
+    this.qtSessoes=0;
+
+    console.log(tags)
+
+      for (var i = 0; i < this.sessoes.length; i++) {
+          item = this.sessoes[i];
+          tipoSessao = item.tipo;
+          cinema = item.idcinema+""
+
+            if (item.selecionado==0){
+
+                if (tags.indexOf(cinema)==-1 ){
+                    item.selecionado = 1;
+                }
+                else{
+                  item.selecionado = 0;
+                  this.qtSessoes = this.qtSessoes + 1;
+                }
+             }
+          }
+
+    this.flagfiltrado="S";
+    }
+
 
 
 
